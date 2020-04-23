@@ -22,7 +22,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: a76891b96c52645e8ac2dab9d5a1a2e9, type: 3}
       propertyPath: m_Name
-      value: road-tile-straight
+      value: road-tile-straight Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: a76891b96c52645e8ac2dab9d5a1a2e9, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: a76891b96c52645e8ac2dab9d5a1a2e9, type: 3}
       propertyPath: m_LocalPosition.x
