@@ -8,6 +8,9 @@ TagManager:
   - Decoration
   - Demon Spawner
   - Wall
+  - Waypoint
+  - Enemy
+  - Finish Line
   layers:
   - Default
   - TransparentFX
@@ -22,8 +25,8 @@ TagManager:
   - Decoration
   - Spawner
   - Wall
-  - 
-  - 
+  - Waypoint
+  - Enemy
   - 
   - 
   - 
