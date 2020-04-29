@@ -26,9 +26,9 @@ public class EnemyFactory : MonoBehaviour
 
     public static GameObject SpawnHeavier(Vector3 position, Vector3 direction, Transform parent, int laneIndex)
     {
-        GameObject runner = Instantiate(instance._heavierPerfab, position, Quaternion.identity, parent);
-        runner.transform.forward = direction;
-        runner.GetComponent<EnemyProperties>().Initialize(laneIndex);
-        return runner;
+        GameObject heavier = Instantiate(instance._heavierPerfab, position, Quaternion.identity, parent);
+        heavier.transform.forward = direction;
+        heavier.GetComponent<EnemyProperties>().Initialize(laneIndex);
+        return heavier;
     }
 }

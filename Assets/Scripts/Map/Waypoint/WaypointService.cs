@@ -11,9 +11,9 @@ public class WaypointService : MonoBehaviour
         _waypointProperties = gameObject.GetComponent<WaypointProperties>();
     }
 
-    public Vector3 GetNextDestination()
+    public Transform GetNextDestination()
     {
-        return _waypointProperties.Target.position;
+        return _waypointProperties.NextTarget;
     }
 
     public int GetLaneIndex()

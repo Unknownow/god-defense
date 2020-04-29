@@ -49,11 +49,11 @@ public class SpawnerProperties : MonoBehaviour
     }
     [SerializeField]
     private Transform _target;
-    public Vector3 Target
+    public Transform Target
     {
         get
         {
-            return this._target.position;
+            return this._target;
         }
     }
 }

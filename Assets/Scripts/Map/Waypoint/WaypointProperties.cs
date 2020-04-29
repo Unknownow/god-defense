@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class WaypointProperties : MonoBehaviour
 {
-    [SerializeField]
-    private int _size;
-    public int Size
-    {
-        get
-        {
-            return this._size;
-        }
-    }
+    // [SerializeField]
+    // private int _size;
+    // public int Size
+    // {
+    //     get
+    //     {
+    //         return this._size;
+    //     }
+    // }
 
     [SerializeField]
     private int _laneIndex;
@@ -25,12 +25,12 @@ public class WaypointProperties : MonoBehaviour
     }
 
     [SerializeField]
-    private Transform _target;
-    public Transform Target
+    private Transform _nextTarget;
+    public Transform NextTarget
     {
         get
         {
-            return this._target;
+            return this._nextTarget;
         }
     }
 

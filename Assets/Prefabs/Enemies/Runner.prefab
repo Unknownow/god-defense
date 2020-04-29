@@ -52,9 +52,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _size: 1
-  _movementSpeed: 3
+  _movementSpeed: 4
   _angularSpeed: 7200
-  _acceleration: 15
+  _acceleration: 50
+  _hitDamage: 0
+  _hitRate: 0
+  _attackRange: 2
 --- !u!33 &7888874831174439066
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -155,14 +158,14 @@ NavMeshAgent:
   m_GameObject: {fileID: 7888874831174439057}
   m_Enabled: 1
   m_AgentTypeID: -1372625422
-  m_Radius: 0.5
+  m_Radius: 0.6
   m_Speed: 1.5
   m_Acceleration: 15
-  avoidancePriority: 80
+  avoidancePriority: 90
   m_AngularSpeed: 540
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
@@ -180,6 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25962290997e74ee9874900aead425ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentTarget: {fileID: 0}
 --- !u!114 &7888874831174439062
 MonoBehaviour:
   m_ObjectHideFlags: 0
