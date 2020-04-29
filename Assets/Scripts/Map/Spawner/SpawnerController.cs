@@ -18,19 +18,29 @@ public class SpawnerController : MonoBehaviour
         {
             SpawnEnemy(EnemyType.Runner);
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            SpawnEnemy(EnemyType.Heavier);
+        }
     }
 
     public GameObject SpawnEnemy(EnemyType type)
     {
+        if (_spawnerProperties.SpawnableTypes.IndexOf(type) == -1)
+            return null;
+        GameObject enemy;
         switch (type)
         {
             case EnemyType.Runner:
-                GameObject enemy = EnemyFactory.SpawnRunner(transform.position, _spawnerProperties.SpawnerDirection, _enemyParent, _spawnerProperties.LaneIndex);
+                enemy = EnemyFactory.SpawnRunner(transform.position, _spawnerProperties.SpawnerDirection, _enemyParent, _spawnerProperties.LaneIndex);
+                enemy.GetComponent<EnemyMovement>().SetDestination(_spawnerProperties.Target);
+                return enemy;
+            case EnemyType.Heavier:
+                enemy = EnemyFactory.SpawnHeavier(transform.position, _spawnerProperties.SpawnerDirection, _enemyParent, _spawnerProperties.LaneIndex);
                 enemy.GetComponent<EnemyMovement>().SetDestination(_spawnerProperties.Target);
                 return enemy;
             default:
                 return null;
         }
-
     }
 }

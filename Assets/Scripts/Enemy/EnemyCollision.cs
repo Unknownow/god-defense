@@ -22,7 +22,7 @@ public class EnemyCollision : MonoBehaviour
                 return;
             if (_enemyProperties.LaneIndex == -1)
                 _enemyProperties.LaneIndex = waypointProperties.LaneIndex;
-            if (_enemyProperties.LaneIndex != waypointProperties.LaneIndex)
+            else if (_enemyProperties.LaneIndex != waypointProperties.LaneIndex)
                 return;
             _enemyMovement.SetDestination(waypointService.GetNextDestination());
         }

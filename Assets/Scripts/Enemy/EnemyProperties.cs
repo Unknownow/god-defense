@@ -43,7 +43,6 @@ public class EnemyProperties : MonoBehaviour
             return this._acceleration;
         }
     }
-    [SerializeField]
     private int _laneIndex;
     public int LaneIndex
     {
@@ -60,5 +59,13 @@ public class EnemyProperties : MonoBehaviour
     public void Initialize(int laneIndex)
     {
         this._laneIndex = laneIndex;
+    }
+
+    public void Initialize(int laneIndex, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
+    {
+        this._laneIndex = laneIndex;
+        _movementSpeed *= movementSpeedMul;
+        _acceleration *= accelerationMul;
+        _angularSpeed *= angularSpeedMul;
     }
 }
