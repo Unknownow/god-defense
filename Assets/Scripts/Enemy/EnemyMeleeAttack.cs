@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMeleeAttack : MonoBehaviour
+public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 {
     [SerializeField]
     private Transform _weapon;
     [SerializeField]
     private LayerMask _attackableLayer;
+    [SerializeField]
     private EnemyProperties _enemyProperties;
     private float _timeBetweenAttack;
+
+
+    private Collider[] _attackTarget;
+    private IEnumerator _attackCoroutine;
+    private bool _isAttacking;
 
     private void Start()
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _timeBetweenAttack = 1.0f / _enemyProperties.AttackRate;
+        _attackTarget = new Collider[1];
+        _attackCoroutine = AttackCoroutine();
+        _isAttacking = false;
     }
 
     private void Update()
@@ -22,29 +31,57 @@ public class EnemyMeleeAttack : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("START ATTACKING");
-            StartCoroutine(AttackCoroutine());
+            StartCoroutine(_attackCoroutine);
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
             Debug.Log("STOP ATTACKING");
-            StopCoroutine(AttackCoroutine());
+            StopCoroutine(_attackCoroutine);
+        }
+    }
+
+    public void StartAttack()
+    {
+        if (!_isAttacking)
+        {
+            _isAttacking = true;
+            StartCoroutine(_attackCoroutine);
+        }
+    }
+
+    public void StopAttack()
+    {
+        if (_isAttacking)
+        {
+            _isAttacking = true;
+            StopCoroutine(_attackCoroutine);
         }
     }
 
     IEnumerator AttackCoroutine()
     {
-        Attack();
-        yield return new WaitForSeconds(_timeBetweenAttack);
+        while (true)
+        {
+            Attack();
+            yield return new WaitForSeconds(_timeBetweenAttack);
+        }
     }
 
     private void Attack()
     {
-        RaycastHit hit;
-        bool isHit = Physics.SphereCast(_weapon.position, _enemyProperties.AttackRange / 2f, transform.forward, out hit, _enemyProperties.AttackRange, _attackableLayer);
-        if (isHit)
+        int countTarget = Physics.OverlapSphereNonAlloc(_weapon.position, _enemyProperties.AttackRange / 2f, _attackTarget, _attackableLayer);
+        if (countTarget > 0)
         {
-            Debug.Log("HIT!");
-            Debug.Log(hit.transform.name);
+            if (_attackTarget[0].transform.CompareTag("Tower"))
+            {
+                _attackTarget[0].transform.GetComponent<TowerService>().Hit(_enemyProperties.HitDamage);
+            }
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_weapon.position, _enemyProperties.AttackRange / 2f);
     }
 }

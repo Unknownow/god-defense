@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IEnemyAttack
 {
-    void Attack();
+    void StartAttack();
+    void StopAttack();
 }
