@@ -8,7 +8,6 @@ public class EnemyMovement : MonoBehaviour
     protected EnemyProperties _enemyProperties;
     protected NavMeshAgent _enemyAgent;
     // protected NavMeshObstacle _enemyObstacle;
-    [SerializeField]
     protected Transform _currentTarget;
 
     protected void Awake()
@@ -51,13 +50,14 @@ public class EnemyMovement : MonoBehaviour
         _currentTarget = target;
         _enemyAgent.SetDestination(target.position);
         // _enemyObstacle.enabled = false;
-        _enemyAgent.enabled = true;
+        // _enemyAgent.enabled = true;
+        _enemyAgent.isStopped = false;
     }
 
     public void StopMoving()
     {
-        // _enemyAgent.isStopped = true;
-        _enemyAgent.enabled = false;
+        _enemyAgent.isStopped = true;
+        // _enemyAgent.enabled = false;
         // _enemyObstacle.enabled = true;
     }
 
