@@ -16,3 +16,10 @@ public enum EnemyType
     Heavier = 1,
     Tanker = 2,
 }
+
+public enum TrapType
+{
+    Booby = 0,
+    Bomb = 1,
+    Swamp = 2,
+}

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class EnemyProperties : MonoBehaviour
 {
-    [Header("Detail")]
+    [Header("Stats")]
+
     [SerializeField]
     [Tooltip("Size of this enemy")]
     private int _size;
@@ -13,6 +14,40 @@ public class EnemyProperties : MonoBehaviour
         get
         {
             return this._size;
+        }
+    }
+    [SerializeField]
+    [Tooltip("Enemy's Health")]
+    private float _hitPoints;
+
+    public float HitPoint
+    {
+        get
+        {
+            return this._hitPoints;
+        }
+    }
+
+    public float Heal
+    {
+        set
+        {
+            if (value > 0)
+            {
+                this._hitPoints += value;
+            }
+        }
+    }
+
+    public float Hit
+    {
+        set
+        {
+            if (value > 0)
+            {
+                this._hitPoints -= value;
+                this._hitPoints = this._hitPoints < 0 ? 0 : this._hitPoints;
+            }
         }
     }
 
