@@ -6,14 +6,14 @@ using UnityEngine.AI;
 public class EnemyStates : MonoBehaviour
 {
     private NavMeshAgent _enemyAgent;
-    private EnemyMovement _enemyMovement;
+    private IEnemyMovement _enemyMovement;
     private IEnemyAttack _enemyAttack;
 
 
     private void Start()
     {
         _enemyAgent = gameObject.GetComponent<NavMeshAgent>();
-        _enemyMovement = gameObject.GetComponent<EnemyMovement>();
+        _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
         _enemyAttack = gameObject.GetComponent<IEnemyAttack>();
     }
 

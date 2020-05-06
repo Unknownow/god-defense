@@ -19,6 +19,7 @@ public class EnemyProperties : MonoBehaviour
     [SerializeField]
     [Tooltip("Enemy's Health")]
     private float _hitPoints;
+    private float _currentHitPoints;
 
     public float HitPoint
     {
@@ -34,7 +35,8 @@ public class EnemyProperties : MonoBehaviour
         {
             if (value > 0)
             {
-                this._hitPoints += value;
+                this._currentHitPoints += value;
+                this._currentHitPoints = this._currentHitPoints > _hitPoints ? _hitPoints : this._currentHitPoints;
             }
         }
     }
@@ -45,9 +47,21 @@ public class EnemyProperties : MonoBehaviour
         {
             if (value > 0)
             {
-                this._hitPoints -= value;
-                this._hitPoints = this._hitPoints < 0 ? 0 : this._hitPoints;
+                this._currentHitPoints -= value;
+                this._currentHitPoints = this._currentHitPoints < 0 ? 0 : this._currentHitPoints;
             }
+        }
+    }
+
+    [SerializeField]
+    [Tooltip("Radius to calculate when enemy steps into trap")]
+    private float _trapRadius;
+
+    public float TrapRadius
+    {
+        get
+        {
+            return this._trapRadius;
         }
     }
 
@@ -96,14 +110,15 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
-    public void Initialize(int laneIndex)
-    {
-        this._laneIndex = laneIndex;
-    }
+    // public void Initialize(int laneIndex)
+    // {
+    //     this._laneIndex = laneIndex;
+    // }
 
-    public void Initialize(int laneIndex, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
+    public void Initialize(int laneIndex, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
     {
         this._laneIndex = laneIndex;
+        _currentHitPoints = _hitPoints * hitPointMul;
         _movementSpeed *= movementSpeedMul;
         _acceleration *= accelerationMul;
         _angularSpeed *= angularSpeedMul;

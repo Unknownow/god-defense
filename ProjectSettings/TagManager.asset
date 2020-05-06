@@ -6,12 +6,13 @@ TagManager:
   tags:
   - Ground
   - Decoration
-  - Demon Spawner
   - Wall
   - Waypoint
   - Enemy
   - Finish Line
   - Tower
+  - Enemy Spawner
+  - Booby Trap
   layers:
   - Default
   - TransparentFX
@@ -29,7 +30,7 @@ TagManager:
   - Waypoint
   - Enemy
   - Tower
-  - 
+  - Trap
   - 
   - 
   - 

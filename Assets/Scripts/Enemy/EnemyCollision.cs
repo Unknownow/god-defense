@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
-    private EnemyMovement _enemyMovement;
+    private IEnemyMovement _enemyMovement;
     private EnemyProperties _enemyProperties;
+    private LayerMask _trapLayerMask;
 
     private void Start()
     {
-        _enemyMovement = gameObject.GetComponent<EnemyMovement>();
+        _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
     }
     private void OnTriggerEnter(Collider other)
@@ -30,5 +31,11 @@ public class EnemyCollision : MonoBehaviour
         // {
         //     _enemyMovement.StopMoving();
         // }
+    }
+
+    private Collider[] CheckTrap()
+    {
+        Collider[] trapColliders = Physics.OverlapSphere(transform.position, _enemyProperties.TrapRadius, _trapLayerMask);
+        return trapColliders;
     }
 }
