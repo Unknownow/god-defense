@@ -7,8 +7,9 @@ public class SpawnerControllerTouch : MonoBehaviour
     [SerializeField]
     private Transform _enemyParent;
     private SpawnerProperties _spawnerProperties;
-    private float _touchDuration = 0.0f;
-    private Touch _touch;
+    private float maxTouchTime = 0.5f;
+    private float lastTouchTime;
+    private int tapCount;
 
     private void Start()
     {
@@ -16,25 +17,29 @@ public class SpawnerControllerTouch : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.touchCount > 0){ //if there is any touch
-            _touchDuration += Time.deltaTime;
-            _touch = Input.GetTouch(0);
- 
-            if(_touch.phase == TouchPhase.Ended && _touchDuration < 0.2f) //making sure it only check the touch once && it was a short touch/tap and not a dragging.
-                StartCoroutine("singleOrDouble");
+        if( Input.touchCount == 1  && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            if (tapCount > 0)
+            {
+                tapCount++;
+            }
+            else
+            {
+                tapCount = 1;
+                lastTouchTime = Time.time;
+            }
         }
-        else
-            _touchDuration = 0.0f;
-    }
-
-    IEnumerator singleTouch(){
-        yield return new WaitForSeconds(0.3f);
-        if(_touch.tapCount == 1)
-            SpawnEnemy(EnemyType.Runner);
-        else if(_touch.tapCount == 2){
-            //this coroutine has been called twice. We should stop the next one here otherwise we get two double tap
-            StopCoroutine("singleOrDouble");
-            SpawnEnemy(EnemyType.Heavier);
+        if (Time.time - lastTouchTime > maxTouchTime)
+        {
+            if (tapCount == 1)
+            {
+                SpawnEnemy(EnemyType.Runner);
+            }
+            if (tapCount > 1)
+            {
+                SpawnEnemy(EnemyType.Heavier);
+            }
+            tapCount = 0;
         }
     }
 
