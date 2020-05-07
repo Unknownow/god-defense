@@ -84,7 +84,6 @@ public class TrapFactory : MonoBehaviour
 
     public static void DestroyTrap(TrapType trapType, GameObject trap)
     {
-        Debug.Log(trapType);
         switch (trapType)
         {
             case TrapType.Booby:

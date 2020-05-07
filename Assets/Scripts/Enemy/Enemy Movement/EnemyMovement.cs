@@ -67,13 +67,14 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 
     public void SlowDown(float slowPercentage)
     {
-        _enemyAgent.speed *= 1.0f - slowPercentage / 100;
-        _enemyAgent.angularSpeed *= 1.0f - slowPercentage / 100;
-        _enemyAgent.acceleration *= 1.0f - slowPercentage / 100;
+        _enemyAgent.speed  = _enemyProperties.MovementSpeed *  (1.0f - slowPercentage / 100);
+        _enemyAgent.angularSpeed = _enemyProperties.AngularSpeed * (1.0f - slowPercentage / 100);
+        _enemyAgent.acceleration = _enemyProperties.Acceleration / (1.01f - slowPercentage / 100);
     }
 
     public void BackToNormalSpeed()
     {
+        // _currentSlowPercentage = 0;
         _enemyAgent.speed = _enemyProperties.MovementSpeed;
         _enemyAgent.angularSpeed = _enemyProperties.AngularSpeed;
         _enemyAgent.acceleration = _enemyProperties.Acceleration;
