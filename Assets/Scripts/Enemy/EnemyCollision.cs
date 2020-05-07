@@ -4,38 +4,36 @@ using UnityEngine;
 
 public class EnemyCollision : MonoBehaviour
 {
-    private IEnemyMovement _enemyMovement;
     private EnemyProperties _enemyProperties;
-    private LayerMask _trapLayerMask;
+    private EnemyDebuff _enemyDebuff;
 
     private void Start()
     {
-        _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
+        _enemyDebuff = gameObject.GetComponent<EnemyDebuff>();
     }
     private void OnTriggerEnter(Collider other)
     {
-        // if (other.transform.CompareTag("Waypoint"))
-        // {
-        //     WaypointProperties waypointProperties = other.GetComponent<WaypointProperties>();
-        //     WaypointService waypointService = other.GetComponent<WaypointService>();
-        //     // if (waypointProperties.Size != _enemyProperties.Size)
-        //     //     return;
-        //     if (_enemyProperties.LaneIndex == -1)
-        //         _enemyProperties.LaneIndex = waypointProperties.LaneIndex;
-        //     else if (_enemyProperties.LaneIndex != waypointProperties.LaneIndex)
-        //         return;
-        //     _enemyMovement.SetDestination(waypointService.GetNextDestination());
-        // }
-        // if (other.transform.CompareTag("Finish Line"))
-        // {
-        //     _enemyMovement.StopMoving();
-        // }
+        if (other.transform.CompareTag("Booby Trap"))
+        {
+            BoobyTrapProperties trap = other.transform.GetComponent<BoobyTrapProperties>();
+            _enemyDebuff.StepOnBoobyTrap(trap.HitDamage, trap.TimeInterval);
+        }
+        if (other.transform.CompareTag("Freezing Trap"))
+        {
+            FreezingTrapProperties trap = other.transform.GetComponent<FreezingTrapProperties>();
+            _enemyDebuff.StepOnFreezeTrap(trap.SlowPercentage);
+        }
     }
 
-    private Collider[] CheckTrap()
-    {
-        Collider[] trapColliders = Physics.OverlapSphere(transform.position, _enemyProperties.TrapRadius, _trapLayerMask);
-        return trapColliders;
+    private void OnTriggerExit(Collider other) {
+        if (other.transform.CompareTag("Booby Trap"))
+        {
+            _enemyDebuff.StepOutBoobyTrap();
+        }
+        if (other.transform.CompareTag("Freezing Trap"))
+        {
+            _enemyDebuff.StepOutFreezeTrap();
+        }
     }
 }

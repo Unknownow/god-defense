@@ -21,7 +21,15 @@ public class EnemyProperties : MonoBehaviour
     private float _hitPoints;
     private float _currentHitPoints;
 
-    public float HitPoint
+    public float CurrentHitPoints
+    {
+        get
+        {
+            return this._currentHitPoints;
+        }
+    }
+
+    public float MaxHitPoints
     {
         get
         {
@@ -53,17 +61,26 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    [Tooltip("Radius to calculate when enemy steps into trap")]
-    private float _trapRadius;
-
-    public float TrapRadius
+    private EnemyType _enemyType;
+    public EnemyType Type
     {
         get
         {
-            return this._trapRadius;
+            return this._enemyType;
         }
     }
+
+    // [SerializeField]
+    // [Tooltip("Radius to calculate when enemy steps into trap")]
+    // private float _trapRadius;
+
+    // public float TrapRadius
+    // {
+    //     get
+    //     {
+    //         return this._trapRadius;
+    //     }
+    // }
 
     [Header("Movement")]
 
@@ -115,15 +132,6 @@ public class EnemyProperties : MonoBehaviour
     //     this._laneIndex = laneIndex;
     // }
 
-    public void Initialize(int laneIndex, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
-    {
-        this._laneIndex = laneIndex;
-        _currentHitPoints = _hitPoints * hitPointMul;
-        _movementSpeed *= movementSpeedMul;
-        _acceleration *= accelerationMul;
-        _angularSpeed *= angularSpeedMul;
-    }
-
     [Header("Attack")]
     [SerializeField]
     [Tooltip("How hard does this enemy hit")]
@@ -154,5 +162,21 @@ public class EnemyProperties : MonoBehaviour
         {
             return this._attackRange;
         }
+    }
+
+    public void Initialize(int laneIndex, EnemyType type, Vector3 position, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
+    {
+        this._enemyType = type;
+        this._laneIndex = laneIndex;
+        transform.position = position;
+        _currentHitPoints = _hitPoints * hitPointMul;
+        _movementSpeed *= movementSpeedMul;
+        _acceleration *= accelerationMul;
+        _angularSpeed *= angularSpeedMul;
+    }
+
+    public void Destroy()
+    {
+        EnemyFactory.DestroyEnemy(_enemyType, this.gameObject);
     }
 }

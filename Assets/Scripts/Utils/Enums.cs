@@ -21,5 +21,5 @@ public enum TrapType
 {
     Booby = 0,
     Bomb = 1,
-    Swamp = 2,
+    Freeze = 2,
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
     protected EnemyProperties _enemyProperties;
     protected NavMeshAgent _enemyAgent;
@@ -67,9 +67,9 @@ public class EnemyMovement : MonoBehaviour
 
     public void SlowDown(float slowPercentage)
     {
-        _enemyAgent.speed *= slowPercentage / 100;
-        _enemyAgent.angularSpeed *= slowPercentage / 100;
-        _enemyAgent.acceleration *= slowPercentage / 100;
+        _enemyAgent.speed *= 1.0f - slowPercentage / 100;
+        _enemyAgent.angularSpeed *= 1.0f - slowPercentage / 100;
+        _enemyAgent.acceleration *= 1.0f - slowPercentage / 100;
     }
 
     public void BackToNormalSpeed()

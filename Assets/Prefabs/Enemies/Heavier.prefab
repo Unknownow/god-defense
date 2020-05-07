@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 114535977564116196}
   - component: {fileID: 4612231170440365883}
   - component: {fileID: 4612231170440365876}
+  - component: {fileID: 114174956895302616}
   - component: {fileID: 4612231170440365877}
   - component: {fileID: 4612231170440365874}
   - component: {fileID: 4612231170440365873}
@@ -84,7 +85,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _size: 2
-  _hitPoints: 0
+  _hitPoints: 100
   _movementSpeed: 1.75
   _angularSpeed: 180
   _acceleration: 20
@@ -142,6 +143,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dce7cd26f25434b2b995f5e46415384a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114174956895302616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4612231170440365882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cd84cc7d98649e8b351d6d13a30b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!195 &4612231170440365877

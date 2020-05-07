@@ -39,7 +39,7 @@ public class EnemyFactory : MonoBehaviour
             runner.SetActive(true);
         }
         runner.transform.forward = direction;
-        runner.GetComponent<EnemyProperties>().Initialize(laneIndex);
+        runner.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Runner, position);
         return runner;
     }
 
@@ -56,7 +56,7 @@ public class EnemyFactory : MonoBehaviour
             heavier.SetActive(true);
         }
         heavier.transform.forward = direction;
-        heavier.GetComponent<EnemyProperties>().Initialize(laneIndex);
+        heavier.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Heavier, position);
         return heavier;
     }
 
@@ -73,13 +73,13 @@ public class EnemyFactory : MonoBehaviour
             tanker.SetActive(true);
         }
         tanker.transform.forward = direction;
-        tanker.GetComponent<EnemyProperties>().Initialize(laneIndex);
+        tanker.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Tanker, position);
         return tanker;
     }
 
-    public static void DestroyEnemy(EnemyType type, GameObject enemy)
+    public static void DestroyEnemy(EnemyType enemyType, GameObject enemy)
     {
-        switch (type)
+        switch (enemyType)
         {
             case EnemyType.Runner:
                 enemy.SetActive(false);

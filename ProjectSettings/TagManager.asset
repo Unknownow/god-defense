@@ -13,6 +13,7 @@ TagManager:
   - Tower
   - Enemy Spawner
   - Booby Trap
+  - Freezing Trap
   layers:
   - Default
   - TransparentFX

@@ -39,6 +39,10 @@ public class SpawnerController : MonoBehaviour
                 enemy = EnemyFactory.SpawnHeavier(transform.position, _spawnerProperties.SpawnerDirection, _enemyParent, _spawnerProperties.LaneIndex);
                 enemy.GetComponent<IEnemyMovement>().StartMoving(_spawnerProperties.Target);
                 return enemy;
+            case EnemyType.Tanker:
+                enemy = EnemyFactory.SpawnTanker(transform.position, _spawnerProperties.SpawnerDirection, _enemyParent, _spawnerProperties.LaneIndex);
+                enemy.GetComponent<IEnemyMovement>().StartMoving(_spawnerProperties.Target);
+                return enemy;
             default:
                 return null;
         }
