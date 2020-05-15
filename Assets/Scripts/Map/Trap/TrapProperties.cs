@@ -6,21 +6,21 @@ public abstract class TrapProperties : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField]
-    private float _hitDamage;
-    public float HitDamage
-    {
-        get
-        {
-            return this._hitDamage;
-        }
-    }
-    [SerializeField]
     private float _duration;
     public float Duration
     {
         get
         {
             return this._duration;
+        }
+    }
+    [SerializeField]
+    private float _buffedDuration;
+    public float BuffedDuration
+    {
+        get
+        {
+            return this._buffedDuration;
         }
     }
     [SerializeField]
@@ -42,7 +42,9 @@ public abstract class TrapProperties : MonoBehaviour
         }
     }
 
-    public void Initialize(Vector3 position, TrapType trapType)
+    public virtual bool BuffTrap { get; set; }
+
+    public virtual void Initialize(Vector3 position, TrapType trapType)
     {
         this._trapType = trapType;
         transform.position = position;
@@ -51,5 +53,11 @@ public abstract class TrapProperties : MonoBehaviour
     public void Destroy()
     {
         TrapFactory.DestroyTrap(_trapType, this.gameObject);
+    }
+
+    protected IEnumerator BuffingTrapCoroutine()
+    {
+        yield return new WaitForSeconds(_buffedDuration);
+        BuffTrap = false;
     }
 }

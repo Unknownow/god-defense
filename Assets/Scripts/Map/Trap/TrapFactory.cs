@@ -29,57 +29,30 @@ public class TrapFactory : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            SpawnBoobyTrap(new Vector3(count, 0, 0), transform);
+            SpawnFreezeTrap(new Vector3(count, 0, 0), transform);
             count++;
         }
     }
 
-    public static GameObject SpawnBoobyTrap(Vector3 position, Transform parent)
+    public static GameObject SpawnTrap(TrapType trapType, Vector3 position, Transform parent)
     {
-        GameObject boobyTrap;
-        if (instance._boobyTrapPool.Count <= 0)
+        GameObject trap;
+        switch (trapType)
         {
-            boobyTrap = Instantiate(instance._boobyTrapPrefab, position, Quaternion.identity, parent);
+            case TrapType.Booby:
+                trap = SpawnBoobyTrap(position, parent);
+                break;
+            case TrapType.Bomb:
+                trap = SpawnBombTrap(position, parent);
+                break;
+            case TrapType.Freeze:
+                trap = SpawnFreezeTrap(position, parent);
+                break;
+            default:
+                trap = null;
+                break;
         }
-        else
-        {
-            boobyTrap = instance._boobyTrapPool.Dequeue();
-            boobyTrap.SetActive(true);
-        }
-        boobyTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Booby);
-        return boobyTrap;
-    }
-
-    public static GameObject SpawnBombTrap(Vector3 position, Transform parent)
-    {
-        GameObject bombTrap;
-        if (instance._bombTrapPool.Count <= 0)
-        {
-            bombTrap = Instantiate(instance._bombTrapPrefab, position, Quaternion.identity, parent);
-        }
-        else
-        {
-            bombTrap = instance._bombTrapPool.Dequeue();
-            bombTrap.SetActive(true);
-        }
-        bombTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Bomb);
-        return bombTrap;
-    }
-
-    public static GameObject SpawnFreezeTrap(Vector3 position, Transform parent)
-    {
-        GameObject freezeTrap;
-        if (instance._freezeTrapPool.Count <= 0)
-        {
-            freezeTrap = Instantiate(instance._freezeTrapPrefab, position, Quaternion.identity, parent);
-        }
-        else
-        {
-            freezeTrap = instance._freezeTrapPool.Dequeue();
-            freezeTrap.SetActive(true);
-        }
-        freezeTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Freeze);
-        return freezeTrap;
+        return trap;
     }
 
     public static void DestroyTrap(TrapType trapType, GameObject trap)
@@ -102,5 +75,53 @@ public class TrapFactory : MonoBehaviour
                 trap.SetActive(false);
                 break;
         }
+    }
+
+    private static GameObject SpawnBoobyTrap(Vector3 position, Transform parent)
+    {
+        GameObject boobyTrap;
+        if (instance._boobyTrapPool.Count <= 0)
+        {
+            boobyTrap = Instantiate(instance._boobyTrapPrefab, position, Quaternion.identity, parent);
+        }
+        else
+        {
+            boobyTrap = instance._boobyTrapPool.Dequeue();
+            boobyTrap.SetActive(true);
+        }
+        boobyTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Booby);
+        return boobyTrap;
+    }
+
+    private static GameObject SpawnBombTrap(Vector3 position, Transform parent)
+    {
+        GameObject bombTrap;
+        if (instance._bombTrapPool.Count <= 0)
+        {
+            bombTrap = Instantiate(instance._bombTrapPrefab, position, Quaternion.identity, parent);
+        }
+        else
+        {
+            bombTrap = instance._bombTrapPool.Dequeue();
+            bombTrap.SetActive(true);
+        }
+        bombTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Bomb);
+        return bombTrap;
+    }
+
+    private static GameObject SpawnFreezeTrap(Vector3 position, Transform parent)
+    {
+        GameObject freezeTrap;
+        if (instance._freezeTrapPool.Count <= 0)
+        {
+            freezeTrap = Instantiate(instance._freezeTrapPrefab, position, Quaternion.identity, parent);
+        }
+        else
+        {
+            freezeTrap = instance._freezeTrapPool.Dequeue();
+            freezeTrap.SetActive(true);
+        }
+        freezeTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Freeze);
+        return freezeTrap;
     }
 }
