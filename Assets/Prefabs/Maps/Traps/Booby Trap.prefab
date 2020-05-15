@@ -63,6 +63,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d832d450d1c4ea28155a85ef052a86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _attackableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!33 &2810074888755029373
 MeshFilter:
   m_ObjectHideFlags: 0
