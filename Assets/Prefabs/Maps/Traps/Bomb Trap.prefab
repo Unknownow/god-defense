@@ -10,12 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3761300757079534023}
   - component: {fileID: 3450872516239143551}
-  - component: {fileID: 1866296611435451379}
-  - component: {fileID: 8845515160826659905}
+  - component: {fileID: 324771433}
+  - component: {fileID: 324771432}
   - component: {fileID: 3761300757078764007}
   - component: {fileID: 3761300757077764903}
   - component: {fileID: 5579705742337388329}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Bomb Trap
   m_TagString: Bomb Trap
   m_Icon: {fileID: 0}
@@ -52,12 +52,15 @@ MonoBehaviour:
   _duration: 30
   _buffedDuration: 30
   _cooldown: 20
-  _hitDamage: 80
+  _hitDamage: 1000
   _buffedHitDamage: 180
+  _timeBeforeDetonation: 0.005
+  _explosionCenter: {fileID: 5663201977911487598}
   _explosionRadius: 0.5
   _buffedExplosionRadius: 1
-  _explosionCenter: {fileID: 5663201977911487598}
---- !u!114 &1866296611435451379
+  _forceMagnitude: 1.15
+  _buffedForceMagnitude: 2
+--- !u!114 &324771433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,10 +69,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3761300757079766503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 765dda5d4068c465a8c88bad588ef044, type: 3}
+  m_Script: {fileID: 11500000, guid: 91b1ffe28f40c4d00bdf35b9b72e172f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8845515160826659905
+--- !u!114 &324771432
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,9 +81,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3761300757079766503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a9d832d450d1c4ea28155a85ef052a86, type: 3}
+  m_Script: {fileID: 11500000, guid: a38717281d699479a8ec2595630e50ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyLayermask:
+    serializedVersion: 2
+    m_Bits: 16384
 --- !u!33 &3761300757078764007
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -150,7 +156,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5663201977911487598}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: ExplosionCenter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

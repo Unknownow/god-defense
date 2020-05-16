@@ -59,6 +59,8 @@ public class EnemyProperties : MonoBehaviour
                 this._currentHitPoints -= value;
                 this._currentHitPoints = this._currentHitPoints < 0 ? 0 : this._currentHitPoints;
             }
+            if (_currentHitPoints <= 0)
+                _isAlive = false;
         }
     }
 
@@ -165,9 +167,26 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
-    [Header("Physics")]
+    [Header("Other")]
     [SerializeField]
-    private float _gravityMultiplier;
+    [Tooltip("How many seconds before destroy this enemy")]
+    private float _timeBeforeDestroy;
+    public float TimeBeforeDestroy
+    {
+        get
+        {
+            return this._timeBeforeDestroy;
+        }
+    }
+
+    private bool _isAlive;
+    public bool IsAlive
+    {
+        get
+        {
+            return this._isAlive;
+        }
+    }
 
     public void Initialize(int laneIndex, EnemyType type, Vector3 position, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
     {
@@ -182,12 +201,13 @@ public class EnemyProperties : MonoBehaviour
 
 
         // Reset physical components:
+        transform.rotation = Quaternion.identity;
         // freeze gravity, rotation and position
         Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+        enemyBody.velocity = Vector3.zero;
+        enemyBody.angularVelocity = Vector3.zero;
         enemyBody.useGravity = false;
-        enemyBody.constraints = RigidbodyConstraints.FreezePositionY;
-        enemyBody.constraints = RigidbodyConstraints.FreezeRotationX;
-        enemyBody.constraints = RigidbodyConstraints.FreezeRotationZ;
+        enemyBody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
 
         // check isTrigger on collider.
         gameObject.GetComponent<Collider>().isTrigger = true;
@@ -195,13 +215,19 @@ public class EnemyProperties : MonoBehaviour
         // enable NavMeshAgent
         NavMeshAgent enemyAgent = gameObject.GetComponent<NavMeshAgent>();
         enemyAgent.enabled = true;
+        // enemyAgent.ResetPath();
         enemyAgent.speed = _movementSpeed;
         enemyAgent.angularSpeed = _angularSpeed;
         enemyAgent.acceleration = _acceleration;
+
+        // Set is alive is true
+        _isAlive = true;
     }
 
     public void Destroy()
     {
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
         EnemyFactory.DestroyEnemy(_enemyType, this.gameObject);
     }
 }

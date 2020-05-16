@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BombTrapProperties : TrapProperties
 {
+    [Header("Bomb Trap")]
     [SerializeField]
     private float _hitDamage;
     [SerializeField]
@@ -16,21 +17,19 @@ public class BombTrapProperties : TrapProperties
             return this._currentHitDamage;
         }
     }
-
     [SerializeField]
-    private float _explosionRadius;
-    [SerializeField]
-    private float _buffedExplosionRadius;
-    [SerializeField]
-    private Transform _explosionCenter;
-    private float _currentExplosionRadius;
-    public float ExplosionRadius
+    private float _timeBeforeDetonation;
+    public float TimeBeforeDetonation
     {
         get
         {
-            return this._currentExplosionRadius;
+            return this._timeBeforeDetonation;
         }
     }
+
+    [Header("Explosion")]
+    [SerializeField]
+    private Transform _explosionCenter;
     public Vector3 ExplosionCenterPosition
     {
         get
@@ -39,14 +38,31 @@ public class BombTrapProperties : TrapProperties
         }
     }
     [SerializeField]
+    private float _explosionRadius;
+    [SerializeField]
+    private float _buffedExplosionRadius;
+    private float _currentExplosionRadius;
+    public float ExplosionRadius
+    {
+        get
+        {
+            return this._currentExplosionRadius;
+        }
+    }
+    [Header("Force Apply")]
+    [SerializeField]
     private float _forceMagnitude;
+    [SerializeField]
+    private float _buffedForceMagnitude;
+    private float _currentForceMagnitude;
     public float ForceMagnitude
     {
         get
         {
-            return this._forceMagnitude;
+            return this._currentForceMagnitude;
         }
     }
+
     public override bool BuffTrap
     {
         set
@@ -55,12 +71,14 @@ public class BombTrapProperties : TrapProperties
             {
                 _currentHitDamage = _buffedHitDamage;
                 _currentExplosionRadius = _buffedExplosionRadius;
+                _currentForceMagnitude = _buffedForceMagnitude;
                 StartCoroutine(BuffingTrapCoroutine());
             }
             else
             {
                 _currentHitDamage = _hitDamage;
                 _currentExplosionRadius = _explosionRadius;
+                _currentForceMagnitude = _forceMagnitude;
                 StopAllCoroutines();
             }
         }
@@ -70,6 +88,7 @@ public class BombTrapProperties : TrapProperties
     {
         this._trapType = trapType;
         transform.position = position;
+        BuffTrap = false;
     }
 
     private void OnDrawGizmos()

@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 7888874831174439065}
   - component: {fileID: 7888874831174439062}
   - component: {fileID: 114865107160763280}
+  - component: {fileID: 114133610514109472}
   - component: {fileID: 7888874831174439063}
   - component: {fileID: 7888874831174439066}
   - component: {fileID: 7888874831174439061}
@@ -92,6 +93,7 @@ MonoBehaviour:
   _hitDamage: 0.5
   _attackRate: 3
   _attackRange: 0.5
+  _timeBeforeDestroy: 2
 --- !u!114 &2055827671
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +135,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25962290997e74ee9874900aead425ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyProperties: {fileID: 0}
+  _enemyAgent: {fileID: 0}
+  _currentTarget: {fileID: 0}
+  _currentAvoidanceRadius: 0
 --- !u!114 &7888874831174439062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce7cd26f25434b2b995f5e46415384a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _freezeTrapList: []
+  _boobyTrapList: []
 --- !u!114 &114865107160763280
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +163,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76cd84cc7d98649e8b351d6d13a30b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114133610514109472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7888874831174439057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fde1234e90554c4a962a4a64d0e63be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!195 &7888874831174439063
@@ -172,7 +192,7 @@ NavMeshAgent:
   avoidancePriority: 90
   m_AngularSpeed: 540
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
@@ -232,7 +252,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7888874831174439057}
   serializedVersion: 2
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0

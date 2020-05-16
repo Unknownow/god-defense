@@ -34,12 +34,9 @@ public class EnemyTrapInteraction : MonoBehaviour
     /// Call when step on bomb trap
     /// </summary>
     /// <param name="damage">Amount of damages taken when enemy is hit by bomb trap</param>
-    public void StepOnBombTrap(float damage, Vector3 bombPosition, float forceMagnitude)
+    public bool StepOnBombTrap(float damage)
     {
-        if (HitAndCheckIsDead(damage))
-        {
-            _enemyPhysic.AddPushForce(bombPosition, forceMagnitude);
-        }
+        return HitAndCheckIsDead(damage);
     }
 
     /// <summary>

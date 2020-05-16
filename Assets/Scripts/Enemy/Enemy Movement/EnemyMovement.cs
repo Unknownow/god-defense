@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
-    protected EnemyProperties _enemyProperties;
-    protected NavMeshAgent _enemyAgent;
+    public EnemyProperties _enemyProperties;
+    public NavMeshAgent _enemyAgent;
     // protected NavMeshObstacle _enemyObstacle;
-    protected Transform _currentTarget;
-    protected float _currentAvoidanceRadius;
+    public Transform _currentTarget;
+    public float _currentAvoidanceRadius;
 
     protected void Awake()
     {
@@ -20,6 +20,8 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 
     private void Update()
     {
+        if (!_enemyProperties.IsAlive)
+            return;
         float distanceToTarget = Utils.DistanceInXZ(transform.position, _currentTarget.position);
         if (_currentTarget.CompareTag("Waypoint"))
         {
@@ -59,7 +61,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 
     public void SlowDown(float slowPercentage)
     {
-        _enemyAgent.speed  = _enemyProperties.MovementSpeed *  (1.0f - slowPercentage / 100);
+        _enemyAgent.speed = _enemyProperties.MovementSpeed * (1.0f - slowPercentage / 100);
         _enemyAgent.angularSpeed = _enemyProperties.AngularSpeed * (1.0f - slowPercentage / 100);
         _enemyAgent.acceleration = _enemyProperties.Acceleration / (1.01f - slowPercentage / 100);
     }

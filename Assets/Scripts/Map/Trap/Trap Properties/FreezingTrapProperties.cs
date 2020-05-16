@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FreezingTrapProperties : TrapProperties
 {
+    [Header("Freezing Trap")]
     [SerializeField]
     private float _slowPercentage;
     [SerializeField]

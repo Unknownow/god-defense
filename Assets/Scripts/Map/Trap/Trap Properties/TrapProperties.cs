@@ -60,4 +60,9 @@ public abstract class TrapProperties : MonoBehaviour
         yield return new WaitForSeconds(_buffedDuration);
         BuffTrap = false;
     }
+
+    protected void Start()
+    {
+        BuffTrap = false;
+    }
 }

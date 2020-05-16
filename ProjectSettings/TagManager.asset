@@ -15,6 +15,7 @@ TagManager:
   - Booby Trap
   - Freezing Trap
   - Bomb Trap
+  - Bullet
   layers:
   - Default
   - TransparentFX

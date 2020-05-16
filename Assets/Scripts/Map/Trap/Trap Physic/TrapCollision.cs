@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class TrapCollision : MonoBehaviour
 {
-    private TrapProperties _trapProperties;
+    protected TrapProperties _trapProperties;
+    protected TrapController _trapController;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _trapProperties = gameObject.GetComponent<TrapProperties>();
+        _trapController = gameObject.GetComponent<TrapController>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         if (other.transform.CompareTag("Bullet"))
         {

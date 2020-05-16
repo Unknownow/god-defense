@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class TrapController : MonoBehaviour
 {
-    private TrapProperties _trapProperties;
-    Vector3 truePos;
+    protected TrapProperties _trapProperties;
+    protected Vector3 truePos;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
-        // StartCoroutine(DestroyTrap());
+        Initialize();
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         _trapProperties = gameObject.GetComponent<TrapProperties>();
+        Initialize();
     }
 
-    public void OnPlaced() {
-        StartCoroutine(DestroyTrap());
-    }
-
-    IEnumerator DestroyTrap()
+    public virtual void OnPlaced()
     {
-        yield return new WaitForSeconds(_trapProperties.Duration);
+        Initialize();
+    }
+
+    protected virtual IEnumerator DestroyTrap(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
         _trapProperties.Destroy();
     }
 
@@ -36,7 +38,13 @@ public class TrapController : MonoBehaviour
     //     this.transform.position = truePos;
     // }
 
-    public TrapProperties GetProperties() {
+    public TrapProperties GetProperties()
+    {
         return this._trapProperties;
+    }
+
+    protected virtual void Initialize()
+    {
+        StartCoroutine(DestroyTrap(_trapProperties.Duration));
     }
 }

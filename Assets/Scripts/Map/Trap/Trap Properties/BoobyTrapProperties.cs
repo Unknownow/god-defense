@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoobyTrapProperties : TrapProperties
 {
+    [Header("Booby Trap")]
     [SerializeField]
     private float _hitDamage;
     [SerializeField]

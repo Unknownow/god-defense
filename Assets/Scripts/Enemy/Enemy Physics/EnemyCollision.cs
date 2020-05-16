@@ -18,11 +18,11 @@ public class EnemyCollision : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Bomb Trap"))
-        {
-            BombTrapProperties bombTrap = other.transform.GetComponent<BombTrapProperties>();
-            _enemyTrapInteraction.StepOnBombTrap(bombTrap.HitDamage, bombTrap.transform.position, bombTrap.ForceMagnitude);
-        }
+        // if (other.transform.CompareTag("Bomb Trap"))
+        // {
+        //     BombTrapProperties bombTrap = other.transform.GetComponent<BombTrapProperties>();
+        //     _enemyTrapInteraction.StepOnBombTrap(bombTrap.HitDamage);
+        // }
     }
     private void OnTriggerStay(Collider other)
     {
