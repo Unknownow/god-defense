@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyProperties : MonoBehaviour
 {
@@ -164,8 +165,13 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
+    [Header("Physics")]
+    [SerializeField]
+    private float _gravityMultiplier;
+
     public void Initialize(int laneIndex, EnemyType type, Vector3 position, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
     {
+        // Reset properties:
         this._enemyType = type;
         this._laneIndex = laneIndex;
         transform.position = position;
@@ -173,6 +179,25 @@ public class EnemyProperties : MonoBehaviour
         _movementSpeed *= movementSpeedMul;
         _acceleration *= accelerationMul;
         _angularSpeed *= angularSpeedMul;
+
+
+        // Reset physical components:
+        // freeze gravity, rotation and position
+        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+        enemyBody.useGravity = false;
+        enemyBody.constraints = RigidbodyConstraints.FreezePositionY;
+        enemyBody.constraints = RigidbodyConstraints.FreezeRotationX;
+        enemyBody.constraints = RigidbodyConstraints.FreezeRotationZ;
+
+        // check isTrigger on collider.
+        gameObject.GetComponent<Collider>().isTrigger = true;
+
+        // enable NavMeshAgent
+        NavMeshAgent enemyAgent = gameObject.GetComponent<NavMeshAgent>();
+        enemyAgent.enabled = true;
+        enemyAgent.speed = _movementSpeed;
+        enemyAgent.angularSpeed = _angularSpeed;
+        enemyAgent.acceleration = _acceleration;
     }
 
     public void Destroy()

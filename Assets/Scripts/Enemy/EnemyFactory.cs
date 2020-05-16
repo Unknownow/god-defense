@@ -37,55 +37,19 @@ public class EnemyFactory : MonoBehaviour
         _instance._tankerPool = new Queue<GameObject>();
     }
 
-    public static GameObject SpawnRunner(Vector3 position, Vector3 direction, Transform parent, int laneIndex)
+    public static GameObject SpawnEnemy(EnemyType enemyType, Vector3 position, Vector3 direction, int laneIndex)
     {
-        GameObject runner;
-        if (_instance._runnerPool.Count <= 0)
+        switch (enemyType)
         {
-            runner = Instantiate(_instance._runnerPerfab, position, Quaternion.identity, parent);
+            case EnemyType.Runner:
+                return SpawnRunner(position, direction, laneIndex);
+            case EnemyType.Heavier:
+                return SpawnHeavier(position, direction, laneIndex);
+            case EnemyType.Tanker:
+                return SpawnTanker(position, direction, laneIndex);
+            default:
+                return null;
         }
-        else
-        {
-            runner = _instance._runnerPool.Dequeue();
-            runner.SetActive(true);
-        }
-        runner.transform.forward = direction;
-        runner.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Runner, position);
-        return runner;
-    }
-
-    public static GameObject SpawnHeavier(Vector3 position, Vector3 direction, Transform parent, int laneIndex)
-    {
-        GameObject heavier;
-        if (_instance._runnerPool.Count <= 0)
-        {
-            heavier = Instantiate(_instance._heavierPerfab, position, Quaternion.identity, parent);
-        }
-        else
-        {
-            heavier = _instance._heavierPool.Dequeue();
-            heavier.SetActive(true);
-        }
-        heavier.transform.forward = direction;
-        heavier.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Heavier, position);
-        return heavier;
-    }
-
-    public static GameObject SpawnTanker(Vector3 position, Vector3 direction, Transform parent, int laneIndex)
-    {
-        GameObject tanker;
-        if (_instance._runnerPool.Count <= 0)
-        {
-            tanker = Instantiate(_instance._tankerPrefab, position, Quaternion.identity, parent);
-        }
-        else
-        {
-            tanker = _instance._tankerPool.Dequeue();
-            tanker.SetActive(true);
-        }
-        tanker.transform.forward = direction;
-        tanker.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Tanker, position);
-        return tanker;
     }
 
     public static void DestroyEnemy(EnemyType enemyType, GameObject enemy)
@@ -104,6 +68,60 @@ public class EnemyFactory : MonoBehaviour
                 enemy.SetActive(false);
                 _instance._tankerPool.Enqueue(enemy);
                 break;
+            default:
+                Destroy(enemy);
+                break;
         }
+    }
+
+    private static GameObject SpawnRunner(Vector3 position, Vector3 direction, int laneIndex)
+    {
+        GameObject runner;
+        if (_instance._runnerPool.Count <= 0)
+        {
+            runner = Instantiate(_instance._runnerPerfab, position, Quaternion.identity, _instance.transform);
+            runner.SetActive(false);
+        }
+        else
+            runner = _instance._runnerPool.Dequeue();
+
+        runner.transform.forward = direction;
+        runner.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Runner, position);
+        runner.SetActive(true);
+        return runner;
+    }
+
+    private static GameObject SpawnHeavier(Vector3 position, Vector3 direction, int laneIndex)
+    {
+        GameObject heavier;
+        if (_instance._runnerPool.Count <= 0)
+        {
+            heavier = Instantiate(_instance._heavierPerfab, position, Quaternion.identity, _instance.transform);
+            heavier.SetActive(false);
+        }
+        else
+            heavier = _instance._heavierPool.Dequeue();
+
+        heavier.transform.forward = direction;
+        heavier.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Heavier, position);
+        heavier.SetActive(true);
+        return heavier;
+    }
+
+    private static GameObject SpawnTanker(Vector3 position, Vector3 direction, int laneIndex)
+    {
+        GameObject tanker;
+        if (_instance._runnerPool.Count <= 0)
+        {
+            tanker = Instantiate(_instance._tankerPrefab, position, Quaternion.identity, _instance.transform);
+            tanker.SetActive(false);
+        }
+        else
+            tanker = _instance._tankerPool.Dequeue();
+
+        tanker.transform.forward = direction;
+        tanker.GetComponent<EnemyProperties>().Initialize(laneIndex, EnemyType.Tanker, position);
+        tanker.SetActive(true);
+        return tanker;
     }
 }

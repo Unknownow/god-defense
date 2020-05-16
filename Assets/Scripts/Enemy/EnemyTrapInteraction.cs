@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDebuff : MonoBehaviour
+public class EnemyTrapInteraction : MonoBehaviour
 {
     private EnemyProperties _enemyProperties;
     private IEnemyMovement _enemyMovement;
-    private IEnumerator _boobyTrap;
+    private EnemyPhysics _enemyPhysic;
+    private IEnumerator _boobyTrapCoroutine;
+    private int _isOnBoobyTrap;
 
     private void Start()
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
+        _enemyPhysic = gameObject.GetComponent<EnemyPhysics>();
+        _isOnBoobyTrap = 0;
     }
 
     /// <summary>
@@ -21,13 +25,21 @@ public class EnemyDebuff : MonoBehaviour
     /// <param name="timeInterval">Time between each hit</param>
     public void StepOnBoobyTrap(float damage, float timeInterval)
     {
-        _boobyTrap = HitCoroutine(damage, timeInterval);
-        StartCoroutine(_boobyTrap);
+        StopCoroutine(_boobyTrapCoroutine);
+        _boobyTrapCoroutine = BoobyTrapHitCoroutine(damage, timeInterval);
+        StartCoroutine(_boobyTrapCoroutine);
     }
 
-    public void StepOnBombTrap(float damage)
+    /// <summary>
+    /// Call when step on bomb trap
+    /// </summary>
+    /// <param name="damage">Amount of damages taken when enemy is hit by bomb trap</param>
+    public void StepOnBombTrap(float damage, Vector3 bombPosition, float forceMagnitude)
     {
-
+        if (HitAndCheckIsDead(damage))
+        {
+            _enemyPhysic.AddPushForce(bombPosition, forceMagnitude);
+        }
     }
 
     /// <summary>
@@ -44,12 +56,7 @@ public class EnemyDebuff : MonoBehaviour
     /// </summary>
     public void StepOutBoobyTrap()
     {
-        StopCoroutine(_boobyTrap);
-    }
-
-    public void StepOutBombTrap()
-    {
-
+        StopCoroutine(_boobyTrapCoroutine);
     }
 
     /// <summary>
@@ -60,17 +67,25 @@ public class EnemyDebuff : MonoBehaviour
         _enemyMovement.BackToNormalSpeed();
     }
 
-    private void Hit(float damage)
+    private bool HitAndCheckIsDead(float damage)
     {
         _enemyProperties.Hit = damage;
+        if (_enemyProperties.CurrentHitPoints <= 0)
+        {
+            gameObject.GetComponent<EnemyStates>().OnEnemyDie();
+            return true;
+        }
+        return false;
     }
 
-    private IEnumerator HitCoroutine(float damage, float timeInterval)
+    private IEnumerator BoobyTrapHitCoroutine(float damage, float timeInterval)
     {
         while (true)
         {
-            Hit(damage);
+            if (HitAndCheckIsDead(damage))
+                break;
             yield return new WaitForSeconds(timeInterval);
         }
+        StopCoroutine(_boobyTrapCoroutine);
     }
 }

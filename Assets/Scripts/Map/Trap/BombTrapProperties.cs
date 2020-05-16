@@ -38,6 +38,15 @@ public class BombTrapProperties : TrapProperties
             return _explosionCenter.position;
         }
     }
+    [SerializeField]
+    private float _forceMagnitude;
+    public float ForceMagnitude
+    {
+        get
+        {
+            return this._forceMagnitude;
+        }
+    }
     public override bool BuffTrap
     {
         set

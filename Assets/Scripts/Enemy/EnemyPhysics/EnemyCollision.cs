@@ -5,22 +5,43 @@ using UnityEngine;
 public class EnemyCollision : MonoBehaviour
 {
     private EnemyProperties _enemyProperties;
-    private EnemyDebuff _enemyDebuff;
-    private List<FreezingTrapProperties> _freezeTrapList;
+    private EnemyTrapInteraction _enemyTrapInteraction;
+    public List<FreezingTrapProperties> _freezeTrapList;
+    public List<BoobyTrapProperties> _boobyTrapList;
 
     private void Awake()
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
-        _enemyDebuff = gameObject.GetComponent<EnemyDebuff>();
+        _enemyTrapInteraction = gameObject.GetComponent<EnemyTrapInteraction>();
         _freezeTrapList = new List<FreezingTrapProperties>();
     }
+
     private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.CompareTag("Bomb Trap"))
+        {
+            BombTrapProperties bombTrap = other.transform.GetComponent<BombTrapProperties>();
+            _enemyTrapInteraction.StepOnBombTrap(bombTrap.HitDamage, bombTrap.transform.position, bombTrap.ForceMagnitude);
+        }
+    }
+    private void OnTriggerStay(Collider other)
     {
         if (other.transform.CompareTag("Booby Trap"))
         {
             ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
-            BoobyTrapProperties trap = other.transform.GetComponent<BoobyTrapProperties>();
-            _enemyDebuff.StepOnBoobyTrap(trap.HitDamage, trap.TimeInterval);
+            BoobyTrapProperties boobyTrap = other.transform.GetComponent<BoobyTrapProperties>();
+            _boobyTrapList.Add(boobyTrap);
+            float hitDamage = 0;
+            float timeInterval = 0;
+            foreach (BoobyTrapProperties trap in _boobyTrapList)
+            {
+                if (trap.HitDamage > hitDamage)
+                {
+                    hitDamage = trap.HitDamage;
+                    timeInterval = trap.TimeInterval;
+                }
+            }
+            _enemyTrapInteraction.StepOnBoobyTrap(hitDamage, timeInterval);
         }
         if (other.transform.CompareTag("Freezing Trap"))
         {
@@ -33,7 +54,7 @@ public class EnemyCollision : MonoBehaviour
                 if (trap.SlowPercentage > slowPercentage)
                     slowPercentage = trap.SlowPercentage;
             }
-            _enemyDebuff.StepOnFreezeTrap(slowPercentage);
+            _enemyTrapInteraction.StepOnFreezeTrap(slowPercentage);
         }
     }
 
@@ -42,14 +63,16 @@ public class EnemyCollision : MonoBehaviour
         if (other.transform.CompareTag("Booby Trap"))
         {
             ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
-            _enemyDebuff.StepOutBoobyTrap();
+            _boobyTrapList.Remove(other.transform.GetComponent<BoobyTrapProperties>());
+            if (_boobyTrapList.Count <= 0)
+                _enemyTrapInteraction.StepOutBoobyTrap();
         }
         if (other.transform.CompareTag("Freezing Trap"))
         {
             ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
             _freezeTrapList.Remove(other.transform.GetComponent<FreezingTrapProperties>());
             if (_freezeTrapList.Count <= 0)
-                _enemyDebuff.StepOutFreezeTrap();
+                _enemyTrapInteraction.StepOutFreezeTrap();
         }
     }
 }

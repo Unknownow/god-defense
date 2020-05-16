@@ -2186,6 +2186,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9185415537551968200, guid: a15728cb4e34147bd817f32cb62861e0,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
       propertyPath: _duration
@@ -2199,7 +2204,12 @@ PrefabInstance:
     - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
       propertyPath: _slowPercentage
-      value: 20
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
+        type: 3}
+      propertyPath: _buffedSlowPercentage
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 9185415537552006167, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
@@ -2214,7 +2224,7 @@ PrefabInstance:
     - target: {fileID: 9185415537552006167, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -1.01
+      value: -0.857
       objectReference: {fileID: 0}
     - target: {fileID: 9185415537552006167, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
@@ -2303,7 +2313,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boobyTrapPrefab: {fileID: 2810074888752003453, guid: 0553e4993877b420196d7c1fb3bfa018,
     type: 3}
-  _bombTrapPrefab: {fileID: 0}
+  _bombTrapPrefab: {fileID: 3761300757079766503, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
+    type: 3}
   _freezeTrapPrefab: {fileID: 9185415537551966263, guid: a15728cb4e34147bd817f32cb62861e0,
     type: 3}
 --- !u!1 &1082352449
@@ -4150,7 +4161,7 @@ PrefabInstance:
     - target: {fileID: 3761300757079534023, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.41
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3761300757079534023, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
         type: 3}
@@ -4160,7 +4171,7 @@ PrefabInstance:
     - target: {fileID: 3761300757079534023, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.48
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3761300757079534023, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
         type: 3}
@@ -4206,6 +4217,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bomb Trap
+      objectReference: {fileID: 0}
+    - target: {fileID: 3761300757079766503, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63ca7cac3d0b34d129c1deac76fd32c3, type: 3}
@@ -4363,21 +4379,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Freezing Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
-        type: 3}
-      propertyPath: _duration
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
-        type: 3}
-      propertyPath: _trapType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
-        type: 3}
-      propertyPath: _slowPercentage
-      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 9185415537552006167, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
@@ -4644,6 +4645,11 @@ PrefabInstance:
     - target: {fileID: 4612231170440365868, guid: a1396b2be1bfd475690f7ecd4e48c97b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4612231170440365872, guid: a1396b2be1bfd475690f7ecd4e48c97b,
+        type: 3}
+      propertyPath: m_CollisionDetection
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4612231170440365882, guid: a1396b2be1bfd475690f7ecd4e48c97b,

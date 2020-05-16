@@ -14,6 +14,7 @@ TagManager:
   - Enemy Spawner
   - Booby Trap
   - Freezing Trap
+  - Bomb Trap
   layers:
   - Default
   - TransparentFX

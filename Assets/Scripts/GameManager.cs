@@ -15,8 +15,8 @@ public class GameManager : MonoBehaviour
     }
 
     void Awake() {
-        GameObject[] objs = GameObject.FindGameObjectsWithTag("GameController");
-        if ( objs.Length > 1 ) {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("GameController");
+        if ( objects.Length > 1 ) {
             Destroy(this.gameObject);
         }
         DontDestroyOnLoad(this.gameObject);

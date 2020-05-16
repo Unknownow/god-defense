@@ -62,7 +62,7 @@ public class TrapPlaceController : MonoBehaviour
                 Destroy(currentPlaceableObject);
             }
 
-            currentPlaceableObject = TrapFactory.SpawnTrap(TrapType.Booby, new Vector3(0,0,0), this.transform);
+            currentPlaceableObject = TrapFactory.SpawnTrap(TrapType.Booby, new Vector3(0,0,0));
         }
     }
 
@@ -84,7 +84,7 @@ public class TrapPlaceController : MonoBehaviour
             position = hitInfo.point;
         }
 
-        currentPlaceableObject = TrapFactory.SpawnTrap(_trapType, position, GameManager.Instance().Road.transform);
+        currentPlaceableObject = TrapFactory.SpawnTrap(_trapType, position);
 
     }
 
@@ -170,7 +170,7 @@ public class TrapPlaceController : MonoBehaviour
                 if (controller != null) {
                     Debug.Log("Placed!!!");
                     coolDownTime = controller.GetProperties().Cooldown;
-                    controller.onPlaced();
+                    controller.OnPlaced();
                     StartCoolDown();
                 }
 

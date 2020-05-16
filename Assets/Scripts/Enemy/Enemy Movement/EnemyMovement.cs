@@ -15,10 +15,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _enemyAgent = gameObject.GetComponent<NavMeshAgent>();
-        // _enemyObstacle = gameObject.GetComponent<NavMeshObstacle>();
-        _enemyAgent.speed = _enemyProperties.MovementSpeed;
-        _enemyAgent.angularSpeed = _enemyProperties.AngularSpeed;
-        _enemyAgent.acceleration = _enemyProperties.Acceleration;
         _currentAvoidanceRadius = _enemyAgent.radius;
     }
 
@@ -52,8 +48,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
         _enemyAgent.radius = _currentAvoidanceRadius;
         _currentTarget = target;
         _enemyAgent.SetDestination(target.position);
-        // _enemyObstacle.enabled = false;
-        // _enemyAgent.enabled = true;
         _enemyAgent.isStopped = false;
     }
 
@@ -61,8 +55,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
     {
         _enemyAgent.isStopped = true;
         _enemyAgent.radius = 0;
-        // _enemyAgent.enabled = false;
-        // _enemyObstacle.enabled = true;
     }
 
     public void SlowDown(float slowPercentage)

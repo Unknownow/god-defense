@@ -28,4 +28,18 @@ public class EnemyStates : MonoBehaviour
             _enemyAttack.StopAttack();
         }
     }
+
+    public void OnEnemyDie()
+    {
+        // using gravity and unfreeze rotation, position.
+        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+        enemyBody.useGravity = true;
+        enemyBody.constraints = RigidbodyConstraints.None;
+
+        // uncheck isTrigger on collider.
+        gameObject.GetComponent<Collider>().isTrigger = false;
+        
+        // disable NavMeshAgent
+        _enemyAgent.enabled = false;
+    }
 }

@@ -17,7 +17,7 @@ public class TrapController : MonoBehaviour
         _trapProperties = gameObject.GetComponent<TrapProperties>();
     }
 
-    public void onPlaced() {
+    public void OnPlaced() {
         StartCoroutine(DestroyTrap());
     }
 

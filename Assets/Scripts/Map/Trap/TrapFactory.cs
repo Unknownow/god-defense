@@ -48,21 +48,16 @@ public class TrapFactory : MonoBehaviour
     }
 
 
-    public static GameObject SpawnTrap(TrapType trapType, Vector3 position, Transform parent = null)
+    public static GameObject SpawnTrap(TrapType trapType, Vector3 position)
     {
-        Transform _parent = parent;
-        if (parent == null)
-        {
-            _parent = _instance.transform;
-        }
         switch (trapType)
         {
             case TrapType.Booby:
-                return _instance.SpawnBoobyTrap(position, parent);
+                return _instance.SpawnBoobyTrap(position);
             case TrapType.Bomb:
-                return _instance.SpawnBombTrap(position, parent);
+                return _instance.SpawnBombTrap(position);
             case TrapType.Freeze:
-                return _instance.SpawnFreezeTrap(position, parent);
+                return _instance.SpawnFreezeTrap(position);
             default:
                 return null;
         }
@@ -90,51 +85,52 @@ public class TrapFactory : MonoBehaviour
         }
     }
 
-    private GameObject SpawnBoobyTrap(Vector3 position, Transform parent)
+    private GameObject SpawnBoobyTrap(Vector3 position)
     {
         GameObject boobyTrap;
         if (_instance._boobyTrapPool.Count <= 0)
         {
-            boobyTrap = Instantiate(_instance._boobyTrapPrefab, position, Quaternion.identity, parent);
+            boobyTrap = Instantiate(_instance._boobyTrapPrefab, position, Quaternion.identity, _instance.transform);
+            boobyTrap.SetActive(false);
         }
         else
-        {
             boobyTrap = _instance._boobyTrapPool.Dequeue();
-            boobyTrap.SetActive(true);
-        }
+
         boobyTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Booby);
+        boobyTrap.SetActive(true);
         return boobyTrap;
     }
 
-    private GameObject SpawnBombTrap(Vector3 position, Transform parent)
+    private GameObject SpawnBombTrap(Vector3 position)
     {
         GameObject bombTrap;
         if (_instance._bombTrapPool.Count <= 0)
         {
-            bombTrap = Instantiate(_instance._bombTrapPrefab, position, Quaternion.identity, parent);
+            bombTrap = Instantiate(_instance._bombTrapPrefab, position, Quaternion.identity, _instance.transform);
+            bombTrap.SetActive(false);
         }
         else
-        {
+
             bombTrap = _instance._bombTrapPool.Dequeue();
-            bombTrap.SetActive(true);
-        }
+
         bombTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Bomb);
+        bombTrap.SetActive(true);
         return bombTrap;
     }
 
-    private GameObject SpawnFreezeTrap(Vector3 position, Transform parent)
+    private GameObject SpawnFreezeTrap(Vector3 position)
     {
         GameObject freezeTrap;
         if (_instance._freezeTrapPool.Count <= 0)
         {
-            freezeTrap = Instantiate(_instance._freezeTrapPrefab, position, Quaternion.identity, parent);
+            freezeTrap = Instantiate(_instance._freezeTrapPrefab, position, Quaternion.identity, _instance.transform);
+            freezeTrap.SetActive(false);
         }
         else
-        {
             freezeTrap = _instance._freezeTrapPool.Dequeue();
-            freezeTrap.SetActive(true);
-        }
+
         freezeTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Freeze);
+        freezeTrap.SetActive(true);
         return freezeTrap;
     }
 
