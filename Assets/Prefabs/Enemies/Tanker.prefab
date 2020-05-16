@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6677466249696440604}
   - component: {fileID: 2106600651503166147}
   - component: {fileID: 2106600651503166156}
+  - component: {fileID: 114784976652593656}
   - component: {fileID: 2106600651503166157}
   - component: {fileID: 2106600651503166154}
   - component: {fileID: 2106600651503166153}
@@ -54,12 +55,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _size: 3
+  _hitPoints: 100
   _movementSpeed: 0.8
   _angularSpeed: 180
   _acceleration: 20
   _hitDamage: 5
   _attackRate: 2
-  _attackRange: 3
+  _attackRange: 1.2
 --- !u!114 &823857805103030271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,6 +113,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dce7cd26f25434b2b995f5e46415384a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114784976652593656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2106600651503166146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cd84cc7d98649e8b351d6d13a30b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!195 &2106600651503166157
@@ -233,7 +247,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5867233185918720942}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: 0, z: 0}
+  m_LocalPosition: {x: 0.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2106600651503166164}

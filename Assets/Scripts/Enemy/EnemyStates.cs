@@ -6,14 +6,14 @@ using UnityEngine.AI;
 public class EnemyStates : MonoBehaviour
 {
     private NavMeshAgent _enemyAgent;
-    private EnemyMovement _enemyMovement;
+    private IEnemyMovement _enemyMovement;
     private IEnemyAttack _enemyAttack;
 
 
     private void Start()
     {
         _enemyAgent = gameObject.GetComponent<NavMeshAgent>();
-        _enemyMovement = gameObject.GetComponent<EnemyMovement>();
+        _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
         _enemyAttack = gameObject.GetComponent<IEnemyAttack>();
     }
 
@@ -27,5 +27,19 @@ public class EnemyStates : MonoBehaviour
         {
             _enemyAttack.StopAttack();
         }
+    }
+
+    public void OnEnemyDie()
+    {
+        // using gravity and unfreeze rotation, position.
+        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+        enemyBody.useGravity = true;
+        enemyBody.constraints = RigidbodyConstraints.None;
+
+        // uncheck isTrigger on collider.
+        gameObject.GetComponent<Collider>().isTrigger = false;
+        
+        // disable NavMeshAgent
+        _enemyAgent.enabled = false;
     }
 }

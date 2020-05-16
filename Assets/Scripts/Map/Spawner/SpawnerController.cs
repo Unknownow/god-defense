@@ -32,12 +32,10 @@ public class SpawnerController : MonoBehaviour
         switch (type)
         {
             case EnemyType.Runner:
-                enemy = EnemyFactory.SpawnRunner(transform.position, _spawnerProperties.SpawnerDirection, _enemyParent, _spawnerProperties.LaneIndex);
-                enemy.GetComponent<EnemyMovement>().SetDestination(_spawnerProperties.Target);
-                return enemy;
             case EnemyType.Heavier:
-                enemy = EnemyFactory.SpawnHeavier(transform.position, _spawnerProperties.SpawnerDirection, _enemyParent, _spawnerProperties.LaneIndex);
-                enemy.GetComponent<EnemyMovement>().SetDestination(_spawnerProperties.Target);
+            case EnemyType.Tanker:
+                enemy = EnemyFactory.SpawnEnemy(type, transform.position, _spawnerProperties.SpawnerDirection, _spawnerProperties.LaneIndex);
+                enemy.GetComponent<IEnemyMovement>().StartMoving(_spawnerProperties.Target);
                 return enemy;
             default:
                 return null;

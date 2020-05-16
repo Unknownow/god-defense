@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyProperties : MonoBehaviour
 {
-    [Header("Detail")]
+    [Header("Stats")]
+
     [SerializeField]
     [Tooltip("Size of this enemy")]
     private int _size;
@@ -15,6 +17,71 @@ public class EnemyProperties : MonoBehaviour
             return this._size;
         }
     }
+    [SerializeField]
+    [Tooltip("Enemy's Health")]
+    private float _hitPoints;
+    private float _currentHitPoints;
+
+    public float CurrentHitPoints
+    {
+        get
+        {
+            return this._currentHitPoints;
+        }
+    }
+
+    public float MaxHitPoints
+    {
+        get
+        {
+            return this._hitPoints;
+        }
+    }
+
+    public float Heal
+    {
+        set
+        {
+            if (value > 0)
+            {
+                this._currentHitPoints += value;
+                this._currentHitPoints = this._currentHitPoints > _hitPoints ? _hitPoints : this._currentHitPoints;
+            }
+        }
+    }
+
+    public float Hit
+    {
+        set
+        {
+            if (value > 0)
+            {
+                this._currentHitPoints -= value;
+                this._currentHitPoints = this._currentHitPoints < 0 ? 0 : this._currentHitPoints;
+            }
+        }
+    }
+
+    private EnemyType _enemyType;
+    public EnemyType Type
+    {
+        get
+        {
+            return this._enemyType;
+        }
+    }
+
+    // [SerializeField]
+    // [Tooltip("Radius to calculate when enemy steps into trap")]
+    // private float _trapRadius;
+
+    // public float TrapRadius
+    // {
+    //     get
+    //     {
+    //         return this._trapRadius;
+    //     }
+    // }
 
     [Header("Movement")]
 
@@ -61,18 +128,10 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
-    public void Initialize(int laneIndex)
-    {
-        this._laneIndex = laneIndex;
-    }
-
-    public void Initialize(int laneIndex, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
-    {
-        this._laneIndex = laneIndex;
-        _movementSpeed *= movementSpeedMul;
-        _acceleration *= accelerationMul;
-        _angularSpeed *= angularSpeedMul;
-    }
+    // public void Initialize(int laneIndex)
+    // {
+    //     this._laneIndex = laneIndex;
+    // }
 
     [Header("Attack")]
     [SerializeField]
@@ -104,5 +163,45 @@ public class EnemyProperties : MonoBehaviour
         {
             return this._attackRange;
         }
+    }
+
+    [Header("Physics")]
+    [SerializeField]
+    private float _gravityMultiplier;
+
+    public void Initialize(int laneIndex, EnemyType type, Vector3 position, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
+    {
+        // Reset properties:
+        this._enemyType = type;
+        this._laneIndex = laneIndex;
+        transform.position = position;
+        _currentHitPoints = _hitPoints * hitPointMul;
+        _movementSpeed *= movementSpeedMul;
+        _acceleration *= accelerationMul;
+        _angularSpeed *= angularSpeedMul;
+
+
+        // Reset physical components:
+        // freeze gravity, rotation and position
+        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+        enemyBody.useGravity = false;
+        enemyBody.constraints = RigidbodyConstraints.FreezePositionY;
+        enemyBody.constraints = RigidbodyConstraints.FreezeRotationX;
+        enemyBody.constraints = RigidbodyConstraints.FreezeRotationZ;
+
+        // check isTrigger on collider.
+        gameObject.GetComponent<Collider>().isTrigger = true;
+
+        // enable NavMeshAgent
+        NavMeshAgent enemyAgent = gameObject.GetComponent<NavMeshAgent>();
+        enemyAgent.enabled = true;
+        enemyAgent.speed = _movementSpeed;
+        enemyAgent.angularSpeed = _angularSpeed;
+        enemyAgent.acceleration = _acceleration;
+    }
+
+    public void Destroy()
+    {
+        EnemyFactory.DestroyEnemy(_enemyType, this.gameObject);
     }
 }
