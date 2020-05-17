@@ -207,8 +207,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e01f07ab1b09bda41af06093dfdbb1b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!64 &851705804
-MeshCollider:
+--- !u!65 &851705805
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -217,10 +217,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 4, z: 1}
+  m_Center: {x: 0, y: 2, z: 0}
 --- !u!1 &1102248216
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,12 +614,17 @@ PrefabInstance:
     - target: {fileID: 5859701128830923011, guid: 6796f4ab02affca48baf242ba52eb610,
         type: 3}
       propertyPath: m_IsTrigger
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5859701128830923011, guid: 6796f4ab02affca48baf242ba52eb610,
         type: 3}
       propertyPath: m_Radius
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859701128830923013, guid: 6796f4ab02affca48baf242ba52eb610,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5859701128830923015, guid: 6796f4ab02affca48baf242ba52eb610,
         type: 3}

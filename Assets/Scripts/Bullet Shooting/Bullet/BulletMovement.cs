@@ -26,14 +26,15 @@ public class BulletMovement : MonoBehaviour
     }
 
     // Contact voi enemy
-    // private void OnTriggerEnter(Collider other) {
-    //     if(other.transform.CompareTag("Enemy")){
-    //         // _explosionVFX = gameObject.transform.GetChild(1).gameObject;
-    //         // _explosionVFX.SetActive(true);
-    //         BulletFactory.DestroyBullet(gameObject);
-    //         Destroy(gameObject);
-    //     }
-    // }
+    private void OnTriggerEnter(Collider other) {
+        if(other.transform.CompareTag("Enemy")){
+            Debug.Log("Bullet contacts enemy");
+            // _explosionVFX = gameObject.transform.GetChild(1).gameObject;
+            // _explosionVFX.SetActive(true);
+            BulletFactory.DestroyBullet(gameObject);
+            Destroy(gameObject);
+        }
+    }
 
     private void OnCollisionEnter(Collision other) {
             if(other.transform.CompareTag("Enemy")){

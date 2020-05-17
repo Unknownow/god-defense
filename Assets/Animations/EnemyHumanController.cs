@@ -25,19 +25,19 @@ public class EnemyHumanController : MonoBehaviour
         // }
     }
 
-    // private void OnTriggerEnter(Collider other) {
-    //     if (other.transform.CompareTag("Bullet"))
-    //     {
-    //         Debug.Log("Getting hit");
-    //         animator.SetBool("runFlag", true);
-    //     }
-    // }
-
-    private void OnCollisionEnter(Collision other) {
+    private void OnTriggerEnter(Collider other) {
         if (other.transform.CompareTag("Bullet"))
         {
             Debug.Log("Getting hit");
             animator.SetBool("runFlag", true);
-        }  
+        }
     }
+
+    // private void OnCollisionEnter(Collision other) {
+    //     if (other.transform.CompareTag("Bullet"))
+    //     {
+    //         Debug.Log("Getting hit");
+    //         animator.SetBool("runFlag", true);
+    //     }  
+    // }
 }
