@@ -2,36 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombTrapController : TrapController
+public class BombTrapExplosion : MonoBehaviour
 {
     [SerializeField]
     private LayerMask _enemyLayermask;
-    private BombTrapProperties TrapProperties
-    {
-        get
-        {
-            return (BombTrapProperties)_trapProperties;
-        }
-    }
-
+    private BombTrapProperties _trapProperties;
     private bool _isDetonated;
 
-    protected override void Awake()
+    private void Awake()
     {
         _trapProperties = gameObject.GetComponent<BombTrapProperties>();
         Initialize();
     }
-    protected override void OnEnable()
+    private void OnEnable()
     {
         Initialize();
     }
 
-    public override void OnPlaced()
+    private void OnPlaced()
     {
         Initialize();
     }
-
-
 
     public void DetonateBomb()
     {
@@ -43,7 +34,7 @@ public class BombTrapController : TrapController
         StartCoroutine(DestroyTrap(_trapProperties.Duration));
     }
 
-    protected override IEnumerator DestroyTrap(float seconds)
+    private IEnumerator DestroyTrap(float seconds)
     {
         yield return new WaitForSeconds(seconds);
         _trapProperties.Destroy();
@@ -51,17 +42,17 @@ public class BombTrapController : TrapController
 
     private IEnumerator WaitBeforeDetonation()
     {
-        yield return new WaitForSeconds(TrapProperties.TimeBeforeDetonation);
-        Collider[] enemies = Physics.OverlapSphere(TrapProperties.ExplosionCenterPosition, TrapProperties.ExplosionRadius, _enemyLayermask);
+        yield return new WaitForSeconds(_trapProperties.TimeBeforeDetonation);
+        Collider[] enemies = Physics.OverlapSphere(_trapProperties.ExplosionCenterPosition, _trapProperties.ExplosionRadius, _enemyLayermask);
         foreach (Collider enemy in enemies)
         {
-            bool isDead = enemy.transform.GetComponent<EnemyTrapInteraction>().StepOnBombTrap(TrapProperties.HitDamage);
+            bool isDead = enemy.transform.GetComponent<EnemyTrapInteraction>().StepOnBombTrap(_trapProperties.HitDamage);
             if (isDead)
-                enemy.transform.GetComponent<EnemyPhysics>().AddExplosionForce(TrapProperties.ForceMagnitude, TrapProperties.ExplosionCenterPosition, TrapProperties.ExplosionRadius);
+                enemy.transform.GetComponent<EnemyPhysics>().AddExplosionForce(_trapProperties.ForceMagnitude, _trapProperties.ExplosionCenterPosition, _trapProperties.ExplosionRadius);
         }
     }
 
-    protected override void Initialize()
+    private void Initialize()
     {
         _isDetonated = false;
     }

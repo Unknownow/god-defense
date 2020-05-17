@@ -26,23 +26,23 @@ public class EnemyCollision : MonoBehaviour
     }
     private void OnTriggerStay(Collider other)
     {
-        if (other.transform.CompareTag("Booby Trap"))
-        {
-            ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
-            BoobyTrapProperties boobyTrap = other.transform.GetComponent<BoobyTrapProperties>();
-            _boobyTrapList.Add(boobyTrap);
-            float hitDamage = 0;
-            float timeInterval = 0;
-            foreach (BoobyTrapProperties trap in _boobyTrapList)
-            {
-                if (trap.HitDamage > hitDamage)
-                {
-                    hitDamage = trap.HitDamage;
-                    timeInterval = trap.TimeInterval;
-                }
-            }
-            _enemyTrapInteraction.StepOnBoobyTrap(hitDamage, timeInterval);
-        }
+        // if (other.transform.CompareTag("Booby Trap"))
+        // {
+        //     ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
+        //     BoobyTrapProperties boobyTrap = other.transform.GetComponent<BoobyTrapProperties>();
+        //     _boobyTrapList.Add(boobyTrap);
+        //     float hitDamage = 0;
+        //     float timeInterval = 0;
+        //     foreach (BoobyTrapProperties trap in _boobyTrapList)
+        //     {
+        //         if (trap.HitDamage > hitDamage)
+        //         {
+        //             hitDamage = trap.HitDamage;
+        //             timeInterval = trap.TimeInterval;
+        //         }
+        //     }
+        //     _enemyTrapInteraction.StepOnBoobyTrap(hitDamage, timeInterval);
+        // }
         if (other.transform.CompareTag("Freezing Trap"))
         {
             ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);

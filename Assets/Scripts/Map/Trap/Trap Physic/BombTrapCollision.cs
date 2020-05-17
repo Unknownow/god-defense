@@ -11,17 +11,12 @@ public class BombTrapCollision : TrapCollision
             return (BombTrapProperties)_trapProperties;
         }
     }
-    private BombTrapController TrapController
-    {
-        get
-        {
-            return (BombTrapController)_trapController;
-        }
-    }
+    private BombTrapExplosion _bombTrapExposion;
 
     protected override void Awake()
     {
         base.Awake();
+        Debug.Log(_trapProperties.GetType()); 
     }
 
     protected override void OnTriggerEnter(Collider other)
@@ -29,7 +24,7 @@ public class BombTrapCollision : TrapCollision
         base.OnTriggerEnter(other);
         if (other.transform.CompareTag("Enemy"))
         {
-            TrapController.DetonateBomb();
+            _bombTrapExposion.DetonateBomb();
         }
     }
 }

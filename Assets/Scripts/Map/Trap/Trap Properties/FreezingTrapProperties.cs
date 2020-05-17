@@ -28,7 +28,7 @@ public class FreezingTrapProperties : TrapProperties
             }
             else
             {
-                _currentSlowPercentage = SlowPercentage;
+                _currentSlowPercentage = _slowPercentage;
                 StopAllCoroutines();
             }
         }

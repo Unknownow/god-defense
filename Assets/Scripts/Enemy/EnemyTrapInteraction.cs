@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class EnemyTrapInteraction : MonoBehaviour
 {
+    private struct BoobyTrapStat
+    {
+        public float hitDamage;
+        public float timeInterval;
+    }
     private EnemyProperties _enemyProperties;
     private IEnemyMovement _enemyMovement;
     private EnemyPhysics _enemyPhysic;
     private IEnumerator _boobyTrapCoroutine;
     private int _isOnBoobyTrap;
+    private Dictionary<GameObject, float> _freezeTrapList;
+    private Dictionary<GameObject, BoobyTrapStat> _boobyTrapList;
 
     private void Start()
     {
@@ -23,10 +30,37 @@ public class EnemyTrapInteraction : MonoBehaviour
     /// </summary>
     /// <param name="damage">Damage of the trap</param>
     /// <param name="timeInterval">Time between each hit</param>
-    public void StepOnBoobyTrap(float damage, float timeInterval)
+    public void StepOnBoobyTrap(GameObject boobyTrap, float hitDamage, float timeInterval)
     {
+        BoobyTrapStat trapStat = new BoobyTrapStat();
+        if (!_boobyTrapList.ContainsKey(boobyTrap))
+        {
+            if (hitDamage > _boobyTrapList[boobyTrap].hitDamage)
+            {
+                trapStat.hitDamage = hitDamage;
+                trapStat.timeInterval = timeInterval;
+                _boobyTrapList[boobyTrap] = trapStat;
+            }
+        }
+        else
+        {
+            trapStat.hitDamage = hitDamage;
+            trapStat.timeInterval = timeInterval;
+            _boobyTrapList.Add(boobyTrap, trapStat);
+        }
+
+        float maxHitDamage = 0;
+        float maxtimeInterval = 0;
+        foreach (GameObject trap in _boobyTrapList.Keys)
+        {
+            if (_boobyTrapList[trap].hitDamage > maxHitDamage)
+            {
+                maxHitDamage = _boobyTrapList[trap].hitDamage;
+                maxtimeInterval = _boobyTrapList[trap].timeInterval;
+            }
+        }
         StopCoroutine(_boobyTrapCoroutine);
-        _boobyTrapCoroutine = BoobyTrapHitCoroutine(damage, timeInterval);
+        _boobyTrapCoroutine = BoobyTrapHitCoroutine(maxHitDamage, maxtimeInterval);
         StartCoroutine(_boobyTrapCoroutine);
     }
 
@@ -51,9 +85,10 @@ public class EnemyTrapInteraction : MonoBehaviour
     /// <summary>
     /// Call when step out of booby trap
     /// </summary>
-    public void StepOutBoobyTrap()
+    public void StepOutBoobyTrap(GameObject boobyTrap)
     {
         StopCoroutine(_boobyTrapCoroutine);
+        _boobyTrapList.Remove(boobyTrap);
     }
 
     /// <summary>
