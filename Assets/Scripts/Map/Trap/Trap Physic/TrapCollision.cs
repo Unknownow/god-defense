@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrapCollision : MonoBehaviour
+public abstract class TrapCollision : MonoBehaviour
 {
     protected TrapProperties _trapProperties;
     protected TrapController _trapController;
@@ -19,5 +19,9 @@ public class TrapCollision : MonoBehaviour
         {
             _trapProperties.BuffTrap = true;
         }
+    }
+
+    protected virtual void OnTriggerExit(Collider other)
+    {
     }
 }
