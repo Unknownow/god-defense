@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreezingTrapProperties : TrapProperties
+public class FreezeTrapProperties : TrapProperties
 {
     [Header("Freezing Trap")]
     [SerializeField]
     private float _slowPercentage;
-    [SerializeField]
+    [SerializeField] 
     private float _buffedSlowPercentage;
     private float _currentSlowPercentage;
     public float SlowPercentage

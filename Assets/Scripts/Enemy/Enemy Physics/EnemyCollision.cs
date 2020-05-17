@@ -5,24 +5,18 @@ using UnityEngine;
 public class EnemyCollision : MonoBehaviour
 {
     private EnemyProperties _enemyProperties;
-    private EnemyTrapInteraction _enemyTrapInteraction;
-    public List<FreezingTrapProperties> _freezeTrapList;
-    public List<BoobyTrapProperties> _boobyTrapList;
 
     private void Awake()
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
-        _enemyTrapInteraction = gameObject.GetComponent<EnemyTrapInteraction>();
-        _freezeTrapList = new List<FreezingTrapProperties>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        // if (other.transform.CompareTag("Bomb Trap"))
-        // {
-        //     BombTrapProperties bombTrap = other.transform.GetComponent<BombTrapProperties>();
-        //     _enemyTrapInteraction.StepOnBombTrap(bombTrap.HitDamage);
-        // }
+        if (other.transform.CompareTag("Bomb Trap"))
+        {
+            other.transform.GetComponent<BombTrapExplosion>().DetonateBomb();
+        }
     }
     private void OnTriggerStay(Collider other)
     {
@@ -43,36 +37,36 @@ public class EnemyCollision : MonoBehaviour
         //     }
         //     _enemyTrapInteraction.StepOnBoobyTrap(hitDamage, timeInterval);
         // }
-        if (other.transform.CompareTag("Freezing Trap"))
-        {
-            ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
-            FreezingTrapProperties freezeTrap = other.transform.GetComponent<FreezingTrapProperties>();
-            _freezeTrapList.Add(freezeTrap);
-            float slowPercentage = 0;
-            foreach (FreezingTrapProperties trap in _freezeTrapList)
-            {
-                if (trap.SlowPercentage > slowPercentage)
-                    slowPercentage = trap.SlowPercentage;
-            }
-            _enemyTrapInteraction.StepOnFreezeTrap(slowPercentage);
-        }
+        // if (other.transform.CompareTag("Freezing Trap"))
+        // {
+        //     ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
+        //     FreezingTrapProperties freezeTrap = other.transform.GetComponent<FreezingTrapProperties>();
+        //     _freezeTrapList.Add(freezeTrap);
+        //     float slowPercentage = 0;
+        //     foreach (FreezingTrapProperties trap in _freezeTrapList)
+        //     {
+        //         if (trap.SlowPercentage > slowPercentage)
+        //             slowPercentage = trap.SlowPercentage;
+        //     }
+        //     _enemyTrapInteraction.StepOnFreezeTrap(slowPercentage);
+        // }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.transform.CompareTag("Booby Trap"))
-        {
-            ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
-            _boobyTrapList.Remove(other.transform.GetComponent<BoobyTrapProperties>());
-            if (_boobyTrapList.Count <= 0)
-                _enemyTrapInteraction.StepOutBoobyTrap();
-        }
-        if (other.transform.CompareTag("Freezing Trap"))
-        {
-            ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
-            _freezeTrapList.Remove(other.transform.GetComponent<FreezingTrapProperties>());
-            if (_freezeTrapList.Count <= 0)
-                _enemyTrapInteraction.StepOutFreezeTrap();
-        }
+        // if (other.transform.CompareTag("Booby Trap"))
+        // {
+        //     ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
+        //     _boobyTrapList.Remove(other.transform.GetComponent<BoobyTrapProperties>());
+        //     if (_boobyTrapList.Count <= 0)
+        //         _enemyTrapInteraction.StepOutBoobyTrap();
+        // }
+        // if (other.transform.CompareTag("Freezing Trap"))
+        // {
+        //     ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
+        //     _freezeTrapList.Remove(other.transform.GetComponent<FreezingTrapProperties>());
+        //     if (_freezeTrapList.Count <= 0)
+        //         _enemyTrapInteraction.StepOutFreezeTrap();
+        // }
     }
 }

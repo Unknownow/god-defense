@@ -16,15 +16,10 @@ public class BombTrapCollision : TrapCollision
     protected override void Awake()
     {
         base.Awake();
-        Debug.Log(_trapProperties.GetType()); 
     }
 
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
-        if (other.transform.CompareTag("Enemy"))
-        {
-            _bombTrapExposion.DetonateBomb();
-        }
     }
 }
