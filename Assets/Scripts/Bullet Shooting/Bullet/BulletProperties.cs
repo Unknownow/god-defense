@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class BulletProperties : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [Header("Details")]
+    [SerializeField]
+    [Tooltip("Size of the bullet")]
+    private int _size;
+    public int Size
     {
-        
+        get
+        {
+            return this._size;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    
+    [SerializeField]
+    [Tooltip("The movement speed of the bullet")]
+    private float _movementSpeed;
+    public float MovementSpeed
     {
-        
+        get
+        {
+            return this._movementSpeed;
+        }
     }
 }

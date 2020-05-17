@@ -18,10 +18,26 @@ public class EnemyHumanController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey (KeyCode.G)) {
+        // if (Input.GetKeyDown(KeyCode.Mouse0)) {
+        //     animator.SetBool("runFlag", true);
+        // } else if (Input.GetKeyDown(KeyCode.Mouse1)) {
+        //     animator.SetBool("runFlag", false);
+        // }
+    }
+
+    // private void OnTriggerEnter(Collider other) {
+    //     if (other.transform.CompareTag("Bullet"))
+    //     {
+    //         Debug.Log("Getting hit");
+    //         animator.SetBool("runFlag", true);
+    //     }
+    // }
+
+    private void OnCollisionEnter(Collision other) {
+        if (other.transform.CompareTag("Bullet"))
+        {
+            Debug.Log("Getting hit");
             animator.SetBool("runFlag", true);
-        } else if (Input.GetKey (KeyCode.H)) {
-            animator.SetBool("runFlag", false);
-        }
+        }  
     }
 }

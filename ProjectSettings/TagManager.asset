@@ -8,6 +8,12 @@ TagManager:
   - Decoration
   - Demon Spawner
   - Wall
+  - Explosion Container
+  - Bullet Container
+  - Bullet
+  - Bullet Effect
+  - Explosion
+  - Enemy
   layers:
   - Default
   - TransparentFX
