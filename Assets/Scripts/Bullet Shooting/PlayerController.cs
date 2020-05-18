@@ -24,12 +24,9 @@ public class PlayerController : MonoBehaviour
     public void SpawnBullet()
     {
         GameObject bullet;
-        bullet = BulletFactory.SpawnBullet(transform.position, gameObject.transform.forward, _playerParent);
+        bullet = BulletFactory.SpawnBullet(transform.position, transform.forward, _playerParent);
         BulletMovement _bulletMovement = bullet.GetComponent<BulletMovement>();
 
         _bulletMovement.ForwardShoot();
-
-        // Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        // rb.velocity = transform.forward * 10;
     }
 }
