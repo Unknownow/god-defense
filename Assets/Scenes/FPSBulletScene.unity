@@ -536,7 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _name: John
-  _playerDirection: 0
+  _playerDirection: 1
 --- !u!114 &1414306328
 MonoBehaviour:
   m_ObjectHideFlags: 0
