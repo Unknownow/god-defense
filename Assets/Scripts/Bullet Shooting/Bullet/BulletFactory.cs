@@ -30,14 +30,16 @@ public class BulletFactory : MonoBehaviour
         else 
         {
             bullet = instance._bulletPool.Dequeue();
+            bullet.transform.position = position;
             bullet.SetActive(true);
         }
-        //bullet.transform.forward = direction;
+        bullet.transform.forward = direction;
         return bullet;
     }
 
     public static void DestroyBullet(GameObject bullet)
     {
+        Debug.Log("Bullet destroyed by enqueue");
         bullet.SetActive(false);
         instance._bulletPool.Enqueue(bullet);
     }

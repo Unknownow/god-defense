@@ -27,10 +27,9 @@ public class PlayerController : MonoBehaviour
         bullet = BulletFactory.SpawnBullet(transform.position, _playerProperties.PlayerDirection, _playerParent);
         BulletMovement _bulletMovement = bullet.GetComponent<BulletMovement>();
 
+        _bulletMovement.ForwardShoot();
 
-        //_bulletMovement.ForwardShoot();
-
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.velocity = transform.forward * 10;
+        // Rigidbody rb = bullet.GetComponent<Rigidbody>();
+        // rb.velocity = transform.forward * 10;
     }
 }

@@ -93,7 +93,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5859701128830923012
 MonoBehaviour:
@@ -109,6 +109,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _size: 3
   _movementSpeed: 10
+  _lifeTime: 0
 --- !u!54 &5859701128830923013
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -26,4 +26,15 @@ public class BulletProperties : MonoBehaviour
             return this._movementSpeed;
         }
     }
+
+    [SerializeField]
+    [Tooltip("Bullet lifetime")]
+    private float _lifeTime;
+    public float LifeTime
+    {
+        get
+        {
+            return this._lifeTime;
+        }
+    }
 }
