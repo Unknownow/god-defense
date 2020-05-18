@@ -7,16 +7,16 @@ public class EnemyProperties : MonoBehaviour
 {
     [Header("Stats")]
 
-    [SerializeField]
-    [Tooltip("Size of this enemy")]
-    private int _size;
-    public int Size
-    {
-        get
-        {
-            return this._size;
-        }
-    }
+    // [SerializeField]
+    // [Tooltip("Size of this enemy")]
+    // private int _size;
+    // public int Size
+    // {
+    //     get
+    //     {
+    //         return this._size;
+    //     }
+    // }
     [SerializeField]
     [Tooltip("Enemy's Health")]
     private float _hitPoints;

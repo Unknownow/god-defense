@@ -5,11 +5,11 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
-    public EnemyProperties _enemyProperties;
-    public NavMeshAgent _enemyAgent;
+    private EnemyProperties _enemyProperties;
+    private NavMeshAgent _enemyAgent;
     // protected NavMeshObstacle _enemyObstacle;
-    public Transform _currentTarget;
-    public float _currentAvoidanceRadius;
+    private Transform _currentTarget;
+    private float _currentAvoidanceRadius;
 
     protected void Awake()
     {
@@ -33,7 +33,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
         }
         else if (_currentTarget.CompareTag("Finish Line"))
         {
-            if (distanceToTarget <= _enemyProperties.AttackRange + Random.Range(0, 0.05f))
+            if (distanceToTarget <= _enemyProperties.AttackRange - Random.Range(0, 0.05f))
                 StopMoving();
         }
     }
