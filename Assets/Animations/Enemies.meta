@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Scripts/Map/Trap/Trap Specific Behaviour.meta
-guid: 48bbfbf4224ec4740a76b5c756dc96b2
-=======
 guid: 84f6bf4836970ea48a012fcaa3e00f46
->>>>>>> feature/bullet_shooting:Assets/Animations/Enemies.meta
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
