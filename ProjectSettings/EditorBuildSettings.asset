@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TestMap_Touch.unity
-    guid: 1e96b647cef59e747b71d0f590ebaea1
+    path: Assets/Scenes/Map_Vinh.unity
+    guid: ff0daa72cfe5ae44c93edc5f8dca4817
   m_configObjects: {}
