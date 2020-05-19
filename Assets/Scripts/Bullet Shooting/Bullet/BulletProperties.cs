@@ -4,18 +4,6 @@ using UnityEngine;
 
 public class BulletProperties : MonoBehaviour
 {
-    [Header("Details")]
-    [SerializeField]
-    [Tooltip("Size of the bullet")]
-    private int _size;
-    public int Size
-    {
-        get
-        {
-            return this._size;
-        }
-    }
-    
     [SerializeField]
     [Tooltip("The movement speed of the bullet")]
     private float _movementSpeed;
