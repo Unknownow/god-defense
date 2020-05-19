@@ -7,16 +7,16 @@ public class EnemyProperties : MonoBehaviour
 {
     [Header("Stats")]
 
-    [SerializeField]
-    [Tooltip("Size of this enemy")]
-    private int _size;
-    public int Size
-    {
-        get
-        {
-            return this._size;
-        }
-    }
+    // [SerializeField]
+    // [Tooltip("Size of this enemy")]
+    // private int _size;
+    // public int Size
+    // {
+    //     get
+    //     {
+    //         return this._size;
+    //     }
+    // }
     [SerializeField]
     [Tooltip("Enemy's Health")]
     private float _hitPoints;
@@ -222,6 +222,20 @@ public class EnemyProperties : MonoBehaviour
 
         // Set is alive is true
         _isAlive = true;
+    }
+
+    public void Die()
+    {
+        // disable NavMeshAgent
+        gameObject.GetComponent<NavMeshAgent>().enabled = false;
+
+        // using gravity and unfreeze rotation, position.
+        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+        enemyBody.useGravity = true;
+        enemyBody.constraints = RigidbodyConstraints.None;
+
+        // uncheck isTrigger on collider.
+        gameObject.GetComponent<Collider>().isTrigger = false;
     }
 
     public void Destroy()

@@ -5,22 +5,35 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
-    public EnemyProperties _enemyProperties;
-    public NavMeshAgent _enemyAgent;
+    private EnemyProperties _enemyProperties;
+    private NavMeshAgent _enemyAgent;
     // protected NavMeshObstacle _enemyObstacle;
     public Transform _currentTarget;
-    public float _currentAvoidanceRadius;
+    private float _currentAvoidanceRadius;
+    private bool _isAtFinishLine;
+    public bool IsAtFinishLine
+    {
+        get
+        {
+            return this._isAtFinishLine;
+        }
+        set
+        {
+            _isAtFinishLine = value;
+        }
+    }
 
     protected void Awake()
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _enemyAgent = gameObject.GetComponent<NavMeshAgent>();
         _currentAvoidanceRadius = _enemyAgent.radius;
+        _isAtFinishLine = false;
     }
 
     private void Update()
     {
-        if (!_enemyProperties.IsAlive)
+        if (!_enemyProperties.IsAlive || _isAtFinishLine)
             return;
         float distanceToTarget = Utils.DistanceInXZ(transform.position, _currentTarget.position);
         if (_currentTarget.CompareTag("Waypoint"))
@@ -33,20 +46,17 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
         }
         else if (_currentTarget.CompareTag("Finish Line"))
         {
-            if (distanceToTarget <= _enemyProperties.AttackRange + Random.Range(0, 0.05f))
+            if (distanceToTarget <= _enemyProperties.AttackRange - Random.Range(0, 0.05f))
+            {
+                _isAtFinishLine = true;
                 StopMoving();
+            }
         }
-    }
-
-    public void SetDestination(Vector3 target)
-    {
-        _enemyAgent.SetDestination(target);
-        // _enemyObstacle.enabled = false;
-        _enemyAgent.enabled = true;
     }
 
     public void StartMoving(Transform target)
     {
+        IsAtFinishLine = false;
         _enemyAgent.radius = _currentAvoidanceRadius;
         _currentTarget = target;
         _enemyAgent.SetDestination(target.position);
@@ -73,7 +83,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
         _enemyAgent.angularSpeed = _enemyProperties.AngularSpeed;
         _enemyAgent.acceleration = _enemyProperties.Acceleration;
     }
-
 
     protected void OnDrawGizmos()
     {

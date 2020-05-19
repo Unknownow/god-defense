@@ -5,8 +5,6 @@ using UnityEngine;
 public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 {
     [SerializeField]
-    private Transform _weapon;
-    [SerializeField]
     private LayerMask _attackableLayer;
     [SerializeField]
     private EnemyProperties _enemyProperties;
@@ -69,7 +67,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 
     private void Attack()
     {
-        int countTarget = Physics.OverlapSphereNonAlloc(_weapon.position, _enemyProperties.AttackRange / 2f, _attackTarget, _attackableLayer);
+        int countTarget = Physics.OverlapSphereNonAlloc(transform.forward * _enemyProperties.AttackRange / 2 + transform.position, _enemyProperties.AttackRange / 2f, _attackTarget, _attackableLayer);
         if (countTarget > 0)
         {
             if (_attackTarget[0].transform.CompareTag("Tower"))
@@ -82,6 +80,6 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(_weapon.position, _enemyProperties.AttackRange / 2f);
+        Gizmos.DrawWireSphere(transform.forward * _enemyProperties.AttackRange / 2 + transform.position, _enemyProperties.AttackRange / 2f);
     }
 }

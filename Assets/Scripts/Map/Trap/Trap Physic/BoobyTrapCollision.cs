@@ -17,13 +17,24 @@ public class BoobyTrapCollision : TrapCollision
         base.Awake();
     }
 
+    protected override void OnDisable()
+    {
+        foreach (EnemyTrapInteraction enemy in _affectedEnemies)
+            enemy.StepOutBoobyTrap(gameObject);
+        _affectedEnemies.RemoveAll((enemy) =>
+        {
+            return true;
+        });
+    }
+
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
         if (other.transform.CompareTag("Enemy"))
         {
-            ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
-            other.gameObject.GetComponent<EnemyTrapInteraction>().StepOnBoobyTrap(gameObject, TrapProperties.HitDamage, TrapProperties.TimeInterval);
+            EnemyTrapInteraction enemy = other.gameObject.GetComponent<EnemyTrapInteraction>();
+            enemy.StepOnBoobyTrap(gameObject, TrapProperties.HitDamage, TrapProperties.TimeInterval);
+            _affectedEnemies.Add(enemy);
         }
 
     }
@@ -32,8 +43,10 @@ public class BoobyTrapCollision : TrapCollision
     {
         if (other.transform.CompareTag("Enemy"))
         {
-            ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
-            other.gameObject.GetComponent<EnemyTrapInteraction>().StepOutBoobyTrap(gameObject);
+            EnemyTrapInteraction enemy = other.gameObject.GetComponent<EnemyTrapInteraction>();
+            enemy.StepOutBoobyTrap(gameObject);
+            _affectedEnemies.Remove(enemy);
         }
+
     }
 }

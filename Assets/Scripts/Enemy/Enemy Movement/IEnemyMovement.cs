@@ -8,4 +8,5 @@ public interface IEnemyMovement
     void StopMoving();
     void SlowDown(float slowPercentage);
     void BackToNormalSpeed();
+    bool IsAtFinishLine { get; }
 }

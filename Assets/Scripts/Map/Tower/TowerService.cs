@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class TowerService : MonoBehaviour
@@ -13,22 +14,18 @@ public class TowerService : MonoBehaviour
 
     public float Hit(float damage)
     {
-        if (damage < 0)
-            return -1;
         _towerProperties.Hit = damage;
-        return _towerProperties.HitPoints;
+        return _towerProperties.CurrentHitPoints;
     }
 
     public float Heal(float healingAmount)
     {
-        if (healingAmount < 0)
-            return -1;
         _towerProperties.Heal = healingAmount;
-        return _towerProperties.HitPoints;
+        return _towerProperties.CurrentHitPoints;
     }
 
     public float GetHitPoint()
     {
-        return _towerProperties.HitPoints;
+        return _towerProperties.CurrentHitPoints;
     }
 }

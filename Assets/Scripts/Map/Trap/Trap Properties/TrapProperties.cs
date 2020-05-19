@@ -45,10 +45,6 @@ public abstract class TrapProperties : MonoBehaviour
     public virtual bool BuffTrap { get; set; }
 
     public abstract void Initialize(Vector3 position, TrapType trapType);
-    // {
-    //     this._trapType = trapType;
-    //     transform.position = position;
-    // }
 
     public void Destroy()
     {
@@ -61,7 +57,7 @@ public abstract class TrapProperties : MonoBehaviour
         BuffTrap = false;
     }
 
-    protected void Start()
+    protected void Awake()
     {
         BuffTrap = false;
     }

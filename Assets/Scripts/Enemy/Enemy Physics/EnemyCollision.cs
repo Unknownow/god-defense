@@ -17,6 +17,10 @@ public class EnemyCollision : MonoBehaviour
         {
             other.transform.GetComponent<BombTrapExplosion>().DetonateBomb();
         }
+        if (other.transform.CompareTag("Bullet"))
+        {
+            //TODO: add enemy damaged by bullet.
+        }
     }
     private void OnTriggerStay(Collider other)
     {

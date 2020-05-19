@@ -6,11 +6,12 @@ public class TowerProperties : MonoBehaviour
 {
     [SerializeField]
     private float _hitPoints;
-    public float HitPoints
+    private float _currentHitPoints;
+    public float CurrentHitPoints
     {
         get
         {
-            return this._hitPoints;
+            return this._currentHitPoints;
         }
     }
     public float Hit
@@ -19,8 +20,8 @@ public class TowerProperties : MonoBehaviour
         {
             if (value > 0)
             {
-                this._hitPoints -= value;
-                this._hitPoints = this._hitPoints < 0 ? 0 : this._hitPoints;
+                _currentHitPoints -= value;
+                _currentHitPoints = _currentHitPoints < 0 ? 0 : _currentHitPoints;
             }
         }
     }
@@ -30,7 +31,10 @@ public class TowerProperties : MonoBehaviour
         set
         {
             if (value > 0)
-                this._hitPoints += value;
+            {
+                _currentHitPoints += value;
+                _currentHitPoints = _currentHitPoints < _hitPoints ? _currentHitPoints : _hitPoints;
+            }
         }
     }
 }
