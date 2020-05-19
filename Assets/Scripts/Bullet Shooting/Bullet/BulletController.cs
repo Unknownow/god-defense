@@ -24,7 +24,7 @@ public class BulletController : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         if(other.transform.CompareTag("Enemy")){
-
+            gameObject.GetComponent<SphereCollider>().enabled = false;
             _bulletEffect.SetActive(false);
             _explosionVFX.SetActive(true);
             _explosionVFX.GetComponent<ParticleSystem>().Play();
@@ -39,6 +39,7 @@ public class BulletController : MonoBehaviour
         _explosionVFX.GetComponent<ParticleSystem>().Stop();
         _explosionVFX.SetActive(false);
         _bulletEffect.SetActive(true);
+        gameObject.GetComponent<SphereCollider>().enabled = true;
     }
 
     protected virtual IEnumerator DestroyBulletOutRange(float seconds)
