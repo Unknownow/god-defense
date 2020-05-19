@@ -39,7 +39,6 @@ public class BulletFactory : MonoBehaviour
 
     public static void DestroyBullet(GameObject bullet)
     {
-        Debug.Log("Bullet destroyed by enqueue");
         bullet.SetActive(false);
         instance._bulletPool.Enqueue(bullet);
     }

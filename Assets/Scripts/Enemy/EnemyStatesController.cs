@@ -23,18 +23,4 @@ public class EnemyStatesController : MonoBehaviour
         else
             _enemyAttack.StopAttack();
     }
-
-    public void OnEnemyDie()
-    {
-
-        _enemyProperties.Die();
-        // start countdown destroy enemy
-        StartCoroutine(DestroyEnemy(_enemyProperties.TimeBeforeDestroy));
-    }
-
-    IEnumerator DestroyEnemy(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        _enemyProperties.Destroy();
-    }
 }

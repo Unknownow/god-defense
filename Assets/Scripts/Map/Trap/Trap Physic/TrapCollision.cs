@@ -24,6 +24,7 @@ public abstract class TrapCollision : MonoBehaviour
         if (other.transform.CompareTag("Bullet"))
         {
             _trapProperties.BuffTrap = true;
+            Debug.Log("BUFFED");
         }
     }
 

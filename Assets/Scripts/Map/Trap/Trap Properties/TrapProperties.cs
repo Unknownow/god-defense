@@ -42,9 +42,21 @@ public abstract class TrapProperties : MonoBehaviour
         }
     }
 
-    public virtual bool BuffTrap { get; set; }
+    public abstract bool BuffTrap { get; set; }
 
-    public abstract void Initialize(Vector3 position, TrapType trapType);
+    protected void Awake()
+    {
+        BuffTrap = false;
+    }
+
+    public virtual void Initialize(Vector3 position, TrapType trapType)
+    {
+        this._trapType = trapType;
+        transform.position = position;
+        BuffTrap = false;
+        StopAllCoroutines();
+        StartCoroutine(DestroyTrapCoroutine());
+    }
 
     public void Destroy()
     {
@@ -57,8 +69,9 @@ public abstract class TrapProperties : MonoBehaviour
         BuffTrap = false;
     }
 
-    protected void Awake()
+    protected virtual IEnumerator DestroyTrapCoroutine()
     {
-        BuffTrap = false;
+        yield return new WaitForSeconds(_duration);
+        TrapFactory.DestroyTrap(_trapType, this.gameObject);
     }
 }

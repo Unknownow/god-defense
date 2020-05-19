@@ -7,7 +7,7 @@ public class FreezeTrapProperties : TrapProperties
     [Header("Freezing Trap")]
     [SerializeField]
     private float _slowPercentage;
-    [SerializeField] 
+    [SerializeField]
     private float _buffedSlowPercentage;
     private float _currentSlowPercentage;
     public float SlowPercentage
@@ -17,6 +17,7 @@ public class FreezeTrapProperties : TrapProperties
             return this._currentSlowPercentage;
         }
     }
+
     public override bool BuffTrap
     {
         set
@@ -32,12 +33,18 @@ public class FreezeTrapProperties : TrapProperties
                 StopAllCoroutines();
             }
         }
+        get
+        {
+            if (_currentSlowPercentage == _slowPercentage)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
     public override void Initialize(Vector3 position, TrapType trapType = TrapType.Freeze)
     {
-        this._trapType = trapType;
-        transform.position = position;
-        BuffTrap = false;
+        base.Initialize(position, TrapType.Freeze);
     }
 }

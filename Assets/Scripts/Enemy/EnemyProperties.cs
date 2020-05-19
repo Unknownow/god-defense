@@ -60,7 +60,7 @@ public class EnemyProperties : MonoBehaviour
                 this._currentHitPoints = this._currentHitPoints < 0 ? 0 : this._currentHitPoints;
             }
             if (_currentHitPoints <= 0)
-                _isAlive = false;
+                Die();
         }
     }
 
@@ -72,18 +72,6 @@ public class EnemyProperties : MonoBehaviour
             return this._enemyType;
         }
     }
-
-    // [SerializeField]
-    // [Tooltip("Radius to calculate when enemy steps into trap")]
-    // private float _trapRadius;
-
-    // public float TrapRadius
-    // {
-    //     get
-    //     {
-    //         return this._trapRadius;
-    //     }
-    // }
 
     [Header("Movement")]
 
@@ -129,11 +117,6 @@ public class EnemyProperties : MonoBehaviour
             this._laneIndex = value;
         }
     }
-
-    // public void Initialize(int laneIndex)
-    // {
-    //     this._laneIndex = laneIndex;
-    // }
 
     [Header("Attack")]
     [SerializeField]
@@ -198,6 +181,7 @@ public class EnemyProperties : MonoBehaviour
         _movementSpeed *= movementSpeedMul;
         _acceleration *= accelerationMul;
         _angularSpeed *= angularSpeedMul;
+        StopAllCoroutines();
 
 
         // Reset physical components:
@@ -224,8 +208,11 @@ public class EnemyProperties : MonoBehaviour
         _isAlive = true;
     }
 
-    public void Die()
+    private void Die()
     {
+        // set is alive is false
+        _isAlive = false;
+
         // disable NavMeshAgent
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
 
@@ -236,10 +223,13 @@ public class EnemyProperties : MonoBehaviour
 
         // uncheck isTrigger on collider.
         gameObject.GetComponent<Collider>().isTrigger = false;
+
+        StartCoroutine(DestroyEnemy(_timeBeforeDestroy));
     }
 
-    public void Destroy()
+    private IEnumerator DestroyEnemy(float seconds)
     {
+        yield return new WaitForSeconds(seconds);
         transform.position = Vector3.zero;
         transform.rotation = Quaternion.identity;
         EnemyFactory.DestroyEnemy(_enemyType, this.gameObject);

@@ -5,16 +5,6 @@ using UnityEngine;
 public class PlayerProperties : MonoBehaviour
 {
     [SerializeField]
-    private string _name;
-    public string Name
-    {
-        get
-        {
-            return this._name;
-        }
-    }
-
-    [SerializeField]
     private Direction _playerDirection;
     public Vector3 PlayerDirection
     {

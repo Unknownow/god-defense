@@ -77,7 +77,8 @@ public class EnemyTrapInteraction : MonoBehaviour
     /// <param name="damage">Amount of damages taken when enemy is hit by bomb trap</param>
     public bool StepOnBombTrap(float damage)
     {
-        return HitAndCheckIsDead(damage);
+        _enemyProperties.Hit = damage;
+        return !_enemyProperties.IsAlive;
     }
 
     /// <summary>
@@ -156,22 +157,12 @@ public class EnemyTrapInteraction : MonoBehaviour
         _enemyMovement.SlowDown(_currentSlowPercentage);
     }
 
-    private bool HitAndCheckIsDead(float damage)
-    {
-        _enemyProperties.Hit = damage;
-        if (!_enemyProperties.IsAlive)
-        {
-            gameObject.GetComponent<EnemyStatesController>().OnEnemyDie();
-            return true;
-        }
-        return false;
-    }
-
     private IEnumerator BoobyTrapHitCoroutine()
     {
         while (true)
         {
-            if (HitAndCheckIsDead(_currentBoobyTrapStatUse.hitDamage))
+            _enemyProperties.Hit = _currentBoobyTrapStatUse.hitDamage;
+            if (!_enemyProperties.IsAlive)
                 break;
             yield return new WaitForSeconds(_currentBoobyTrapStatUse.timeInterval);
         }

@@ -20,6 +20,7 @@ public class EnemyCollision : MonoBehaviour
         if (other.transform.CompareTag("Bullet"))
         {
             //TODO: add enemy damaged by bullet.
+            _enemyProperties.Hit = other.transform.GetComponent<BulletProperties>().BulletDamage;
         }
     }
     private void OnTriggerStay(Collider other)

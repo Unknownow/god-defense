@@ -62,6 +62,14 @@ public class BombTrapProperties : TrapProperties
             return this._currentForceMagnitude;
         }
     }
+    private bool _isDetonated;
+    public bool IsDetonated
+    {
+        get
+        {
+            return this._isDetonated;
+        }
+    }
 
     public override bool BuffTrap
     {
@@ -82,6 +90,14 @@ public class BombTrapProperties : TrapProperties
                 StopAllCoroutines();
             }
         }
+        get
+        {
+            if (_currentHitDamage == _hitDamage)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
     public override void Initialize(Vector3 position, TrapType trapType = TrapType.Bomb)
@@ -89,6 +105,24 @@ public class BombTrapProperties : TrapProperties
         this._trapType = trapType;
         transform.position = position;
         BuffTrap = false;
+        gameObject.GetComponent<Collider>().enabled = true;
+        _isDetonated = false;
+        StopAllCoroutines();
+    }
+
+    public void Detonate()
+    {
+        if (_isDetonated)
+            return;
+        _isDetonated = true;
+        gameObject.GetComponent<Collider>().enabled = false;
+        StartCoroutine(DestroyBomb());
+    }
+
+    private IEnumerator DestroyBomb()
+    {
+        yield return new WaitForSeconds(_timeBeforeDetonation);
+        TrapFactory.DestroyTrap(_trapType, gameObject);
     }
 
     private void OnDrawGizmos()

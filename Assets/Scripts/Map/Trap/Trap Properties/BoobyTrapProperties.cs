@@ -32,6 +32,14 @@ public class BoobyTrapProperties : TrapProperties
                 StopAllCoroutines();
             }
         }
+        get
+        {
+            if (_currentHitDamage == _hitDamage)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 
     [SerializeField]
@@ -46,8 +54,6 @@ public class BoobyTrapProperties : TrapProperties
 
     public override void Initialize(Vector3 position, TrapType trapType = TrapType.Booby)
     {
-        this._trapType = trapType;
-        transform.position = position;
-        BuffTrap = false;
+        base.Initialize(position, TrapType.Booby);
     }
 }

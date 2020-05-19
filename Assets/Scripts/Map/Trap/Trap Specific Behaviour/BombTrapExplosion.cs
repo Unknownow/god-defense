@@ -7,7 +7,6 @@ public class BombTrapExplosion : MonoBehaviour
     [SerializeField]
     private LayerMask _enemyLayermask;
     private BombTrapProperties _trapProperties;
-    private bool _isDetonated;
 
     private void Awake()
     {
@@ -26,18 +25,8 @@ public class BombTrapExplosion : MonoBehaviour
 
     public void DetonateBomb()
     {
-        if (_isDetonated)
-            return;
-        _isDetonated = true;
-        gameObject.GetComponent<Collider>().enabled = false;
         StartCoroutine(WaitBeforeDetonation());
-        StartCoroutine(DestroyTrap(_trapProperties.Duration));
-    }
-
-    private IEnumerator DestroyTrap(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        _trapProperties.Destroy();
+        _trapProperties.Detonate();
     }
 
     private IEnumerator WaitBeforeDetonation()
@@ -54,6 +43,5 @@ public class BombTrapExplosion : MonoBehaviour
 
     private void Initialize()
     {
-        _isDetonated = false;
     }
 }
