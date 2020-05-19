@@ -8,7 +8,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
     private EnemyProperties _enemyProperties;
     private NavMeshAgent _enemyAgent;
     // protected NavMeshObstacle _enemyObstacle;
-    private Transform _currentTarget;
+    public Transform _currentTarget;
     private float _currentAvoidanceRadius;
     private bool _isAtFinishLine;
     public bool IsAtFinishLine
@@ -33,7 +33,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 
     private void Update()
     {
-        if (!_enemyProperties.IsAlive || !_isAtFinishLine)
+        if (!_enemyProperties.IsAlive || _isAtFinishLine)
             return;
         float distanceToTarget = Utils.DistanceInXZ(transform.position, _currentTarget.position);
         if (_currentTarget.CompareTag("Waypoint"))
@@ -52,13 +52,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
                 StopMoving();
             }
         }
-    }
-
-    public void SetDestination(Vector3 target)
-    {
-        _enemyAgent.SetDestination(target);
-        // _enemyObstacle.enabled = false;
-        _enemyAgent.enabled = true;
     }
 
     public void StartMoving(Transform target)

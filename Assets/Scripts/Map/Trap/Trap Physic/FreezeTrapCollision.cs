@@ -17,13 +17,24 @@ public class FreezeTrapCollision : TrapCollision
         base.Awake();
     }
 
+    protected override void OnDisable()
+    {
+        foreach (EnemyTrapInteraction enemy in _affectedEnemies)
+            enemy.StepOutFreezeTrap(gameObject);
+        _affectedEnemies.RemoveAll((enemy) =>
+        {
+            return true;
+        });
+    }
+
     protected override void OnTriggerEnter(Collider other)
     {
         base.OnTriggerEnter(other);
         if (other.transform.CompareTag("Enemy"))
         {
-            ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
-            other.gameObject.GetComponent<EnemyTrapInteraction>().StepOnFreezeTrap(gameObject, TrapProperties.SlowPercentage);
+            EnemyTrapInteraction enemy = other.gameObject.GetComponent<EnemyTrapInteraction>();
+            _affectedEnemies.Add(enemy);
+            enemy.StepOnFreezeTrap(gameObject, TrapProperties.SlowPercentage);
         }
 
     }
@@ -32,8 +43,9 @@ public class FreezeTrapCollision : TrapCollision
     {
         if (other.transform.CompareTag("Enemy"))
         {
-            ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
-            other.gameObject.GetComponent<EnemyTrapInteraction>().StepOutFreezeTrap(gameObject);
+            EnemyTrapInteraction enemy = other.gameObject.GetComponent<EnemyTrapInteraction>();
+            enemy.StepOutFreezeTrap(gameObject);
+            _affectedEnemies.Remove(enemy);
         }
     }
 }

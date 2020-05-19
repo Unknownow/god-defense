@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 {
-    // [SerializeField]
-    // private Transform _weapon;
     [SerializeField]
     private LayerMask _attackableLayer;
     [SerializeField]

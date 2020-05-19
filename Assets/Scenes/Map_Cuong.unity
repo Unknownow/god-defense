@@ -4413,7 +4413,7 @@ PrefabInstance:
     - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
       propertyPath: _slowPercentage
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 9185415537552006167, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
