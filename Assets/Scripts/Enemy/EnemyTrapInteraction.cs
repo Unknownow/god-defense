@@ -159,9 +159,9 @@ public class EnemyTrapInteraction : MonoBehaviour
     private bool HitAndCheckIsDead(float damage)
     {
         _enemyProperties.Hit = damage;
-        if (_enemyProperties.CurrentHitPoints <= 0)
+        if (!_enemyProperties.IsAlive)
         {
-            gameObject.GetComponent<EnemyStates>().OnEnemyDie();
+            gameObject.GetComponent<EnemyStatesController>().OnEnemyDie();
             return true;
         }
         return false;
