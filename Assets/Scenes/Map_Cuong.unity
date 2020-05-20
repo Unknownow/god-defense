@@ -2237,6 +2237,11 @@ PrefabInstance:
       propertyPath: _buffedExplosionRadius
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 3450872516239143551, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
+        type: 3}
+      propertyPath: _buffedDuration
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3761300757079534023, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2300,7 +2305,7 @@ PrefabInstance:
     - target: {fileID: 3761300757079766503, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63ca7cac3d0b34d129c1deac76fd32c3, type: 3}
@@ -3595,7 +3600,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 8
   m_Depth: -1
   m_CullingMask:
@@ -3620,7 +3625,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1807321700}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.5, y: 10, z: -1.5}
+  m_LocalPosition: {x: -0.34, y: 10, z: -1.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3650,7 +3655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9beda2ef628c14644b012dc3040ad8fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerDirection: 1
 --- !u!114 &1807321706
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4482,6 +4486,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2810074888752003455, guid: 0553e4993877b420196d7c1fb3bfa018,
+        type: 3}
+      propertyPath: _buffedDuration
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0553e4993877b420196d7c1fb3bfa018, type: 3}
 --- !u!1001 &3649961351580212168
@@ -4509,7 +4518,12 @@ PrefabInstance:
     - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
       propertyPath: _buffedDuration
-      value: 2
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
+        type: 3}
+      propertyPath: _buffedSlowPercentage
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 9185415537552006167, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}

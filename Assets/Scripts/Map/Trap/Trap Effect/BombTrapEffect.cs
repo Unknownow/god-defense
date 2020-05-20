@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombTrapCollision : TrapCollision
+public class BombTrapEffect : TrapEffect
 {
     private BombTrapProperties TrapProperties
     {

@@ -75,19 +75,19 @@ public class BombTrapProperties : TrapProperties
     {
         set
         {
-            if (value)
+            if (value && !BuffTrap)
             {
                 _currentHitDamage = _buffedHitDamage;
                 _currentExplosionRadius = _buffedExplosionRadius;
                 _currentForceMagnitude = _buffedForceMagnitude;
-                StartCoroutine(BuffingTrapCoroutine());
+                // StartCoroutine(BuffingTrapCoroutine());
             }
-            else
+            else if (!value)
             {
                 _currentHitDamage = _hitDamage;
                 _currentExplosionRadius = _explosionRadius;
                 _currentForceMagnitude = _forceMagnitude;
-                StopAllCoroutines();
+                // StopAllCoroutines();
             }
         }
         get
@@ -100,30 +100,43 @@ public class BombTrapProperties : TrapProperties
         }
     }
 
-    public override void Initialize(Vector3 position, TrapType trapType = TrapType.Bomb)
+    // public override void Initialize(Vector3 position, TrapType trapType = TrapType.Bomb)
+    // {
+    //     this._trapType = trapType;
+    //     transform.position = position;
+    //     BuffTrap = false;
+    //     gameObject.GetComponent<Collider>().enabled = true;
+    //     _isDetonated = false;
+    //     StopAllCoroutines();
+    // }
+
+    public override void Init()
     {
-        this._trapType = trapType;
-        transform.position = position;
-        BuffTrap = false;
-        gameObject.GetComponent<Collider>().enabled = true;
+        base.Init();
         _isDetonated = false;
-        StopAllCoroutines();
     }
+
+    // public void Detonate()
+    // {
+    //     if (_isDetonated)
+    //         return;
+    //     _isDetonated = true;
+    //     gameObject.GetComponent<Collider>().enabled = false;
+    //     StartCoroutine(DestroyBomb());
+    // }
 
     public void Detonate()
     {
         if (_isDetonated)
             return;
         _isDetonated = true;
-        gameObject.GetComponent<Collider>().enabled = false;
-        StartCoroutine(DestroyBomb());
     }
 
-    private IEnumerator DestroyBomb()
-    {
-        yield return new WaitForSeconds(_timeBeforeDetonation);
-        TrapFactory.DestroyTrap(_trapType, gameObject);
-    }
+    // private IEnumerator DestroyBomb()
+    // {
+    //     yield return new WaitForSeconds(_timeBeforeDetonation);
+    //     TrapFactory.DestroyTrap(_trapType, gameObject);
+    // }
 
     private void OnDrawGizmos()
     {

@@ -21,15 +21,15 @@ public class BoobyTrapProperties : TrapProperties
     {
         set
         {
-            if (value)
+            if (value && !BuffTrap)
             {
                 _currentHitDamage = _buffedHitDamage;
-                StartCoroutine(BuffingTrapCoroutine());
+                // StartCoroutine(BuffingTrapCoroutine());
             }
             else
             {
                 _currentHitDamage = _hitDamage;
-                StopAllCoroutines();
+                // StopAllCoroutines();
             }
         }
         get
@@ -52,8 +52,8 @@ public class BoobyTrapProperties : TrapProperties
         }
     }
 
-    public override void Initialize(Vector3 position, TrapType trapType = TrapType.Booby)
-    {
-        base.Initialize(position, TrapType.Booby);
-    }
+    // public override void Initialize(Vector3 position, TrapType trapType = TrapType.Booby)
+    // {
+    //     base.Initialize(position, TrapType.Booby);
+    // }
 }

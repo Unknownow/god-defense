@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 4612231170440365876}
   - component: {fileID: 114174956895302616}
   - component: {fileID: 114596691061847484}
+  - component: {fileID: 114717020652604148}
+  - component: {fileID: 114410908665409942}
   - component: {fileID: 4612231170440365877}
   - component: {fileID: 4612231170440365874}
   - component: {fileID: 4612231170440365873}
@@ -55,6 +57,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hitPoints: 100
+  _enemyType: 1
   _movementSpeed: 1.75
   _angularSpeed: 180
   _acceleration: 20
@@ -77,7 +80,6 @@ MonoBehaviour:
   _attackableLayer:
     serializedVersion: 2
     m_Bits: 32768
-  _enemyProperties: {fileID: 4612231170440365875}
 --- !u!114 &114535977564116196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -102,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25962290997e74ee9874900aead425ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentTarget: {fileID: 0}
 --- !u!114 &4612231170440365876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +139,30 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fde1234e90554c4a962a4a64d0e63be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114717020652604148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4612231170440365882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbc02b1152bf04c5e90f19151e6cf51c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114410908665409942
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4612231170440365882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb6ababf29ed749a180e9721cf374065, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!195 &4612231170440365877

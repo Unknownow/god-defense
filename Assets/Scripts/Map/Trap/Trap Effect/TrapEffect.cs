@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class TrapCollision : MonoBehaviour
+public abstract class TrapEffect : MonoBehaviour
 {
     protected TrapProperties _trapProperties;
+    protected TrapStatesController _trapStates;
     protected TrapController _trapController;
     protected List<EnemyTrapInteraction> _affectedEnemies;
 
@@ -12,6 +13,7 @@ public abstract class TrapCollision : MonoBehaviour
     {
         _trapProperties = gameObject.GetComponent<TrapProperties>();
         _trapController = gameObject.GetComponent<TrapController>();
+        _trapStates = gameObject.GetComponent<TrapStatesController>();
         _affectedEnemies = new List<EnemyTrapInteraction>();
     }
 
@@ -23,12 +25,15 @@ public abstract class TrapCollision : MonoBehaviour
     {
         if (other.transform.CompareTag("Bullet"))
         {
-            _trapProperties.BuffTrap = true;
-            Debug.Log("BUFFED");
+            _trapStates.BuffingTrap();
         }
     }
 
     protected virtual void OnTriggerExit(Collider other)
+    {
+    }
+
+    public virtual void ReapplyWhenBuffed()
     {
     }
 }

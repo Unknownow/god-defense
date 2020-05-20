@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoobyTrapCollision : TrapCollision
+public class BoobyTrapEffect : TrapEffect
 {
     private BoobyTrapProperties TrapProperties
     {
@@ -48,5 +48,11 @@ public class BoobyTrapCollision : TrapCollision
             _affectedEnemies.Remove(enemy);
         }
 
+    }
+
+    public override void ReapplyWhenBuffed()
+    {
+        foreach (EnemyTrapInteraction enemy in _affectedEnemies)
+            enemy.StepOnBoobyTrap(gameObject, TrapProperties.HitDamage, TrapProperties.TimeInterval);
     }
 }

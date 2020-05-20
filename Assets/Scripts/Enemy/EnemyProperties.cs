@@ -64,6 +64,7 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
+    [SerializeField]
     private EnemyType _enemyType;
     public EnemyType Type
     {
@@ -171,67 +172,85 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
-    public void Initialize(int laneIndex, EnemyType type, Vector3 position, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
+    // public void Initialize(int laneIndex, EnemyType type, Vector3 position, float hitPointMul = 1, float movementSpeedMul = 1, float accelerationMul = 1, float angularSpeedMul = 1)
+    // {
+    //     // Reset properties:
+    //     this._enemyType = type;
+    //     this._laneIndex = laneIndex;
+    //     transform.position = position;
+    //     _currentHitPoints = _hitPoints * hitPointMul;
+    //     _movementSpeed *= movementSpeedMul;
+    //     _acceleration *= accelerationMul;
+    //     _angularSpeed *= angularSpeedMul;
+    //     StopAllCoroutines();
+
+
+    //     // Reset physical components:
+    //     transform.rotation = Quaternion.identity;
+    //     // freeze gravity, rotation and position
+    //     Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+    //     enemyBody.velocity = Vector3.zero;
+    //     enemyBody.angularVelocity = Vector3.zero;
+    //     enemyBody.useGravity = false;
+    //     enemyBody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
+
+    //     // check isTrigger on collider.
+    //     gameObject.GetComponent<Collider>().isTrigger = true;
+
+    //     // enable NavMeshAgent
+    //     NavMeshAgent enemyAgent = gameObject.GetComponent<NavMeshAgent>();
+    //     enemyAgent.enabled = true;
+    //     // enemyAgent.ResetPath();
+    //     enemyAgent.speed = _movementSpeed;
+    //     enemyAgent.angularSpeed = _angularSpeed;
+    //     enemyAgent.acceleration = _acceleration;
+
+    //     // Set is alive is true
+    //     _isAlive = true;
+    // }
+
+    public void Initialize(Vector3 position, int laneIndex)
     {
         // Reset properties:
-        this._enemyType = type;
-        this._laneIndex = laneIndex;
+        LaneIndex = laneIndex;
         transform.position = position;
-        _currentHitPoints = _hitPoints * hitPointMul;
-        _movementSpeed *= movementSpeedMul;
-        _acceleration *= accelerationMul;
-        _angularSpeed *= angularSpeedMul;
-        StopAllCoroutines();
-
-
-        // Reset physical components:
-        transform.rotation = Quaternion.identity;
-        // freeze gravity, rotation and position
-        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
-        enemyBody.velocity = Vector3.zero;
-        enemyBody.angularVelocity = Vector3.zero;
-        enemyBody.useGravity = false;
-        enemyBody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezePositionY;
-
-        // check isTrigger on collider.
-        gameObject.GetComponent<Collider>().isTrigger = true;
-
-        // enable NavMeshAgent
-        NavMeshAgent enemyAgent = gameObject.GetComponent<NavMeshAgent>();
-        enemyAgent.enabled = true;
-        // enemyAgent.ResetPath();
-        enemyAgent.speed = _movementSpeed;
-        enemyAgent.angularSpeed = _angularSpeed;
-        enemyAgent.acceleration = _acceleration;
+        _currentHitPoints = _hitPoints;
 
         // Set is alive is true
         _isAlive = true;
     }
 
-    private void Die()
+    public void Die()
     {
-        // set is alive is false
         _isAlive = false;
-
-        // disable NavMeshAgent
-        gameObject.GetComponent<NavMeshAgent>().enabled = false;
-
-        // using gravity and unfreeze rotation, position.
-        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
-        enemyBody.useGravity = true;
-        enemyBody.constraints = RigidbodyConstraints.None;
-
-        // uncheck isTrigger on collider.
-        gameObject.GetComponent<Collider>().isTrigger = false;
-
-        StartCoroutine(DestroyEnemy(_timeBeforeDestroy));
     }
 
-    private IEnumerator DestroyEnemy(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        transform.position = Vector3.zero;
-        transform.rotation = Quaternion.identity;
-        EnemyFactory.DestroyEnemy(_enemyType, this.gameObject);
-    }
+    // private void Die()
+    // {
+    //     // set is alive is false
+    //     _isAlive = false;
+
+    //     // disable NavMeshAgent
+    //     gameObject.GetComponent<NavMeshAgent>().enabled = false;
+
+    //     // using gravity and unfreeze rotation, position.
+    //     Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+    //     enemyBody.useGravity = true;
+    //     enemyBody.constraints = RigidbodyConstraints.None;
+
+    //     // uncheck isTrigger on collider.
+    //     gameObject.GetComponent<Collider>().isTrigger = false;
+
+    //     StartCoroutine(DestroyEnemy(_timeBeforeDestroy));
+    // }
+
+
+
+    // private IEnumerator DestroyEnemy(float seconds)
+    // {
+    //     yield return new WaitForSeconds(seconds);
+    //     transform.position = Vector3.zero;
+    //     transform.rotation = Quaternion.identity;
+    //     EnemyFactory.DestroyEnemy(_enemyType, this.gameObject);
+    // }
 }

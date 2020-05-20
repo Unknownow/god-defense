@@ -22,15 +22,15 @@ public class FreezeTrapProperties : TrapProperties
     {
         set
         {
-            if (value)
+            if (value && !BuffTrap)
             {
                 _currentSlowPercentage = _buffedSlowPercentage;
-                StartCoroutine(BuffingTrapCoroutine());
+                // StartCoroutine(BuffingTrapCoroutine());
             }
-            else
+            else if (!value)
             {
                 _currentSlowPercentage = _slowPercentage;
-                StopAllCoroutines();
+                // StopAllCoroutines();
             }
         }
         get
@@ -43,8 +43,8 @@ public class FreezeTrapProperties : TrapProperties
         }
     }
 
-    public override void Initialize(Vector3 position, TrapType trapType = TrapType.Freeze)
-    {
-        base.Initialize(position, TrapType.Freeze);
-    }
+    // public override void Initialize(Vector3 position, TrapType trapType = TrapType.Freeze)
+    // {
+    //     base.Initialize(position, TrapType.Freeze);
+    // }
 }

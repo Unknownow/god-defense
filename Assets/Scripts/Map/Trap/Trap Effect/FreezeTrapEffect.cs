@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FreezeTrapCollision : TrapCollision
+public class FreezeTrapEffect : TrapEffect
 {
     private FreezeTrapProperties TrapProperties
     {
@@ -36,7 +36,6 @@ public class FreezeTrapCollision : TrapCollision
             _affectedEnemies.Add(enemy);
             enemy.StepOnFreezeTrap(gameObject, TrapProperties.SlowPercentage);
         }
-
     }
 
     protected override void OnTriggerExit(Collider other)
@@ -47,5 +46,11 @@ public class FreezeTrapCollision : TrapCollision
             enemy.StepOutFreezeTrap(gameObject);
             _affectedEnemies.Remove(enemy);
         }
+    }
+
+    public override void ReapplyWhenBuffed()
+    {
+        foreach (EnemyTrapInteraction enemy in _affectedEnemies)
+            enemy.StepOnFreezeTrap(gameObject, TrapProperties.SlowPercentage);
     }
 }

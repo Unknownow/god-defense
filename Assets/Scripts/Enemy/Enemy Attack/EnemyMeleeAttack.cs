@@ -6,7 +6,6 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 {
     [SerializeField]
     private LayerMask _attackableLayer;
-    [SerializeField]
     private EnemyProperties _enemyProperties;
     private float _timeBetweenAttack;
 

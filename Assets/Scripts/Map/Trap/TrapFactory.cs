@@ -96,7 +96,7 @@ public class TrapFactory : MonoBehaviour
         else
             boobyTrap = _instance._boobyTrapPool.Dequeue();
 
-        boobyTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Booby);
+        boobyTrap.GetComponent<TrapStatesController>().Initialize(position);
         boobyTrap.SetActive(true);
         return boobyTrap;
     }
@@ -113,7 +113,7 @@ public class TrapFactory : MonoBehaviour
 
             bombTrap = _instance._bombTrapPool.Dequeue();
 
-        bombTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Bomb);
+        bombTrap.GetComponent<TrapStatesController>().Initialize(position);
         bombTrap.SetActive(true);
         return bombTrap;
     }
@@ -129,7 +129,7 @@ public class TrapFactory : MonoBehaviour
         else
             freezeTrap = _instance._freezeTrapPool.Dequeue();
 
-        freezeTrap.GetComponent<TrapProperties>().Initialize(position, TrapType.Freeze);
+        freezeTrap.GetComponent<TrapStatesController>().Initialize(position);
         freezeTrap.SetActive(true);
         return freezeTrap;
     }

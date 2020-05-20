@@ -10,6 +10,7 @@ public class EnemyTrapInteraction : MonoBehaviour
         public float timeInterval;
     }
     private EnemyProperties _enemyProperties;
+    private EnemyHitPointsManager _enemyHitPoints;
     private IEnemyMovement _enemyMovement;
     private Dictionary<GameObject, float> _freezeTrapList;
     private float _currentSlowPercentage;
@@ -17,10 +18,11 @@ public class EnemyTrapInteraction : MonoBehaviour
     private IEnumerator _boobyTrapCoroutine;
     private BoobyTrapStat _currentBoobyTrapStatUse;
 
-    private void Start()
+    private void Awake()
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
+        _enemyHitPoints = gameObject.GetComponent<EnemyHitPointsManager>();
         _freezeTrapList = new Dictionary<GameObject, float>();
         _boobyTrapList = new Dictionary<GameObject, BoobyTrapStat>();
     }
@@ -77,7 +79,7 @@ public class EnemyTrapInteraction : MonoBehaviour
     /// <param name="damage">Amount of damages taken when enemy is hit by bomb trap</param>
     public bool StepOnBombTrap(float damage)
     {
-        _enemyProperties.Hit = damage;
+        _enemyHitPoints.Hit(damage);
         return !_enemyProperties.IsAlive;
     }
 
@@ -98,6 +100,7 @@ public class EnemyTrapInteraction : MonoBehaviour
         {
             _freezeTrapList.Add(freezeTrap, slowPercentage);
         }
+        _currentSlowPercentage = 0;
         foreach (GameObject trap in _freezeTrapList.Keys)
             _currentSlowPercentage = (_freezeTrapList[trap] > _currentSlowPercentage) ? _freezeTrapList[trap] : _currentSlowPercentage;
         _enemyMovement.SlowDown(_currentSlowPercentage);
@@ -161,7 +164,7 @@ public class EnemyTrapInteraction : MonoBehaviour
     {
         while (true)
         {
-            _enemyProperties.Hit = _currentBoobyTrapStatUse.hitDamage;
+            _enemyHitPoints.Hit(_currentBoobyTrapStatUse.hitDamage);
             if (!_enemyProperties.IsAlive)
                 break;
             yield return new WaitForSeconds(_currentBoobyTrapStatUse.timeInterval);

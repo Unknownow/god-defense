@@ -33,6 +33,7 @@ public abstract class TrapProperties : MonoBehaviour
         }
     }
 
+    [SerializeField]
     protected TrapType _trapType;
     public TrapType Type
     {
@@ -46,32 +47,37 @@ public abstract class TrapProperties : MonoBehaviour
 
     protected void Awake()
     {
+        Init();
+    }
+
+    // public virtual void Initialize(Vector3 position, TrapType trapType)
+    // {
+    //     this._trapType = trapType;
+    //     transform.position = position;
+    //     BuffTrap = false;
+    //     StopAllCoroutines();
+    //     StartCoroutine(DestroyTrapCoroutine());
+    // }
+
+    public virtual void Init()
+    {
         BuffTrap = false;
     }
 
-    public virtual void Initialize(Vector3 position, TrapType trapType)
-    {
-        this._trapType = trapType;
-        transform.position = position;
-        BuffTrap = false;
-        StopAllCoroutines();
-        StartCoroutine(DestroyTrapCoroutine());
-    }
+    // public void Destroy()
+    // {
+    //     TrapFactory.DestroyTrap(_trapType, this.gameObject);
+    // }
 
-    public void Destroy()
-    {
-        TrapFactory.DestroyTrap(_trapType, this.gameObject);
-    }
+    // protected IEnumerator BuffingTrapCoroutine()
+    // {
+    //     yield return new WaitForSeconds(_buffedDuration);
+    //     BuffTrap = false;
+    // }
 
-    protected IEnumerator BuffingTrapCoroutine()
-    {
-        yield return new WaitForSeconds(_buffedDuration);
-        BuffTrap = false;
-    }
-
-    protected virtual IEnumerator DestroyTrapCoroutine()
-    {
-        yield return new WaitForSeconds(_duration);
-        TrapFactory.DestroyTrap(_trapType, this.gameObject);
-    }
+    // protected virtual IEnumerator DestroyTrapCoroutine()
+    // {
+    //     yield return new WaitForSeconds(_duration);
+    //     TrapFactory.DestroyTrap(_trapType, this.gameObject);
+    // }
 }

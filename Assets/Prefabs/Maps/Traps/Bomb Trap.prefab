@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 324771433}
   - component: {fileID: 1874363524}
   - component: {fileID: 1874363523}
+  - component: {fileID: 114797506665347290}
   - component: {fileID: 3761300757078764007}
   - component: {fileID: 3761300757077764903}
   - component: {fileID: 5579705742337388329}
@@ -50,9 +51,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f4d870999d04d2aabf202ad8deccf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 30
+  _duration: 5
   _buffedDuration: 30
   _cooldown: 20
+  _trapType: 1
   _hitDamage: 1000
   _buffedHitDamage: 180
   _timeBeforeDetonation: 0.05
@@ -100,6 +102,18 @@ MonoBehaviour:
   _enemyLayermask:
     serializedVersion: 2
     m_Bits: 16384
+--- !u!114 &114797506665347290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3761300757079766503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80447f9e5d4e64dd081f8a0e5c48844b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &3761300757078764007
 MeshFilter:
   m_ObjectHideFlags: 0
