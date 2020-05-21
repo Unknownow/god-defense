@@ -22,6 +22,8 @@ public class TowerProperties : MonoBehaviour
             {
                 _currentHitPoints -= value;
                 _currentHitPoints = _currentHitPoints < 0 ? 0 : _currentHitPoints;
+                if (_currentHitPoints <= 0)
+                    _isDestroyed = true;
             }
         }
     }
@@ -36,5 +38,19 @@ public class TowerProperties : MonoBehaviour
                 _currentHitPoints = _currentHitPoints < _hitPoints ? _currentHitPoints : _hitPoints;
             }
         }
+    }
+    private bool _isDestroyed;
+    public bool IsDestroyed
+    {
+        get
+        {
+            return this._isDestroyed;
+        }
+    }
+
+    private void Awake()
+    {
+        _isDestroyed = false;
+        _currentHitPoints = _hitPoints;
     }
 }

@@ -29,18 +29,18 @@ public class TrapStatesController : MonoBehaviour
         StartCoroutine(BuffingTrapCoroutine());
     }
 
-    protected virtual void UnbuffingTrap()
+    protected void UnbuffingTrap()
     {
         _trapProperties.BuffTrap = false;
     }
 
-    protected virtual IEnumerator BuffingTrapCoroutine()
+    protected IEnumerator BuffingTrapCoroutine()
     {
         yield return new WaitForSeconds(_trapProperties.BuffedDuration);
         UnbuffingTrap();
     }
 
-    protected virtual IEnumerator DestroyTrapCoroutine()
+    protected IEnumerator DestroyTrapCoroutine()
     {
         yield return new WaitForSeconds(_trapProperties.Duration);
         TrapFactory.DestroyTrap(_trapProperties.Type, this.gameObject);

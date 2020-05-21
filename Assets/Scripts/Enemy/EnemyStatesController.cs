@@ -19,10 +19,10 @@ public class EnemyStatesController : MonoBehaviour
 
     private void Update()
     {
-        // if (_enemyMovement.IsAtFinishLine)
-        //     _enemyAttack.StartAttack();
-        // else
-        //     _enemyAttack.StopAttack();
+        if (_enemyMovement.IsAtFinishLine)
+            _enemyAttack.StartAttack();
+        else
+            _enemyAttack.StopAttack();
     }
 
     public void Initialize(Vector3 position, int laneIndex)

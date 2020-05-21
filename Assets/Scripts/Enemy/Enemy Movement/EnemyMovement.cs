@@ -7,7 +7,6 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
     private EnemyProperties _enemyProperties;
     private NavMeshAgent _enemyAgent;
-    // protected NavMeshObstacle _enemyObstacle;
     public Transform _currentTarget;
     private float _currentAvoidanceRadius;
     private bool _isAtFinishLine;
@@ -67,6 +66,16 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
     {
         _enemyAgent.isStopped = true;
         _enemyAgent.radius = 0;
+    }
+
+    public void PauseMoving()
+    {
+        _enemyAgent.isStopped = true;
+    }
+
+    public void ResumeMoving()
+    {
+        _enemyAgent.isStopped = false;
     }
 
     public void SlowDown(float slowPercentage)
