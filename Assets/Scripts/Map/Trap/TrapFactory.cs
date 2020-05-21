@@ -48,16 +48,16 @@ public class TrapFactory : MonoBehaviour
     }
 
 
-    public static GameObject SpawnTrap(TrapType trapType, Vector3 position)
+    public static GameObject SpawnTrap(TrapType trapType, Vector3 position, Transform parent = null)
     {
         switch (trapType)
         {
             case TrapType.Booby:
-                return _instance.SpawnBoobyTrap(position);
+                return _instance.SpawnBoobyTrap(position, parent);
             case TrapType.Bomb:
-                return _instance.SpawnBombTrap(position);
+                return _instance.SpawnBombTrap(position, parent);
             case TrapType.Freeze:
-                return _instance.SpawnFreezeTrap(position);
+                return _instance.SpawnFreezeTrap(position, parent);
             default:
                 return null;
         }
@@ -85,7 +85,7 @@ public class TrapFactory : MonoBehaviour
         }
     }
 
-    private GameObject SpawnBoobyTrap(Vector3 position)
+    private GameObject SpawnBoobyTrap(Vector3 position, Transform parent = null)
     {
         GameObject boobyTrap;
         if (_instance._boobyTrapPool.Count <= 0)
@@ -97,11 +97,12 @@ public class TrapFactory : MonoBehaviour
             boobyTrap = _instance._boobyTrapPool.Dequeue();
 
         boobyTrap.GetComponent<TrapStatesController>().Initialize(position);
+        boobyTrap.transform.parent = (parent == null) ? _instance.transform : parent;
         boobyTrap.SetActive(true);
         return boobyTrap;
     }
 
-    private GameObject SpawnBombTrap(Vector3 position)
+    private GameObject SpawnBombTrap(Vector3 position, Transform parent = null)
     {
         GameObject bombTrap;
         if (_instance._bombTrapPool.Count <= 0)
@@ -114,11 +115,12 @@ public class TrapFactory : MonoBehaviour
             bombTrap = _instance._bombTrapPool.Dequeue();
 
         bombTrap.GetComponent<TrapStatesController>().Initialize(position);
+        bombTrap.transform.parent = (parent == null) ? _instance.transform : parent;
         bombTrap.SetActive(true);
         return bombTrap;
     }
 
-    private GameObject SpawnFreezeTrap(Vector3 position)
+    private GameObject SpawnFreezeTrap(Vector3 position, Transform parent = null)
     {
         GameObject freezeTrap;
         if (_instance._freezeTrapPool.Count <= 0)
@@ -130,6 +132,7 @@ public class TrapFactory : MonoBehaviour
             freezeTrap = _instance._freezeTrapPool.Dequeue();
 
         freezeTrap.GetComponent<TrapStatesController>().Initialize(position);
+        freezeTrap.transform.parent = (parent == null) ? _instance.transform : parent;
         freezeTrap.SetActive(true);
         return freezeTrap;
     }

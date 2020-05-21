@@ -13,6 +13,8 @@ public class WaypointService : MonoBehaviour
 
     public Transform GetNextDestination()
     {
+        if (_waypointProperties.IsLastWaypoint)
+            return null;
         return _waypointProperties.NextTarget;
     }
 

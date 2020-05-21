@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class WaypointProperties : MonoBehaviour
 {
-    // [SerializeField]
-    // private int _size;
-    // public int Size
-    // {
-    //     get
-    //     {
-    //         return this._size;
-    //     }
-    // }
+    [SerializeField]
+    private bool _isLastWaypoint;
+    public bool IsLastWaypoint
+    {
+        get
+        {
+            return this._isLastWaypoint;
+        }
+    }
 
     [SerializeField]
     private int _laneIndex;

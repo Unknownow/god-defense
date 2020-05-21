@@ -30,12 +30,36 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
         _isAtFinishLine = false;
     }
 
+    // private void Update()
+    // {
+    //     if (!_enemyProperties.IsAlive || _isAtFinishLine)
+    //         return;
+    //     float distanceToTarget = Utils.DistanceInXZ(transform.position, _currentTarget.position);
+    //     if (_currentTarget.CompareTag("Waypoint"))
+    //     {
+    //         if (distanceToTarget <= Random.Range(0.05f, 0.1f))
+    //         {
+    //             Transform nextTarget = _currentTarget.GetComponent<WaypointService>().GetNextDestination();
+    //             StartMoving(nextTarget);
+    //         }
+    //     }
+    //     else if (_currentTarget.CompareTag("Finish Line"))
+    //     {
+    //         if (distanceToTarget <= _enemyProperties.AttackRange - Random.Range(0, 0.05f))
+    //         {
+    //             _isAtFinishLine = true;
+    //             StopMoving();
+    //         }
+    //     }
+    // }
+
     private void Update()
     {
         if (!_enemyProperties.IsAlive || _isAtFinishLine)
             return;
         float distanceToTarget = Utils.DistanceInXZ(transform.position, _currentTarget.position);
-        if (_currentTarget.CompareTag("Waypoint"))
+        
+        if (_currentTarget.GetComponent<WaypointService>().GetNextDestination() != null)
         {
             if (distanceToTarget <= Random.Range(0.05f, 0.1f))
             {
@@ -43,7 +67,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
                 StartMoving(nextTarget);
             }
         }
-        else if (_currentTarget.CompareTag("Finish Line"))
+        else
         {
             if (distanceToTarget <= _enemyProperties.AttackRange - Random.Range(0, 0.05f))
             {
