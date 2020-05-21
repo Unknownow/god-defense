@@ -8,4 +8,11 @@ public class Utils
     {
         return Vector2.Distance(new Vector2(vec1.x, vec1.z), new Vector2(vec2.x, vec2.z));
     }
+
+    public static JsonObject ReadJsonFile<JsonObject>(string path)
+    {
+        TextAsset jsonFile = Resources.Load<TextAsset>(path);
+        JsonObject jsonObject = JsonUtility.FromJson<JsonObject>(jsonFile.text);
+        return jsonObject;
+    }
 }
