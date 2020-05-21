@@ -2410,9 +2410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54b2819ccfbad49cfb19b9438722d519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _runnerPerfab: {fileID: 7888874831174439057, guid: 85e8dca8f918e43cb97b3ff615a33fba,
+  _runnerPrefab: {fileID: 7888874831174439057, guid: 85e8dca8f918e43cb97b3ff615a33fba,
     type: 3}
-  _heavierPerfab: {fileID: 4612231170440365882, guid: a1396b2be1bfd475690f7ecd4e48c97b,
+  _heavierPrefab: {fileID: 4612231170440365882, guid: a1396b2be1bfd475690f7ecd4e48c97b,
     type: 3}
   _tankerPrefab: {fileID: 2106600651503166146, guid: cb775b6b057604366a5e32bfe3426fd6,
     type: 3}

@@ -29,9 +29,13 @@ public class TrapFactory : MonoBehaviour
     private void Awake()
     {
         if (_instance != null && _instance != this)
+        {
             Destroy(this.gameObject);
+        }
         else
+        {
             _instance = this;
+        }
 
         _instance._boobyTrapPool = new Queue<GameObject>();
         _instance._bombTrapPool = new Queue<GameObject>();

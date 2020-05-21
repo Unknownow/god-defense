@@ -14,9 +14,9 @@ public class EnemyFactory : MonoBehaviour
         }
     }
     [SerializeField]
-    private GameObject _runnerPerfab;
+    private GameObject _runnerPrefab;
     [SerializeField]
-    private GameObject _heavierPerfab;
+    private GameObject _heavierPrefab;
     [SerializeField]
     private GameObject _tankerPrefab;
 
@@ -79,7 +79,7 @@ public class EnemyFactory : MonoBehaviour
         GameObject runner;
         if (_instance._runnerPool.Count <= 0)
         {
-            runner = Instantiate(_instance._runnerPerfab, position, Quaternion.identity, _instance.transform);
+            runner = Instantiate(_instance._runnerPrefab, position, Quaternion.identity, _instance.transform);
             runner.SetActive(false);
         }
         else
@@ -96,7 +96,7 @@ public class EnemyFactory : MonoBehaviour
         GameObject heavier;
         if (_instance._runnerPool.Count <= 0)
         {
-            heavier = Instantiate(_instance._heavierPerfab, position, Quaternion.identity, _instance.transform);
+            heavier = Instantiate(_instance._heavierPrefab, position, Quaternion.identity, _instance.transform);
             heavier.SetActive(false);
         }
         else
