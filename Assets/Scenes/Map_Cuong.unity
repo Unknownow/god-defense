@@ -888,7 +888,7 @@ PrefabInstance:
     - target: {fileID: 2148732463735464671, guid: 0d18d636984c54e778eb7c0e6bf9557e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -11
+      value: -11.073
       objectReference: {fileID: 0}
     - target: {fileID: 2148732463735464671, guid: 0d18d636984c54e778eb7c0e6bf9557e,
         type: 3}
@@ -2165,6 +2165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 858994325}
   - component: {fileID: 858994324}
+  - component: {fileID: 858994326}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -2199,6 +2200,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &858994326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 858994323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60a56f32ba311420d8706c9a5657a5e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spawnersList: []
 --- !u!4 &861743480 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7147423379050530307, guid: 34dcb88d486004b46adc669c4ab56a27,

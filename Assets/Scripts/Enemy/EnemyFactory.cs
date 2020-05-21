@@ -84,8 +84,8 @@ public class EnemyFactory : MonoBehaviour
         }
         else
             runner = _instance._runnerPool.Dequeue();
-        runner.transform.forward = direction;
         runner.GetComponent<EnemyStatesController>().Initialize(position, laneIndex);
+        runner.transform.forward = direction;
         runner.transform.parent = (parent == null) ? _instance.transform : parent;
         runner.SetActive(true);
         return runner;
@@ -102,8 +102,8 @@ public class EnemyFactory : MonoBehaviour
         else
             heavier = _instance._heavierPool.Dequeue();
 
-        heavier.transform.forward = direction;
         heavier.GetComponent<EnemyStatesController>().Initialize(position, laneIndex);
+        heavier.transform.forward = direction;
         heavier.transform.parent = (parent == null) ? _instance.transform : parent;
         heavier.SetActive(true);
         return heavier;
@@ -120,8 +120,8 @@ public class EnemyFactory : MonoBehaviour
         else
             tanker = _instance._tankerPool.Dequeue();
 
-        tanker.transform.forward = direction;
         tanker.GetComponent<EnemyStatesController>().Initialize(position, laneIndex);
+        tanker.transform.forward = direction;
         tanker.transform.parent = (parent == null) ? _instance.transform : parent;
         tanker.SetActive(true);
         return tanker;

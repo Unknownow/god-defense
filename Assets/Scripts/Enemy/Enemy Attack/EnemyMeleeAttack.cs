@@ -11,7 +11,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 
 
     private Collider[] _attackTarget;
-    private IEnumerator _attackCoroutine;
+    private Coroutine _attackCoroutine;
     private bool _isAttacking;
 
     private void Start()
@@ -19,7 +19,6 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _timeBetweenAttack = 1.0f / _enemyProperties.AttackRate;
         _attackTarget = new Collider[1];
-        _attackCoroutine = AttackCoroutine();
         _isAttacking = false;
     }
 
@@ -28,7 +27,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
         if (Input.GetKeyDown(KeyCode.A))
         {
             Debug.Log("START ATTACKING");
-            StartCoroutine(_attackCoroutine);
+            _attackCoroutine = StartCoroutine(AttackCoroutine());
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
@@ -42,7 +41,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
         if (!_isAttacking)
         {
             _isAttacking = true;
-            StartCoroutine(_attackCoroutine);
+            _attackCoroutine = StartCoroutine(AttackCoroutine());
         }
     }
 
