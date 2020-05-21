@@ -13,6 +13,8 @@ public class TapToPlace : MonoBehaviour
     private GameObject objectToPlace;
     [SerializeField]
     private GameObject placementIndicator;
+    [SerializeField]
+    private GameObject gameController;
 
     private ARSessionOrigin arOrigin;
     private ARPlaneManager arPlaneManager;
@@ -43,28 +45,42 @@ public class TapToPlace : MonoBehaviour
 
     private void PlaceObject()
     {
-        arReferencePointManager.referencePointPrefab = objectToPlace;
-        arReferencePointManager.referencePointPrefab.transform.localScale = objectToPlace.transform.localScale / 10;
-        ARReferencePoint referencePoint = arReferencePointManager.TryAddReferencePoint(placementPose);
-        // Instantiate(objectToPlace,placementPose.position, placementPose.rotation);
-
-        arPlaneManager.enabled = false;
-        List<ARPlane> planes = new List<ARPlane>();
-        arPlaneManager.GetAllPlanes(planes);
-        foreach (ARPlane plane in planes) {
-            plane.gameObject.SetActive(arPlaneManager.enabled);
-        }
-
-        arPointCloudManager.enabled = false;
-        GameObject goPointCloud = arPointCloudManager.pointCloudPrefab;
-        if (goPointCloud != null)
+        if (arReferencePointManager != null)
         {
-            var point = GameObject.Find(goPointCloud.name + "(Clone)");
-            if (point != null)
-            {
-                point.SetActive(arPointCloudManager.enabled);
+            arReferencePointManager.referencePointPrefab = objectToPlace;
+            arReferencePointManager.referencePointPrefab.transform.localScale = objectToPlace.transform.localScale / 10;
+            ARReferencePoint referencePoint = arReferencePointManager.TryAddReferencePoint(placementPose);
+            referencePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+        // var goStage = Instantiate(objectToPlace,placementPose.position, placementPose.rotation);
+        // goStage.transform.rotation = Quaternion.Euler(0, 0, 0);
+
+        gameController.GetComponent<GameManager>().Road = GameObject.Find("TrapFactory");
+
+        if (arPlaneManager != null)
+        {
+            arPlaneManager.enabled = false;
+            List<ARPlane> planes = new List<ARPlane>();
+            arPlaneManager.GetAllPlanes(planes);
+            foreach (ARPlane plane in planes) {
+                plane.gameObject.SetActive(arPlaneManager.enabled);
             }
         }
+
+        if (arPointCloudManager != null)
+        {
+            arPointCloudManager.enabled = false;
+            GameObject goPointCloud = arPointCloudManager.pointCloudPrefab;
+            if (goPointCloud != null)
+            {
+                var point = GameObject.Find(goPointCloud.name + "(Clone)");
+                if (point != null)
+                {
+                    point.SetActive(arPointCloudManager.enabled);
+                }
+            }
+        }
+        
 
         placementIndicator.SetActive(false);
         this.gameObject.SetActive(false);

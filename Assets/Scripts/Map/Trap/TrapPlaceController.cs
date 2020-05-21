@@ -63,6 +63,7 @@ public class TrapPlaceController : MonoBehaviour
             }
 
             currentPlaceableObject = TrapFactory.SpawnTrap(TrapType.Booby, new Vector3(0,0,0));
+            currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
         }
     }
 
@@ -85,6 +86,7 @@ public class TrapPlaceController : MonoBehaviour
         }
 
         currentPlaceableObject = TrapFactory.SpawnTrap(_trapType, position);
+        currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
 
     }
 
@@ -106,7 +108,7 @@ public class TrapPlaceController : MonoBehaviour
             
             float gridSize = GameManager.Instance().gridSize;
             truePos.x = Mathf.Floor(hitInfo.point.x / gridSize) * gridSize;
-            truePos.y = 0.1f;
+            truePos.y = GameObject.Find("Road").transform.position.y + 0.05f;
             truePos.z = Mathf.Floor(hitInfo.point.z / gridSize) * gridSize;
 
             Vector3 centerPoint = truePos;

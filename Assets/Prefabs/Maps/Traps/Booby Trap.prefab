@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af53292a9339e4009935db446ec63aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 2
+  _duration: 10
   _buffedDuration: 0
   _cooldown: 5
   _hitDamage: 10
