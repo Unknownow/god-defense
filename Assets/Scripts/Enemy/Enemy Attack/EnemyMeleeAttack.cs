@@ -71,14 +71,15 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
         {
             if (_attackTarget[0].transform.CompareTag("Tower"))
             {
-                _attackTarget[0].transform.GetComponent<TowerService>().Hit(_enemyProperties.HitDamage);
+                _attackTarget[0].transform.GetComponent<TowerHitPointManager>().Hit(_enemyProperties.HitDamage);
             }
         }
     }
 
     private void OnDrawGizmos()
     {
+        EnemyProperties enemyProperties = gameObject.GetComponent<EnemyProperties>();
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.forward * _enemyProperties.AttackRange / 2 + transform.position, _enemyProperties.AttackRange / 2f);
+        Gizmos.DrawWireSphere(transform.forward * enemyProperties.AttackRange / 2 + transform.position, enemyProperties.AttackRange / 2f);
     }
 }

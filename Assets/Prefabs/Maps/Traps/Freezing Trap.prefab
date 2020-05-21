@@ -50,11 +50,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 30
-  _buffedDuration: 0
+  _buffedDuration: 10
   _cooldown: 15
   _trapType: 2
-  _slowPercentage: 90
-  _buffedSlowPercentage: 100
+  _slowPercentage: 100
+  _buffedSlowPercentage: 80
 --- !u!114 &114828803312643794
 MonoBehaviour:
   m_ObjectHideFlags: 0

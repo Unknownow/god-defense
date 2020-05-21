@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 2
-  _buffedDuration: 0
+  _buffedDuration: 2
   _cooldown: 5
   _trapType: 0
   _hitDamage: 10
