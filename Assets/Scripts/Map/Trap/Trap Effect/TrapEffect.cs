@@ -23,6 +23,7 @@ public abstract class TrapEffect : MonoBehaviour
 
     protected virtual void OnTriggerEnter(Collider other)
     {
+        ReliableOnTriggerExit.NotifyTriggerEnter(other, gameObject, OnTriggerExit);
         if (other.transform.CompareTag("Bullet"))
         {
             _trapStates.BuffingTrap();
@@ -31,6 +32,7 @@ public abstract class TrapEffect : MonoBehaviour
 
     protected virtual void OnTriggerExit(Collider other)
     {
+        ReliableOnTriggerExit.NotifyTriggerExit(other, gameObject);
     }
 
     public virtual void ReapplyWhenBuffed()

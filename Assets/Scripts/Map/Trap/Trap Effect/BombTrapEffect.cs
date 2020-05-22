@@ -22,4 +22,9 @@ public class BombTrapEffect : TrapEffect
     {
         base.OnTriggerEnter(other);
     }
+
+    protected override void OnTriggerExit(Collider other)
+    {
+        base.OnTriggerExit(other);
+    }
 }

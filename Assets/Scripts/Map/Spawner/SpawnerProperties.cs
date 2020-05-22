@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SpawnerProperties : MonoBehaviour
 {
@@ -15,15 +16,15 @@ public class SpawnerProperties : MonoBehaviour
     }
     [SerializeField]
     private Direction _spawnerDirection;
-    [SerializeField]
-    private List<EnemyType> _spawnableTypes;
-    public List<EnemyType> SpawnableTypes
-    {
-        get
-        {
-            return _spawnableTypes;
-        }
-    }
+    // [SerializeField]
+    // private List<EnemyType> _spawnableTypes;
+    // public List<EnemyType> SpawnableTypes
+    // {
+    //     get
+    //     {
+    //         return _spawnableTypes;
+    //     }
+    // }
     public Vector3 SpawnerDirection
     {
         get

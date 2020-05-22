@@ -20,7 +20,10 @@ public class BoobyTrapEffect : TrapEffect
     protected override void OnDisable()
     {
         foreach (EnemyTrapInteraction enemy in _affectedEnemies)
-            enemy.StepOutBoobyTrap(gameObject);
+        {
+            if (enemy.isActiveAndEnabled)
+                enemy.StepOutBoobyTrap(gameObject);
+        }
         _affectedEnemies.RemoveAll((enemy) =>
         {
             return true;
@@ -41,6 +44,7 @@ public class BoobyTrapEffect : TrapEffect
 
     protected override void OnTriggerExit(Collider other)
     {
+        base.OnTriggerExit(other);
         if (other.transform.CompareTag("Enemy"))
         {
             EnemyTrapInteraction enemy = other.gameObject.GetComponent<EnemyTrapInteraction>();

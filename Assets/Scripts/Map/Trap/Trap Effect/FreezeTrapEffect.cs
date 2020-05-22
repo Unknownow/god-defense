@@ -40,6 +40,7 @@ public class FreezeTrapEffect : TrapEffect
 
     protected override void OnTriggerExit(Collider other)
     {
+        base.OnTriggerExit(other);
         if (other.transform.CompareTag("Enemy"))
         {
             EnemyTrapInteraction enemy = other.gameObject.GetComponent<EnemyTrapInteraction>();

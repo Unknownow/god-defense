@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class SpawnerController : MonoBehaviour
+public class SpawnerController : MonoBehaviour, IComparable<SpawnerController>
 {
     [SerializeField]
     private Transform _enemyParent;
@@ -12,22 +13,11 @@ public class SpawnerController : MonoBehaviour
     {
         _spawnerProperties = gameObject.GetComponent<SpawnerProperties>();
     }
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnEnemy(EnemyType.Runner);
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            SpawnEnemy(EnemyType.Heavier);
-        }
-    }
 
     public GameObject SpawnEnemy(EnemyType type)
     {
-        if (_spawnerProperties.SpawnableTypes.IndexOf(type) == -1)
-            return null;
+        // if (_spawnerProperties.SpawnableTypes.IndexOf(type) == -1)
+        //     return null;
         GameObject enemy;
         switch (type)
         {
@@ -40,5 +30,10 @@ public class SpawnerController : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    public int CompareTo(SpawnerController other)
+    {
+        return this.gameObject.GetComponent<SpawnerProperties>().LaneIndex.CompareTo(other.gameObject.GetComponent<SpawnerProperties>().LaneIndex);
     }
 }
