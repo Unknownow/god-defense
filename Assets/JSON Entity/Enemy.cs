@@ -6,12 +6,12 @@ using System;
 [Serializable]
 public class Enemy : IComparable<Enemy>
 {
-    public readonly EnemyType enemyType;
-    public readonly int spawnTime;
-    public readonly int laneIndex;
+    public EnemyType enemyType;
+    public int spawnTime;
+    public int laneIndex;
 
     public int CompareTo(Enemy other)
     {
-        return spawnTime.CompareTo(other.spawnTime);
+        return this.spawnTime.CompareTo(other.spawnTime);
     }
 }

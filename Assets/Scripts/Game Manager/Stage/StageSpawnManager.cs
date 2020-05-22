@@ -5,84 +5,52 @@ using System;
 
 public class StageSpawnManager : MonoBehaviour
 {
-    public delegate void OnWaveDone();
-    public delegate void OnStageDone();
-    private struct CurrentWave
-    {
-        public int currentWaveSpawnedEnemiesCount;
-        public int currentWaveEnemiesCount;
-        public int currentWaveIndex;
-        public Dictionary<int, List<Enemy>> currentWaveEnemies;
-    }
-    private List<SpawnerController> _currentSpawnersList;
+    [SerializeField]
+    private float _delayBetweenWave;
+    public delegate void OnStageEnds();
+    private event OnStageEnds _onStageEndsSubscribers;
     private Stage _currentStage;
-    private CurrentWave _currentWave;
-    public int WavesCount
-    {
-        get
-        {
-            return this._currentStage.waves.Length;
-        }
-    }
-    public int CurrentWaveIndex
-    {
-        get
-        {
-            return _currentWave.currentWaveIndex;
-        }
-    }
+    private int _currentWaveCount;
 
     private StageTimerManager _timer;
+    private WaveSpawnManager _waveManager;
 
     private void Awake()
     {
         _timer = gameObject.GetComponent<StageTimerManager>();
+        _waveManager = gameObject.GetComponent<WaveSpawnManager>();
     }
 
-    public void LoadStageSpawnDetail(int stageIndex)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            LoadStageDetail(0);
+            StartStage();
+        }
+    }
+
+    public void LoadStageDetail(int stageIndex)
     {
         GetStagePattern(stageIndex);
-        GetSpawnerPointsList();
-        _timer.SubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
     }
 
-    public void StartWave(int waveIndex)
+    public void StartStage()
     {
-        _currentWave.currentWaveIndex = waveIndex;
-        _currentWave.currentWaveEnemiesCount = 0;
-        _currentWave.currentWaveSpawnedEnemiesCount = 0;
-
-        if (_currentWave.currentWaveEnemies == null)
-            _currentWave.currentWaveEnemies = new Dictionary<int, List<Enemy>>();
-        else
-            _currentWave.currentWaveEnemies.Clear();
-
-        foreach (Enemy enemy in _currentStage.waves[waveIndex].enemies)
-        {
-            if (_currentWave.currentWaveEnemies.ContainsKey(enemy.spawnTime))
-                _currentWave.currentWaveEnemies[enemy.spawnTime].Add(enemy);
-            else
-            {
-                List<Enemy> enemies = new List<Enemy>();
-                enemies.Add(enemy);
-                _currentWave.currentWaveEnemies.Add(enemy.spawnTime, enemies);
-            }
-        }
-        _timer.StartWaveTimer();
+        _currentWaveCount = 0;
+        _waveManager.SubscribeOnWaveEnd(OnWaveEnd);
+        _timer.StartStageTimer();
+        _waveManager.StartWave(_currentStage.waves[_currentWaveCount]);
     }
 
-    private void GetSpawnerPointsList()
+    public void SubscribeOnStageEnd(OnStageEnds subscriber)
     {
-        SpawnerController[] spawners = GameObject.FindObjectsOfType<SpawnerController>();
-        if (_currentSpawnersList == null)
-            _currentSpawnersList = new List<SpawnerController>();
-        else
-            _currentSpawnersList.Clear();
-        foreach (SpawnerController spawner in spawners)
-        {
-            _currentSpawnersList.Add(spawner);
-        }
-        _currentSpawnersList.Sort();
+        _onStageEndsSubscribers += subscriber;
+    }
+
+    public void UnsubscribeOnStageEnd(OnStageEnds subscriber)
+    {
+        _onStageEndsSubscribers -= subscriber;
     }
 
     private void GetStagePattern(int stageIndex)
@@ -94,21 +62,24 @@ public class StageSpawnManager : MonoBehaviour
         }
     }
 
-    private void OnWaveTimeIncrease(int currentTime, out bool isDone)
+    private void EndStage()
     {
-        if (_currentWave.currentWaveEnemies.ContainsKey(currentTime))
-        {
-            foreach (Enemy enemy in _currentWave.currentWaveEnemies[currentTime])
-            {
-                _currentSpawnersList[enemy.laneIndex].SpawnEnemy(enemy.enemyType);
-                _currentWave.currentWaveEnemiesCount += 1;
-            }
-            if (_currentWave.currentWaveEnemiesCount >= _currentStage.waves[_currentWave.currentWaveIndex].enemies.Length)
-            {
-                isDone = true;
-                return;
-            }
-        }
-        isDone = false;
+        Debug.Log("stage " + _currentStage.stageIndex + " ended");
+        _timer.StopStageTimer();
+        _onStageEndsSubscribers?.Invoke();
+    }
+
+    private void OnWaveEnd()
+    {
+        StartCoroutine(OnWaveEndDelay());
+    }
+
+    private IEnumerator OnWaveEndDelay()
+    {
+        yield return new WaitForSeconds(_delayBetweenWave);
+        if (++_currentWaveCount >= _currentStage.waves.Length)
+            EndStage();
+        else
+            _waveManager.StartWave(_currentStage.waves[_currentWaveCount]);
     }
 }

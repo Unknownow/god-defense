@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageTimerManager : MonoBehaviour
 {
-    public delegate void OnWaveTimerIncrease(int currentTime, out bool isDone);
+    public delegate void OnWaveTimerIncrease(int currentTime);
     private event OnWaveTimerIncrease _waveTimerSubscriberList;
 
-    public delegate void OnStageTimerIncrease(int currentTime, out bool isDone);
+    public delegate void OnStageTimerIncrease(int currentTime);
     private event OnStageTimerIncrease _stageTimerSubscriberList;
 
     private int _waveTimer;
@@ -52,58 +53,55 @@ public class StageTimerManager : MonoBehaviour
     public void StartStageTimer()
     {
         _stageTimer = 0;
-        _stageTimerCoroutine = StartCoroutine(WaveTimerCoroutine());
-    }
-
-    public void PauseStageTimer()
-    {
-        StopCoroutine(_stageTimerCoroutine);
-        PauseWaveTimer();
+        if (_stageTimerCoroutine != null)
+            StopCoroutine(_stageTimerCoroutine);
+        _stageTimerCoroutine = StartCoroutine(StageTimerCoroutine());
     }
 
     public void ResumeStageTimer()
     {
         _stageTimerCoroutine = StartCoroutine(StageTimerCoroutine());
-        ResumeWaveTimer();
+    }
+    public void StopStageTimer()
+    {
+        StopCoroutine(_stageTimerCoroutine);
     }
 
     public void StartWaveTimer()
     {
         _waveTimer = 0;
+        if (_waveTimerCoroutine != null)
+            StopCoroutine(_waveTimerCoroutine);
         _waveTimerCoroutine = StartCoroutine(WaveTimerCoroutine());
     }
 
-    private void PauseWaveTimer()
+    public void StopWaveTimer()
     {
         StopCoroutine(_waveTimerCoroutine);
     }
 
-    private void ResumeWaveTimer()
+    public void ResumeWaveTimer()
     {
         _waveTimerCoroutine = StartCoroutine(WaveTimerCoroutine());
     }
 
     private IEnumerator WaveTimerCoroutine()
     {
-        bool isDone = true;
-        while (isDone)
+        while (true)
         {
             yield return new WaitForSeconds(1);
             _waveTimer += 1;
-            _waveTimerSubscriberList?.Invoke(_waveTimer, out isDone);
+            _waveTimerSubscriberList?.Invoke(_waveTimer);
         }
-        StopCoroutine(_waveTimerCoroutine);
     }
 
     private IEnumerator StageTimerCoroutine()
     {
-        bool isDone = true;
-        while (isDone)
+        while (true)
         {
             yield return new WaitForSeconds(1);
             _stageTimer += 1;
-            _stageTimerSubscriberList?.Invoke(_stageTimer, out isDone);
+            _stageTimerSubscriberList?.Invoke(_stageTimer);
         }
-        StopCoroutine(_stageTimerCoroutine);
     }
 }

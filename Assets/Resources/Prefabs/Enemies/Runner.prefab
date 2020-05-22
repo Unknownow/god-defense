@@ -58,9 +58,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitPoints: 100
   _enemyType: 0
-  _movementSpeed: 4
+  _movementSpeed: 8
   _angularSpeed: 7200
-  _acceleration: 50
+  _acceleration: 100
   _hitDamage: 0.5
   _attackRate: 3
   _attackRange: 1.17

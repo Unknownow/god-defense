@@ -94,7 +94,7 @@ public class EnemyFactory : MonoBehaviour
     private static GameObject SpawnHeavier(Vector3 position, Vector3 direction, int laneIndex, Transform parent = null)
     {
         GameObject heavier;
-        if (_instance._runnerPool.Count <= 0)
+        if (_instance._heavierPool.Count <= 0)
         {
             heavier = Instantiate(_instance._heavierPrefab, position, Quaternion.identity, _instance.transform);
             heavier.SetActive(false);
@@ -112,7 +112,7 @@ public class EnemyFactory : MonoBehaviour
     private static GameObject SpawnTanker(Vector3 position, Vector3 direction, int laneIndex, Transform parent = null)
     {
         GameObject tanker;
-        if (_instance._runnerPool.Count <= 0)
+        if (_instance._tankerPool.Count <= 0)
         {
             tanker = Instantiate(_instance._tankerPrefab, position, Quaternion.identity, _instance.transform);
             tanker.SetActive(false);

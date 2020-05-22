@@ -58,13 +58,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hitPoints: 100
   _enemyType: 2
-  _movementSpeed: 0.8
+  _movementSpeed: 4
   _angularSpeed: 180
-  _acceleration: 20
+  _acceleration: 50
   _hitDamage: 5
   _attackRate: 2
   _attackRange: 2
-  _timeBeforeDestroy: 0
+  _timeBeforeDestroy: 1
 --- !u!114 &823857805103030271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc02b1152bf04c5e90f19151e6cf51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyProperties: {fileID: 0}
 --- !u!114 &2106600651503166147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -130,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76cd84cc7d98649e8b351d6d13a30b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyHitPoints: {fileID: 0}
 --- !u!114 &114518212075019116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,7 +153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbc02b1152bf04c5e90f19151e6cf51c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyProperties: {fileID: 0}
 --- !u!114 &114584892264325312
 MonoBehaviour:
   m_ObjectHideFlags: 0

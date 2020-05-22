@@ -6,6 +6,6 @@ using System;
 [Serializable]
 public class Stage
 {
-    public readonly int stageIndex;
+    public int stageIndex;
     public Wave[] waves;
 }

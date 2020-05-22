@@ -6,6 +6,6 @@ using System;
 [Serializable]
 public class Wave
 {
-    public readonly int waveIndex;
+    public int waveIndex;
     public Enemy[] enemies;
 }
