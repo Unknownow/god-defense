@@ -55,7 +55,7 @@ public class StageSpawnManager : MonoBehaviour
 
     private void GetStagePattern(int stageIndex)
     {
-        _currentStage = Utils.ReadJsonFile<Stage>("JSON/Stages/Stage" + stageIndex);
+        _currentStage = Utils.ReadResourcesToJson<Stage>("JSON/Stages/Stage" + stageIndex);
         foreach (Wave wave in _currentStage.waves)
         {
             Array.Sort(wave.enemies);
