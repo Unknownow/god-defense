@@ -65,7 +65,7 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 
     private void Attack()
     {
-        int countTarget = Physics.OverlapSphereNonAlloc(transform.forward * _enemyProperties.AttackRange / 2 + transform.position, _enemyProperties.AttackRange / 2f, _attackTarget, _attackableLayer);
+        int countTarget = Physics.OverlapSphereNonAlloc(transform.forward * _enemyProperties.AttackRange / 2 + transform.position + _enemyProperties.AttackHeight * Vector3.up, _enemyProperties.AttackRange / 2f, _attackTarget, _attackableLayer);
         if (countTarget > 0)
         {
             if (_attackTarget[0].transform.CompareTag("Tower"))
@@ -79,6 +79,6 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
     {
         EnemyProperties enemyProperties = gameObject.GetComponent<EnemyProperties>();
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.forward * enemyProperties.AttackRange / 2 + transform.position, enemyProperties.AttackRange / 2f);
+        Gizmos.DrawWireSphere(transform.forward * enemyProperties.AttackRange / 2 + transform.position + enemyProperties.AttackHeight * Vector3.up, enemyProperties.AttackRange / 2f);
     }
 }

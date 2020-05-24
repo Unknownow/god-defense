@@ -151,6 +151,17 @@ public class EnemyProperties : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    [Tooltip("How high can this enemy attack")]
+    private float _attackHeight;
+    public float AttackHeight
+    {
+        get
+        {
+            return this._attackHeight;
+        }
+    }
+
     [Header("Other")]
     [SerializeField]
     [Tooltip("How many seconds before destroy this enemy")]
