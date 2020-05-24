@@ -317,10 +317,31 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5503310247462312422, guid: f26fec0475bc99828b3415cfa4ef3a33,
+    - target: {fileID: 1559140864257907979, guid: f26fec0475bc99828b3415cfa4ef3a33,
         type: 3}
-      propertyPath: m_Name
-      value: CanvasLoading
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: bcea24f532ceab049a662b074f959988,
+        type: 3}
+    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5503310247462312418, guid: f26fec0475bc99828b3415cfa4ef3a33,
         type: 3}
@@ -427,25 +448,15 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
+    - target: {fileID: 5503310247462312419, guid: f26fec0475bc99828b3415cfa4ef3a33,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
-    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
+    - target: {fileID: 5503310247462312422, guid: f26fec0475bc99828b3415cfa4ef3a33,
         type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1559140864376988251, guid: f26fec0475bc99828b3415cfa4ef3a33,
-        type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
+      propertyPath: m_Name
+      value: CanvasLoading
       objectReference: {fileID: 0}
     - target: {fileID: 9009809330202051405, guid: f26fec0475bc99828b3415cfa4ef3a33,
         type: 3}

@@ -33,6 +33,7 @@ public class GameUIManager : MonoBehaviour
 
     public void onYesClick() {
         Debug.Log("Returned to Menu");
+        Application.LoadLevel(0);
     }
 
     public void onOptionBackClick() {

@@ -25,11 +25,13 @@ public class GameLoader : MonoBehaviour {
 
     IEnumerator LoadAsynchronously() {
         //Fake progress
-        yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
+        bottomText.text = "Loading map...";
+        yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
         currentProgress = Random.Range(0.3f, 0.5f);
         slider.value = currentProgress;
 
-        yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
+        bottomText.text = "Loading assets...";
+        yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
         currentProgress = Random.Range(currentProgress, 0.9f);
         slider.value = currentProgress;
 
@@ -40,7 +42,8 @@ public class GameLoader : MonoBehaviour {
             yield return null;
         }
 
-        yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
+        bottomText.text = "Loading...";
+        yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
         slider.value = 1;
 
     }
