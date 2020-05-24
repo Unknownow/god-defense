@@ -4808,7 +4808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletDamage: 0
-  _bulletSpeed: 10
+  _bulletSpeed: 20
   _lifeTime: 5
 --- !u!54 &5859701128830923013
 Rigidbody:
