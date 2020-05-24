@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class TrapPlaceController : MonoBehaviour
 {
-
     private GameObject currentPlaceableObject;
 
     [SerializeField]
@@ -62,8 +61,8 @@ public class TrapPlaceController : MonoBehaviour
                 Destroy(currentPlaceableObject);
             }
 
-            currentPlaceableObject = TrapFactory.SpawnTrap(TrapType.Booby, new Vector3(0,0,0));
-            currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
+            currentPlaceableObject = TrapFactory.SpawnDummyTrap(TrapType.Booby, new Vector3(0,0,0));
+            // currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
         }
     }
 
@@ -85,8 +84,8 @@ public class TrapPlaceController : MonoBehaviour
             position = hitInfo.point;
         }
 
-        currentPlaceableObject = TrapFactory.SpawnTrap(_trapType, position);
-        currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
+        currentPlaceableObject = TrapFactory.SpawnDummyTrap(_trapType, position);
+        // currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
 
     }
 
@@ -160,15 +159,9 @@ public class TrapPlaceController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             if (isPlaceable) {
-                Renderer renderer = currentPlaceableObject.GetComponent<Renderer>();
-                    
-                if (renderer != null) {
-                    Material mat = renderer.material;
-                    mat.color = Color.white;
-                    renderer.material = mat;
-                }
-
-                TrapController controller = currentPlaceableObject.GetComponent<TrapController>();
+                GameObject trap = TrapFactory.SpawnTrap(_trapType, currentPlaceableObject.transform.position);
+                DestroyImmediate(currentPlaceableObject);
+                TrapController controller = trap.GetComponent<TrapController>();
                 if (controller != null) {
                     Debug.Log("Placed!!!");
                     coolDownTime = controller.GetProperties().Cooldown;
