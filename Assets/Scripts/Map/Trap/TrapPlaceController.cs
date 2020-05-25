@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class TrapPlaceController : MonoBehaviour
 {
-
     private GameObject currentPlaceableObject;
 
     [SerializeField]
@@ -29,6 +28,10 @@ public class TrapPlaceController : MonoBehaviour
 
     private bool isCoolingDown = false;
     Vector3 truePos;
+
+    Collider _trapCollider;
+
+    Collider[] roadColliders;
 
     void Start() {
         cooldownImage.gameObject.SetActive(false);
@@ -62,8 +65,8 @@ public class TrapPlaceController : MonoBehaviour
                 Destroy(currentPlaceableObject);
             }
 
-            currentPlaceableObject = TrapFactory.SpawnTrap(TrapType.Booby, new Vector3(0,0,0));
-            currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
+            currentPlaceableObject = TrapFactory.SpawnDummyTrap(TrapType.Booby, new Vector3(0,0,0));
+            // currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
         }
     }
 
@@ -85,8 +88,9 @@ public class TrapPlaceController : MonoBehaviour
             position = hitInfo.point;
         }
 
-        currentPlaceableObject = TrapFactory.SpawnTrap(_trapType, position);
-        currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
+        currentPlaceableObject = TrapFactory.SpawnDummyTrap(_trapType, position);
+        _trapCollider = currentPlaceableObject.GetComponent<Collider>();
+        // currentPlaceableObject.transform.rotation = GameObject.FindGameObjectWithTag("Stage").transform.rotation;
 
     }
 
@@ -119,8 +123,26 @@ public class TrapPlaceController : MonoBehaviour
 
             currentPlaceableObject.transform.position = truePos;
 
-            int countTarget = Physics.OverlapSphereNonAlloc(centerPoint, hitRadius, _colliders, _attackableLayer);
-            if (countTarget > 0)
+            int minXInside = 0, minYInside = 0;
+            int maxXInside = 0, maxYInside = 0;
+            // Physics.OverlapSphereNonAlloc(centerPoint, hitRadius, _colliders, _attackableLayer);
+            foreach (Collider collider in GameManager.Instance().getRoadColliders()) {
+                Bounds trapBounds = _trapCollider.bounds;
+                if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x, trapBounds.min.z))) {
+                    minXInside++;
+                }
+                if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x + trapBounds.size.x, trapBounds.min.z))) {
+                    minYInside++;
+                }
+                if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x, trapBounds.min.z + trapBounds.size.z))) {
+                    maxXInside++;
+                }
+                if (isPointInside(collider.bounds, new Vector2(trapBounds.max.x, trapBounds.max.z))) {
+                    maxYInside++;
+                }
+            }
+
+            if (minXInside == minYInside && minYInside == maxXInside && maxXInside == maxYInside && minYInside > 0)
             {
                 isPlaceable = true;
                 Renderer renderer = currentPlaceableObject.GetComponent<Renderer>();
@@ -160,15 +182,9 @@ public class TrapPlaceController : MonoBehaviour
         if (Input.GetMouseButtonUp(0))
         {
             if (isPlaceable) {
-                Renderer renderer = currentPlaceableObject.GetComponent<Renderer>();
-                    
-                if (renderer != null) {
-                    Material mat = renderer.material;
-                    mat.color = Color.white;
-                    renderer.material = mat;
-                }
-
-                TrapController controller = currentPlaceableObject.GetComponent<TrapController>();
+                GameObject trap = TrapFactory.SpawnTrap(_trapType, currentPlaceableObject.transform.position);
+                DestroyImmediate(currentPlaceableObject);
+                TrapController controller = trap.GetComponent<TrapController>();
                 if (controller != null) {
                     Debug.Log("Placed!!!");
                     coolDownTime = controller.GetProperties().Cooldown;
@@ -183,5 +199,13 @@ public class TrapPlaceController : MonoBehaviour
             isPlaceable = false;
             currentPlaceableObject = null;
         }
+    }
+
+    private bool isInside(Bounds A, Bounds B) {
+        return A.min.x >= B.min.x && A.min.z >= B.min.z && A.max.x <= B.max.x && A.max.z <= B.max.z;
+    }
+
+    private bool isPointInside(Bounds A, Vector2 B) {
+        return A.min.x <= B.x && A.min.z <= B.y && A.max.x >= B.x && A.max.z >= B.y;
     }
 }

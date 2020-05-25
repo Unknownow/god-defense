@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Animations/Enemy_Second.meta
+guid: 811ce5348ec74d444b74779d869d813d
+=======
+guid: 80b793987b2ed84218d62f296f174e86
+>>>>>>> feature/make_loading_scene:Assets/Prefabs/Gameplay/Enemies.meta
+folderAsset: yes
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
