@@ -31,7 +31,7 @@ public class WaveSpawnManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            _spawnersList[0].SpawnEnemy(EnemyType.Runner);
+            _spawnersList[0].SpawnEnemy(EnemyType.Heavier);
         }
     }
 

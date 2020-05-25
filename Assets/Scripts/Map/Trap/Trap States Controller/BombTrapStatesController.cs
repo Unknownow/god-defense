@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BombTrapStatesController : TrapStatesController
 {
+    private Color _defaultColor;
     protected override void Awake()
     {
         base.Awake();
@@ -16,6 +17,23 @@ public class BombTrapStatesController : TrapStatesController
         transform.position = position;
         gameObject.GetComponent<Collider>().enabled = true;
         StopAllCoroutines();
+    }
+
+    public override void BuffingTrap()
+    {
+        if (_trapProperties.BuffTrap)
+            return;
+        base.BuffingTrap();
+        transform.localScale *= ((BombTrapProperties)_trapProperties).BuffedSizeMultiply;
+        _defaultColor = transform.GetComponent<MeshRenderer>().material.color;
+        transform.GetComponent<MeshRenderer>().material.color = Color.red;
+    }
+
+    protected override void UnbuffingTrap()
+    {
+        base.UnbuffingTrap();
+        transform.localScale /= ((BombTrapProperties)_trapProperties).BuffedSizeMultiply;
+        transform.GetComponent<MeshRenderer>().material.color = _defaultColor;
     }
 
     public void Detonate()

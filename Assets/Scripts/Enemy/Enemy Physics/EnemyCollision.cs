@@ -5,10 +5,12 @@ using UnityEngine;
 public class EnemyCollision : MonoBehaviour
 {
     private EnemyProperties _enemyProperties;
+    private EnemyHitPointsManager _enemyHitPoint;
 
     private void Awake()
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
+        _enemyHitPoint = gameObject.GetComponent<EnemyHitPointsManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,8 +21,9 @@ public class EnemyCollision : MonoBehaviour
         }
         if (other.transform.CompareTag("Bullet"))
         {
+            // Debug.Log(other.transform.GetComponent<BulletProperties>());
             //TODO: add enemy damaged by bullet.
-            _enemyProperties.Hit = other.transform.GetComponent<BulletProperties>().BulletDamage;
+            _enemyHitPoint.Hit(other.transform.GetComponent<BulletProperties>().BulletDamage);
         }
     }
     private void OnTriggerStay(Collider other)

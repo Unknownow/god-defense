@@ -23,7 +23,7 @@ public class StageSpawnManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             LoadStageDetail(0);
             StartStage();

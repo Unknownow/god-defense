@@ -24,16 +24,16 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            Debug.Log("START ATTACKING");
-            _attackCoroutine = StartCoroutine(AttackCoroutine());
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            Debug.Log("STOP ATTACKING");
-            StopCoroutine(_attackCoroutine);
-        }
+        // if (Input.GetKeyDown(KeyCode.A))
+        // {
+        //     Debug.Log("START ATTACKING");
+        //     _attackCoroutine = StartCoroutine(AttackCoroutine());
+        // }
+        // else if (Input.GetKeyDown(KeyCode.S))
+        // {
+        //     Debug.Log("STOP ATTACKING");
+        //     StopCoroutine(_attackCoroutine);
+        // }
     }
 
     public void StartAttack()

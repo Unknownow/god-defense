@@ -29,7 +29,7 @@ public class TrapStatesController : MonoBehaviour
         StartCoroutine(BuffingTrapCoroutine());
     }
 
-    protected void UnbuffingTrap()
+    protected virtual void UnbuffingTrap()
     {
         _trapProperties.BuffTrap = false;
     }
