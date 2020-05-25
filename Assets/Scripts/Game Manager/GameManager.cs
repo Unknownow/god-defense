@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject Road;
     public float gridSize = 0.5f;
 
+    private Collider[] roadColliders;
+
     public static GameManager Instance() {
         return _instance;
     }
@@ -24,5 +26,13 @@ public class GameManager : MonoBehaviour
         if (_instance == null) {
             _instance = this;
         }
+
+        roadColliders = Road.GetComponentsInChildren<Collider>();
+
+        Debug.Log("Length road colliders: " + roadColliders.Length);
+    }
+
+    public Collider[] getRoadColliders() {
+        return this.roadColliders;
     }
 }
