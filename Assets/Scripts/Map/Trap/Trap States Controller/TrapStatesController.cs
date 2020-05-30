@@ -29,7 +29,7 @@ public class TrapStatesController : MonoBehaviour
         StartCoroutine(BuffingTrapCoroutine());
     }
 
-    protected void UnbuffingTrap()
+    protected virtual void UnbuffingTrap()
     {
         _trapProperties.BuffTrap = false;
     }
@@ -42,7 +42,9 @@ public class TrapStatesController : MonoBehaviour
 
     protected IEnumerator DestroyTrapCoroutine()
     {
+        Debug.Log("Start Destroy");
         yield return new WaitForSeconds(_trapProperties.Duration);
         TrapFactory.DestroyTrap(_trapProperties.Type, this.gameObject);
+        Debug.Log("Destroyed");
     }
 }

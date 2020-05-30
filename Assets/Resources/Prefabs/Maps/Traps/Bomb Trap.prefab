@@ -57,12 +57,14 @@ MonoBehaviour:
   _trapType: 1
   _hitDamage: 1000
   _buffedHitDamage: 180
+  _currentHitDamage: 0
   _timeBeforeDetonation: 0.05
   _explosionCenter: {fileID: 5663201977911487598}
   _explosionRadius: 0.75
   _buffedExplosionRadius: 1.5
   _forceMagnitude: 100
   _buffedForceMagnitude: 220
+  _buffedSizeMultiply: 2
 --- !u!114 &324771433
 MonoBehaviour:
   m_ObjectHideFlags: 0

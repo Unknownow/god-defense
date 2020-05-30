@@ -27,6 +27,14 @@ public class WaveSpawnManager : MonoBehaviour
         GetSpawnersList();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            _spawnersList[0].SpawnEnemy(EnemyType.Heavier);
+        }
+    }
+
     public void StartWave(Wave wave)
     {
         _currentWave.waveIndex = wave.waveIndex;

@@ -6,10 +6,10 @@ public class BombTrapProperties : TrapProperties
 {
     [Header("Bomb Trap")]
     [SerializeField]
-    private float _hitDamage;
+    public float _hitDamage;
     [SerializeField]
-    private float _buffedHitDamage;
-    private float _currentHitDamage;
+    public float _buffedHitDamage;
+    public float _currentHitDamage;
     public float HitDamage
     {
         get
@@ -60,6 +60,15 @@ public class BombTrapProperties : TrapProperties
         get
         {
             return this._currentForceMagnitude;
+        }
+    }
+    [SerializeField]
+    private float _buffedSizeMultiply;
+    public float BuffedSizeMultiply
+    {
+        get
+        {
+            return this._buffedSizeMultiply;
         }
     }
     private bool _isDetonated;

@@ -8,6 +8,7 @@ public class EnemyStatesController : MonoBehaviour
     private EnemyProperties _enemyProperties;
     private IEnemyMovement _enemyMovement;
     private IEnemyAttack _enemyAttack;
+    private Animator _enemyAnimator;
 
 
     private void Awake()
@@ -15,14 +16,18 @@ public class EnemyStatesController : MonoBehaviour
         _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
         _enemyAttack = gameObject.GetComponent<IEnemyAttack>();
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
+        _enemyAnimator = gameObject.GetComponent<Animator>();
     }
 
     private void Update()
     {
+        if (!_enemyProperties.IsAlive)
+            return;
+
         if (_enemyMovement.IsAtFinishLine)
-            _enemyAttack.StartAttack();
+            Attack();
         else
-            _enemyAttack.StopAttack();
+            Moving();
     }
 
     public void Initialize(Vector3 position, int laneIndex)
@@ -47,11 +52,22 @@ public class EnemyStatesController : MonoBehaviour
         enemyAgent.speed = _enemyProperties.MovementSpeed;
         enemyAgent.angularSpeed = _enemyProperties.AngularSpeed;
         enemyAgent.acceleration = _enemyProperties.Acceleration;
+
+        // animator
+        _enemyAnimator.SetBool("dieFlag", false);
+        _enemyAnimator.SetBool("runFlag", true);
+        _enemyAnimator.SetBool("attackFlag", false);
+
     }
 
     public void Die()
     {
         _enemyProperties.Die();
+
+        // die animation
+        _enemyAnimator.SetBool("dieFlag", true);
+        _enemyAnimator.SetBool("runFlag", false);
+        _enemyAnimator.SetBool("attackFlag", false);
 
         // disable NavMeshAgent
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
@@ -65,6 +81,24 @@ public class EnemyStatesController : MonoBehaviour
         gameObject.GetComponent<Collider>().isTrigger = false;
 
         StartCoroutine(DestroyEnemy(_enemyProperties.TimeBeforeDestroy));
+    }
+
+    public void Attack()
+    {
+        _enemyAttack.StartAttack();
+
+        _enemyAnimator.SetBool("attackFlag", true);
+        _enemyAnimator.SetBool("runFlag", false);
+        _enemyAnimator.SetBool("dieFlag", false);
+    }
+
+    public void Moving()
+    {
+        _enemyAttack.StopAttack();
+
+        _enemyAnimator.SetBool("runFlag", true);
+        _enemyAnimator.SetBool("attackFlag", false);
+        _enemyAnimator.SetBool("dieFlag", false);
     }
 
     private IEnumerator DestroyEnemy(float seconds)

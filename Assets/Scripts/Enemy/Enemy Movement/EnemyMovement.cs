@@ -7,7 +7,7 @@ public class EnemyMovement : MonoBehaviour, IEnemyMovement
 {
     private EnemyProperties _enemyProperties;
     private NavMeshAgent _enemyAgent;
-    public Transform _currentTarget;
+    private Transform _currentTarget;
     private float _currentAvoidanceRadius;
     private bool _isAtFinishLine;
     public bool IsAtFinishLine
