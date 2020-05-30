@@ -17,6 +17,7 @@ public class EnemyTrapInteraction : MonoBehaviour
     private Dictionary<GameObject, BoobyTrapStat> _boobyTrapList;
     private IEnumerator _boobyTrapCoroutine;
     private BoobyTrapStat _currentBoobyTrapStatUse;
+    private IEnemyVisualEffect _visual;
 
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class EnemyTrapInteraction : MonoBehaviour
         _enemyHitPoints = gameObject.GetComponent<EnemyHitPointsManager>();
         _freezeTrapList = new Dictionary<GameObject, float>();
         _boobyTrapList = new Dictionary<GameObject, BoobyTrapStat>();
+        _visual = gameObject.GetComponent<IEnemyVisualEffect>();
     }
 
     /// <summary>
@@ -104,6 +106,7 @@ public class EnemyTrapInteraction : MonoBehaviour
         foreach (GameObject trap in _freezeTrapList.Keys)
             _currentSlowPercentage = (_freezeTrapList[trap] > _currentSlowPercentage) ? _freezeTrapList[trap] : _currentSlowPercentage;
         _enemyMovement.SlowDown(_currentSlowPercentage);
+        _visual.Freeze(_currentSlowPercentage);
     }
 
     /// <summary>
@@ -150,6 +153,7 @@ public class EnemyTrapInteraction : MonoBehaviour
         if (_freezeTrapList.Count <= 0)
         {
             _enemyMovement.BackToNormalSpeed();
+            _visual.Unfreeze();
             return;
         }
 
@@ -158,6 +162,7 @@ public class EnemyTrapInteraction : MonoBehaviour
         foreach (GameObject trap in _freezeTrapList.Keys)
             _currentSlowPercentage = (_freezeTrapList[trap] > _currentSlowPercentage) ? _freezeTrapList[trap] : _currentSlowPercentage;
         _enemyMovement.SlowDown(_currentSlowPercentage);
+        _visual.Freeze(_currentSlowPercentage);
     }
 
     private IEnumerator BoobyTrapHitCoroutine()

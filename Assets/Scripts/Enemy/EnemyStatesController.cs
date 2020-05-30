@@ -9,6 +9,7 @@ public class EnemyStatesController : MonoBehaviour
     private IEnemyMovement _enemyMovement;
     private IEnemyAttack _enemyAttack;
     private Animator _enemyAnimator;
+    private IEnemyVisualEffect _visual;
 
 
     private void Awake()
@@ -17,6 +18,7 @@ public class EnemyStatesController : MonoBehaviour
         _enemyAttack = gameObject.GetComponent<IEnemyAttack>();
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _enemyAnimator = gameObject.GetComponent<Animator>();
+        _visual = gameObject.GetComponent<IEnemyVisualEffect>();
     }
 
     private void Update()
@@ -33,6 +35,7 @@ public class EnemyStatesController : MonoBehaviour
     public void Initialize(Vector3 position, int laneIndex)
     {
         _enemyProperties.Initialize(position, laneIndex);
+        _visual.Init();
         StopAllCoroutines();
         // Reset physical components:
         transform.rotation = Quaternion.identity;

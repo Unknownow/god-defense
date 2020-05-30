@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 5407815623704819099}
   - component: {fileID: 4221279627473499561}
   - component: {fileID: 2116649554567278803}
+  - component: {fileID: 114223644774302840}
   - component: {fileID: 195447393340578676}
   - component: {fileID: 54242243351758282}
   m_Layer: 14
@@ -372,6 +373,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76cd84cc7d98649e8b351d6d13a30b3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &114223644774302840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5345298759786030525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a08d6e5352494875aa79c2255f5aa28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _renderer: {fileID: 5345298759791241427}
+  _percentageBuffedCap: 60
 --- !u!195 &195447393340578676
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -459,6 +474,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 6385e1d7b89e64242b2ab831b27b19ac, type: 2}
+  - {fileID: 2100000, guid: a2dc0f35045ce49bbb1a75c658a46e7a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -34,6 +34,16 @@ public abstract class TrapProperties : MonoBehaviour
     }
 
     [SerializeField]
+    private float _buffingCooldown;
+    public float BuffingCooldown
+    {
+        get
+        {
+            return this._buffingCooldown;
+        }
+    }
+
+    [SerializeField]
     protected TrapType _trapType;
     public TrapType Type
     {

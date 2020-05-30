@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombTrapSoundEffect : MonoBehaviour
+public class BombTrapSoundEffect : MonoBehaviour, ITrapSoundEffect
 {
     [SerializeField]
     private AudioSource _explosion;
