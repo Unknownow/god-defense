@@ -30,26 +30,45 @@ public class StageTimerManager : MonoBehaviour
     private Coroutine _waveTimerCoroutine;
     private Coroutine _stageTimerCoroutine;
 
+    /// <summary>
+    /// Phương thức dùng để subscribe sự kiện thời gian tăng lên 1 giây của đồng hồ stage.
+    /// </summary>
+    /// <param name="subscriber">Phương thức muốn gọi lúc đồng hồ stage tăng lên 1 giây</param>
     public void SubscribeOnStageTimerIncrease(OnStageTimerIncrease subscriber)
     {
         _stageTimerSubscriberList += subscriber;
     }
 
+    /// <summary>
+    /// Phương thức dùng để subscribe sự kiện thời gian tăng lên 1 giây của đồng hồ wave.
+    /// </summary>
+    /// <param name="subscriber">Phương thức muốn gọi lúc đồng hồ wave tăng lên 1 giây</param>
     public void SubscribeOnWaveTimerIncrease(OnWaveTimerIncrease subscriber)
     {
         _waveTimerSubscriberList += subscriber;
     }
 
+    /// <summary>
+    /// Phương thức dùng để unsubscribe sự kiện thời gian tăng lên 1 giây của đồng hồ stage.
+    /// </summary>
+    /// <param name="subscriber">Phương thức muốn unsubscribe</param>
     public void UnsubscribeOnStageTimerIncrease(OnStageTimerIncrease subscriber)
     {
         _stageTimerSubscriberList -= subscriber;
     }
 
+    /// <summary>
+    /// Phương thức dùng để unsubscribe sự kiện thời gian tăng lên 1 giây của đồng hồ wave.
+    /// </summary>
+    /// <param name="subscriber">Phương thức muốn unsubscribe</param>
     public void UnsubscribeOnWaveTimerIncrease(OnWaveTimerIncrease subscriber)
     {
         _waveTimerSubscriberList -= subscriber;
     }
 
+    /// <summary>
+    /// Bắt đầu cho đồng hồ stage chạy
+    /// </summary>
     public void StartStageTimer()
     {
         _stageTimer = 0;
@@ -58,15 +77,25 @@ public class StageTimerManager : MonoBehaviour
         _stageTimerCoroutine = StartCoroutine(StageTimerCoroutine());
     }
 
+    /// <summary>
+    /// Cho đồng hồ stage chạy tiếp sau khi pause
+    /// </summary>
     public void ResumeStageTimer()
     {
         _stageTimerCoroutine = StartCoroutine(StageTimerCoroutine());
     }
+
+    /// <summary>
+    /// Dừng/Tạm dừng đồng hồ stage
+    /// </summary>
     public void StopStageTimer()
     {
         StopCoroutine(_stageTimerCoroutine);
     }
 
+    /// <summary>
+    /// Bắt đầu cho đồng hồ wave chạy
+    /// </summary>
     public void StartWaveTimer()
     {
         _waveTimer = 0;
@@ -75,11 +104,17 @@ public class StageTimerManager : MonoBehaviour
         _waveTimerCoroutine = StartCoroutine(WaveTimerCoroutine());
     }
 
+    /// <summary>
+    /// Dừng/Tạm dừng đồng hồ stage
+    /// </summary>
     public void StopWaveTimer()
     {
         StopCoroutine(_waveTimerCoroutine);
     }
 
+    /// <summary>
+    /// Cho đồng hồ wave chạy tiếp sau khi pause
+    /// </summary>
     public void ResumeWaveTimer()
     {
         _waveTimerCoroutine = StartCoroutine(WaveTimerCoroutine());

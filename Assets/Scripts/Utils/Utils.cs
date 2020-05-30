@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System;
 
 public static class Utils
 {
@@ -17,30 +18,49 @@ public static class Utils
         return jsonObject;
     }
 
-    public static JsonObject ConvertStringToJsonObject<JsonObject>(string text)
-    {
-        JsonObject jsonObject = JsonUtility.FromJson<JsonObject>(text);
-        return jsonObject;
-    }
+    // public static JsonObject ConvertStringToJsonObject<JsonObject>(string text)
+    // {
+    //     JsonObject jsonObject = JsonUtility.FromJson<JsonObject>(text);
+    //     return jsonObject;
+    // }
 
-    public static string ReadFile(string path, string fileName)
+    public static string ReadFile(string path)
     {
-        if (!File.Exists(path + "/" + fileName))
+        if (!File.Exists(path))
         {
             return null;
         }
-        StreamReader sr = File.OpenText(path + "/" + fileName);
+        StreamReader sr = File.OpenText(path);
         string file = sr.ReadToEnd();
+        sr.Close();
         return file;
     }
 
-    public static void WriteFile(string path, string fileName, string fileData)
+    public static void WriteFile(string path, string fileData)
     {
-        if (!File.Exists(path + "/" + fileName))
+        if (!File.Exists(path))
         {
-            Directory.CreateDirectory(path);
-            File.Create(path + "/" + fileName);
+            Directory.CreateDirectory(Path.GetDirectoryName(path));
+            File.Create(path).Close();
         }
         //TODO: return whether or not write successfully.
+        StreamWriter sw = new StreamWriter(path, false);
+        try
+        {
+            sw.Write(fileData);
+        }
+        catch (ObjectDisposedException e)
+        {
+            Debug.Log(e.ToString());
+        }
+        catch (NotSupportedException e)
+        {
+            Debug.Log(e.ToString());
+        }
+        catch (IOException e)
+        {
+            Debug.Log(e.ToString());
+        }
+        sw.Close();
     }
 }

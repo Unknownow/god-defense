@@ -24,6 +24,7 @@ public class WaveSpawnManager : MonoBehaviour
     private void Awake()
     {
         _timer = gameObject.GetComponent<StageTimerManager>();
+        _timer.SubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
         GetSpawnersList();
     }
 
@@ -63,8 +64,15 @@ public class WaveSpawnManager : MonoBehaviour
                 _currentWave.enemies.Add(enemy.spawnTime, enemies);
             }
         }
-        _timer.SubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
         _timer.StartWaveTimer();
+    }
+
+    public void StopWaveSpawn()
+    {
+        Debug.Log("wave " + _currentWave.waveIndex + " ended");
+        _timer.StopWaveTimer();
+        _currentWave.isDone = true;
+        _timer.UnsubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
     }
 
     public void SubscribeOnWaveEnd(OnWaveEnds subscriber)
@@ -101,7 +109,7 @@ public class WaveSpawnManager : MonoBehaviour
         Debug.Log("wave " + _currentWave.waveIndex + " ended");
         _timer.StopWaveTimer();
         _currentWave.isDone = true;
-        _timer.UnsubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
+        // _timer.UnsubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
         _onWaveEndsSubscribers?.Invoke();
     }
 

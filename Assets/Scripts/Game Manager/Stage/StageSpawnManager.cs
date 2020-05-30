@@ -13,21 +13,22 @@ public class StageSpawnManager : MonoBehaviour
     private int _currentWaveCount;
 
     private StageTimerManager _timer;
-    private WaveSpawnManager _waveManager;
+    private WaveSpawnManager _waveSpawnManager;
 
     private void Awake()
     {
         _timer = gameObject.GetComponent<StageTimerManager>();
-        _waveManager = gameObject.GetComponent<WaveSpawnManager>();
+        _waveSpawnManager = gameObject.GetComponent<WaveSpawnManager>();
+        _waveSpawnManager.SubscribeOnWaveEnd(OnWaveEnd);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            LoadStageDetail(0);
-            StartStage();
-        }
+        // if (Input.GetKeyDown(KeyCode.O))
+        // {
+        //     LoadStageDetail(0);
+        //     StartStage();
+        // }
     }
 
     public void LoadStageDetail(int stageIndex)
@@ -38,9 +39,16 @@ public class StageSpawnManager : MonoBehaviour
     public void StartStage()
     {
         _currentWaveCount = 0;
-        _waveManager.SubscribeOnWaveEnd(OnWaveEnd);
+        // _waveSpawnManager.SubscribeOnWaveEnd(OnWaveEnd);
         _timer.StartStageTimer();
-        _waveManager.StartWave(_currentStage.waves[_currentWaveCount]);
+        _waveSpawnManager.StartWave(_currentStage.waves[_currentWaveCount]);
+    }
+
+    public void StopStageSpawn()
+    {
+        _waveSpawnManager.StopWaveSpawn();
+        _waveSpawnManager.UnsubscribeOnWaveEnd(OnWaveEnd);
+        _timer.StopStageTimer();
     }
 
     public void SubscribeOnStageEnd(OnStageEnds subscriber)
@@ -66,6 +74,7 @@ public class StageSpawnManager : MonoBehaviour
     {
         Debug.Log("stage " + _currentStage.stageIndex + " ended");
         _timer.StopStageTimer();
+        // _waveSpawnManager.UnsubscribeOnWaveEnd(OnWaveEnd);
         _onStageEndsSubscribers?.Invoke();
     }
 
@@ -80,6 +89,6 @@ public class StageSpawnManager : MonoBehaviour
         if (++_currentWaveCount >= _currentStage.waves.Length)
             EndStage();
         else
-            _waveManager.StartWave(_currentStage.waves[_currentWaveCount]);
+            _waveSpawnManager.StartWave(_currentStage.waves[_currentWaveCount]);
     }
 }
