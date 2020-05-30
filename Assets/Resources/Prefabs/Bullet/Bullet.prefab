@@ -4807,8 +4807,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9113e0606cad7f9488c326f5c754919b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _bulletDamage: 20
-  _bulletSpeed: 20
+  _bulletDamage: 0
+  _bulletSpeed: 50
   _lifeTime: 5
 --- !u!54 &5859701128830923013
 Rigidbody:
@@ -4838,6 +4838,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e96044c692436cb4fbe0db0875c5db2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletSpawnPoint: {fileID: 0}
 --- !u!114 &5150275762389349161
 MonoBehaviour:
   m_ObjectHideFlags: 0
