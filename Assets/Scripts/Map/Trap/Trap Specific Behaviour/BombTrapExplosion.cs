@@ -41,6 +41,7 @@ public class BombTrapExplosion : MonoBehaviour
             if (isDead)
                 enemy.transform.GetComponent<EnemyPhysics>().AddExplosionForce(_trapProperties.ForceMagnitude, _trapProperties.ExplosionCenterPosition, _trapProperties.ExplosionRadius);
         }
+        gameObject.GetComponent<MeshRenderer>().enabled = false;
     }
 
     private void Initialize()

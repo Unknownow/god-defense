@@ -5,12 +5,12 @@ using UnityEngine;
 public class TrapStatesController : MonoBehaviour
 {
     protected TrapProperties _trapProperties;
-    protected TrapEffect _trapCollision;
+    protected TrapInteraction _trapCollision;
 
     protected virtual void Awake()
     {
         _trapProperties = gameObject.GetComponent<TrapProperties>();
-        _trapCollision = gameObject.GetComponent<TrapEffect>();
+        _trapCollision = gameObject.GetComponent<TrapInteraction>();
     }
     public virtual void Initialize(Vector3 position)
     {
@@ -20,7 +20,7 @@ public class TrapStatesController : MonoBehaviour
         StartCoroutine(DestroyTrapCoroutine());
     }
 
-    public virtual void BuffingTrap()
+    public virtual void BuffTrap()
     {
         if (_trapProperties.BuffTrap)
             return;
@@ -29,7 +29,7 @@ public class TrapStatesController : MonoBehaviour
         StartCoroutine(BuffingTrapCoroutine());
     }
 
-    protected virtual void UnbuffingTrap()
+    protected virtual void UnbuffTrap()
     {
         _trapProperties.BuffTrap = false;
     }
@@ -37,7 +37,7 @@ public class TrapStatesController : MonoBehaviour
     protected IEnumerator BuffingTrapCoroutine()
     {
         yield return new WaitForSeconds(_trapProperties.BuffedDuration);
-        UnbuffingTrap();
+        UnbuffTrap();
     }
 
     protected IEnumerator DestroyTrapCoroutine()

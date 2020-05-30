@@ -29,6 +29,15 @@ public class GameStateManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            _stageSpawnManager.LoadStageDetail(0);
+            StartStage();
+        }
+    }
+
     /// <summary>
     /// Phương thức được sử dụng để load các sự kiện trước khi bắt đầu game, tuy nhiên còn thiếu load prefab của map.
     /// </summary>
