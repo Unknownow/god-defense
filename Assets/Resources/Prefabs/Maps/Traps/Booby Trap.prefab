@@ -49,13 +49,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af53292a9339e4009935db446ec63aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 2
-  _buffedDuration: 2
-  _cooldown: 5
+  _duration: 5
+  _buffedDuration: 5
+  _cooldown: 10
   _trapType: 0
-  _hitDamage: 10
-  _buffedHitDamage: 0
-  _timeInterval: 0.2
+  _hitDamage: 2
+  _buffedHitDamage: 6
+  _timeInterval: 0.5
 --- !u!114 &114292596743233470
 MonoBehaviour:
   m_ObjectHideFlags: 0
