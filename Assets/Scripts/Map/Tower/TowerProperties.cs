@@ -20,6 +20,7 @@ public class TowerProperties : MonoBehaviour
         {
             if (value > 0)
             {
+                Debug.Log("Damage " + value);
                 _currentHitPoints -= value;
                 _currentHitPoints = _currentHitPoints < 0 ? 0 : _currentHitPoints;
                 if (_currentHitPoints <= 0)
@@ -37,6 +38,12 @@ public class TowerProperties : MonoBehaviour
                 _currentHitPoints += value;
                 _currentHitPoints = _currentHitPoints < _hitPoints ? _currentHitPoints : _hitPoints;
             }
+        }
+    }
+
+    public float Health {
+        get {
+            return Mathf.Min(_currentHitPoints/_hitPoints, 1.0f);
         }
     }
     private bool _isDestroyed;

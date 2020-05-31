@@ -12,7 +12,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 0.1, z: 1}
-  m_Center: {x: 0, y: 0.05, z: 0}
+  m_Center: {x: -0.0040938854, y: 0.05, z: 0.0027865171}
 --- !u!1001 &7665947323810295143
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22,7 +22,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 6a0ec952f1cb2405e95143e41edbad6c, type: 3}
       propertyPath: m_Name
-      value: dirt-road-tile
+      value: dirt-road-tile Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 6a0ec952f1cb2405e95143e41edbad6c, type: 3}
       propertyPath: m_TagString

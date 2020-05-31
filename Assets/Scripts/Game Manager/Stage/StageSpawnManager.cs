@@ -9,6 +9,10 @@ public class StageSpawnManager : MonoBehaviour
     private float _delayBetweenWave;
     public delegate void OnStageEnds();
     private event OnStageEnds _onStageEndsSubscribers;
+    public delegate void OnWaveStarts();
+    private event OnWaveStarts _onWaveStartsSubscribers;
+    public delegate void OnWavePreparing(float time);
+    private event OnWavePreparing _onWavePreparingSubscribers;
     private Stage _currentStage;
     private int _currentWaveCount;
 
@@ -61,6 +65,23 @@ public class StageSpawnManager : MonoBehaviour
         _onStageEndsSubscribers -= subscriber;
     }
 
+    public void SubscribeOnWavePreparing(OnWavePreparing subscriber) {
+        _onWavePreparingSubscribers += subscriber;
+    }
+
+    public void UnsubscribeOnWavePreparing(OnWavePreparing subscriber) {
+       _onWavePreparingSubscribers -= subscriber;
+    }
+
+    public void SubscribeOnWaveStarts(OnWaveStarts subscriber) {
+        _onWaveStartsSubscribers += subscriber;
+    }
+
+    public void UnsubscribeOnWaveStarts(OnWaveStarts subscriber) {
+        _onWaveStartsSubscribers -= subscriber;
+    }
+
+
     private void GetStagePattern(int stageIndex)
     {
         _currentStage = Utils.ReadResourcesToJson<Stage>("JSON/Stages/Stage" + stageIndex);
@@ -83,12 +104,16 @@ public class StageSpawnManager : MonoBehaviour
         StartCoroutine(OnWaveEndDelay());
     }
 
+
     private IEnumerator OnWaveEndDelay()
     {
+        _onWavePreparingSubscribers?.Invoke(_delayBetweenWave);
         yield return new WaitForSeconds(_delayBetweenWave);
         if (++_currentWaveCount >= _currentStage.waves.Length)
             EndStage();
-        else
+        else {
+            _onWaveStartsSubscribers?.Invoke();
             _waveSpawnManager.StartWave(_currentStage.waves[_currentWaveCount]);
+        }
     }
 }

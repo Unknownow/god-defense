@@ -7,7 +7,11 @@ public class TowerHitPointManager : MonoBehaviour
 {
     private TowerProperties _towerProperties;
     public delegate void OnTowerDestroy();
+
+    public delegate void OnTowerHit(float Heal);
     private event OnTowerDestroy _subscribersList;
+
+    private event OnTowerHit _subscribersHitList;
 
     private void Start()
     {
@@ -16,9 +20,11 @@ public class TowerHitPointManager : MonoBehaviour
 
     public float Hit(float damage)
     {
+        Debug.Log("Got damage " + damage);
         if (_towerProperties.IsDestroyed)
             return 0;
         _towerProperties.Hit = damage;
+        _subscribersHitList?.Invoke(_towerProperties.Health);
         if (_towerProperties.IsDestroyed)
             _subscribersList?.Invoke();
         return _towerProperties.CurrentHitPoints;
@@ -34,6 +40,17 @@ public class TowerHitPointManager : MonoBehaviour
     {
         return _towerProperties.CurrentHitPoints;
     }
+
+    public void SubscribeOnTowerHit(OnTowerHit onTowerHit)
+    {
+        _subscribersHitList += onTowerHit;
+    }
+
+    public void UnsubscribeOnTowerHit(OnTowerHit onTowerHit)
+    {
+        _subscribersHitList -= onTowerHit;
+    }
+
 
     public void SubscribeOnTowerDestroy(OnTowerDestroy onTowerDestroy)
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,7 +28,7 @@ public class GameManager : MonoBehaviour
             _instance = this;
         }
 
-        roadColliders = Road.GetComponentsInChildren<Collider>();
+        roadColliders = GameObject.FindGameObjectsWithTag("Ground").Select(obj => obj.GetComponent<Collider>()).ToArray();
 
         Debug.Log("Length road colliders: " + roadColliders.Length);
     }
@@ -35,4 +36,6 @@ public class GameManager : MonoBehaviour
     public Collider[] getRoadColliders() {
         return this.roadColliders;
     }
+
+    
 }
