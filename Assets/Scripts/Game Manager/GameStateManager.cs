@@ -65,7 +65,7 @@ public class GameStateManager : MonoBehaviour
     public void StartStage()
     {
         _stageSpawnManager.StartStage();
-        _startStageSubscribersList.Invoke();
+        _startStageSubscribersList?.Invoke();
     }
 
     /// <summary>
