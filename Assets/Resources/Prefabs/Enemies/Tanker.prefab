@@ -56,13 +56,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744b7b68b807e4b94ade5b53fee92518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 100
+  _hitPoints: 500
   _enemyType: 2
-  _movementSpeed: 4
+  _movementSpeed: 1
   _angularSpeed: 180
   _acceleration: 50
-  _hitDamage: 5
-  _attackRate: 2
+  _hitDamage: 20
+  _attackRate: 3
   _attackRange: 2
   _timeBeforeDestroy: 1
 --- !u!114 &823857805103030271
