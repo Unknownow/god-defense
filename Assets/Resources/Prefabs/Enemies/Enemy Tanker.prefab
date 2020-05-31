@@ -629,7 +629,7 @@ MonoBehaviour:
   _acceleration: 50
   _hitDamage: 5
   _attackRate: 2
-  _attackRange: 1.5
+  _attackRange: 2.5
   _attackHeight: 1.45
   _timeBeforeDestroy: 1
 --- !u!95 &2688255340719328895

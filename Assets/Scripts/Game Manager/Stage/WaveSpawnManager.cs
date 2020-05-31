@@ -69,10 +69,10 @@ public class WaveSpawnManager : MonoBehaviour
 
     public void StopWaveSpawn()
     {
-        Debug.Log("wave " + _currentWave.waveIndex + " ended");
+        // Debug.Log("wave " + _currentWave.waveIndex + " ended");
         _timer.StopWaveTimer();
         _currentWave.isDone = true;
-        _timer.UnsubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
+        // _timer.UnsubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
     }
 
     public void SubscribeOnWaveEnd(OnWaveEnds subscriber)

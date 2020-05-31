@@ -47,7 +47,7 @@ public class StageSpawnManager : MonoBehaviour
     public void StopStageSpawn()
     {
         _waveSpawnManager.StopWaveSpawn();
-        _waveSpawnManager.UnsubscribeOnWaveEnd(OnWaveEnd);
+        // _waveSpawnManager.UnsubscribeOnWaveEnd(OnWaveEnd);
         _timer.StopStageTimer();
     }
 
