@@ -13,6 +13,8 @@ public class GameUIManager : MonoBehaviour
     public GameObject pasueMenuCanvas;
     public GameObject optionsCanvas;
     public GameObject dialogCanvas;
+    public GameObject defeatedCanvas;
+    public GameObject victoryCanvas;
 
     public GameObject loader;
 
@@ -29,7 +31,8 @@ public class GameUIManager : MonoBehaviour
     public TextMeshProUGUI timeText;
 
 
-    void Start() {
+    void Awake()
+    {
         gsm = GameObject.Find("GameManager").GetComponent<GameStateManager>();
         stageTimerManager = GameObject.Find("GameManager").GetComponent<StageTimerManager>();
 
@@ -45,98 +48,151 @@ public class GameUIManager : MonoBehaviour
         stageTimerManager.SubscribeOnStageTimerIncrease(OnTimeUpdate);
     }
 
-    public void pauseClick() {
+    public void pauseClick()
+    {
         // Pause game
         pasueMenuCanvas.SetActive(true);
-        stageTimerManager.StopStageTimer();
+        gsm.Pause();
     }
 
-    public void onResumeClick() {
+    public void onResumeClick()
+    {
         pasueMenuCanvas.SetActive(false);
-        stageTimerManager.ResumeStageTimer();
+        gsm.Resume();
     }
 
-    public void onOptionsClick() {
+    public void onOptionsClick()
+    {
         pasueMenuCanvas.SetActive(false);
         optionsCanvas.SetActive(true);
     }
 
-    public void onBackToMenuClick() {
+    public void onBackToMenuClick()
+    {
         dialogCanvas.SetActive(true);
     }
 
-    public void onCancelClick() {
+    public void onCancelClick()
+    {
         dialogCanvas.SetActive(false);
     }
 
-    public void onYesClick() {
+    public void onYesClick()
+    {
         Debug.Log("Returned to Menu");
         Application.LoadLevel(0);
     }
 
-    public void onOptionBackClick() {
+    public void onReplayClick() {
+        defeatedCanvas.SetActive(false);
+        loader.SetActive(true);
+    }
+
+    public void onNextStageClick() {
+        victoryCanvas.SetActive(false);
+        // TODO: next stage
+    }
+
+    public void onOptionBackClick()
+    {
         pasueMenuCanvas.SetActive(true);
         optionsCanvas.SetActive(false);
     }
 
-    private void OnTowerHit(float heal) {
+    private void OnTowerHit(float heal)
+    {
         healthBar.fillAmount = heal;
     }
 
-    private void OnTimeUpdate(int currentTime) {
-        TimeSpan t = TimeSpan.FromSeconds( currentTime );
+    private void OnTimeUpdate(int currentTime)
+    {
+        TimeSpan t = TimeSpan.FromSeconds(currentTime);
 
         string timeStr = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
 
         timeText.SetText(timeStr);
     }
 
-    private void OnStartStage() {
+    private void OnStartStage()
+    {
         notiText.SetText("Stage started");
         notiText.alpha = 1.0f;
 
         notiText.CrossFadeAlpha(0, 1, true);
     }
 
-    private void OnWin() {
+    private void OnWin()
+    {
+        victoryCanvas.SetActive(true);
 
+        // TODO: Save stage
     }
 
-    private void OnDefeated() {
-        notiText.SetText("Defeated");
-        notiText.alpha = 1.0f;
+    private void OnDefeated()
+    {
+        // notiText.SetText("Defeated");
+        // notiText.alpha = 1.0f;
 
-        notiText.CrossFadeAlpha(1,0.1f, true);
+        // notiText.CrossFadeAlpha(1, 0.1f, true);
 
         // notiText.CrossFadeAlpha(0, 1, true);
+
+        defeatedCanvas.SetActive(true);
+
     }
 
-    private void OnWavePreparing(float time) {
+    private void OnWavePreparing(float time)
+    {
         StartCoroutine(OnWaveDelayPreparing(time));
 
     }
 
-    private IEnumerator OnWaveDelayPreparing(float time) {
+    private IEnumerator OnWaveDelayPreparing(float time)
+    {
         float waitTime = Mathf.Max(0, time - 3);
         yield return new WaitForSeconds(waitTime);
-        
-        yield return StartCoroutine(HandleTimeDelay("3"));
-        yield return StartCoroutine(HandleTimeDelay("2"));
-        yield return StartCoroutine(HandleTimeDelay("1"));
+
+        // yield return StartCoroutine(HandleTimeDelay("3"));
+        // yield return StartCoroutine(HandleTimeDelay("2"));
+        // yield return StartCoroutine(HandleTimeDelay("1"));
 
     }
 
-    private IEnumerator HandleTimeDelay(string time) {
+    public void OnStageLoaded()
+    {
+        StartCoroutine(CountdownBeforeStart());
+    }
+    private IEnumerator CountdownBeforeStart()
+    {
+        // yield return StartCoroutine(HandleTimeDelay("3"));
+        // yield return StartCoroutine(HandleTimeDelay("2"));
+        // yield return StartCoroutine(HandleTimeDelay("1"));
+        int i = 3;
+        while (i > 0)
+        {
+            notiText.SetText(i.ToString());
+            // notiText.CrossFadeAlpha(255, 0.5f, true);
+            notiText.alpha = 1;
+            yield return new WaitForSeconds(0.5f);
+            // notiText.CrossFadeAlpha(0, 0.5f, true);
+            notiText.alpha = 0;
+            yield return new WaitForSeconds(0.5f);
+            i--;
+        }
+        gsm.StartStage();
+    }
+
+    private void HandleTimeDelay(string time)
+    {
         notiText.SetText(time);
-        notiText.CrossFadeAlpha(1, 0.1f, true);
-        yield return new WaitForSeconds(0.1f);
-        notiText.CrossFadeAlpha(0, 0.9f, true);
-        yield return new WaitForSeconds(0.9f);
+
+        Debug.Log("X");
 
     }
 
 
-    private void OnWaveStarts() {
-        StartCoroutine(HandleTimeDelay("Wave Started"));
+    private void OnWaveStarts()
+    {
+        // StartCoroutine(HandleTimeDelay("Wave Started"));
     }
 }

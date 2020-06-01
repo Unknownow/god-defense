@@ -20,46 +20,6 @@
                     "laneIndex": 2
                 }
             ]
-        },
-        {
-            "waveIndex": 1,
-            "enemies": [
-                {
-                    "enemyType": 1,
-                    "spawnTime": 2,
-                    "laneIndex": 1
-                },
-                {
-                    "enemyType": 1,
-                    "spawnTime": 4,
-                    "laneIndex": 1
-                },
-                {
-                    "enemyType": 1,
-                    "spawnTime": 6,
-                    "laneIndex": 1
-                }
-            ]
-        },
-        {
-            "waveIndex": 2,
-            "enemies": [
-                {
-                    "enemyType": 2,
-                    "spawnTime": 2,
-                    "laneIndex": 1
-                },
-                {
-                    "enemyType": 2,
-                    "spawnTime": 5,
-                    "laneIndex": 1
-                },
-                {
-                    "enemyType": 2,
-                    "spawnTime": 8,
-                    "laneIndex": 1
-                }
-            ]
         }
     ]
 }

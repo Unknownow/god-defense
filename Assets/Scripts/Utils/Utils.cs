@@ -43,7 +43,6 @@ public static class Utils
             Directory.CreateDirectory(Path.GetDirectoryName(path));
             File.Create(path).Close();
         }
-        //TODO: return whether or not write successfully.
         StreamWriter sw = new StreamWriter(path, false);
         try
         {

@@ -22,7 +22,6 @@ public class EnemyCollision : MonoBehaviour
         if (other.transform.CompareTag("Bullet"))
         {
             // Debug.Log(other.transform.GetComponent<BulletProperties>());
-            //TODO: add enemy damaged by bullet.
             _enemyHitPoint.Hit(other.transform.GetComponent<BulletProperties>().BulletDamage);
         }
     }

@@ -17,29 +17,36 @@ public class GameLoader : MonoBehaviour {
 
     private bool isConcurrentDone = false;
 
-    void Start() {
+    void Awake() {
         gameStateManager = GameObject.FindWithTag("Manager").GetComponent<GameStateManager>();
         loadingCanvas.SetActive(true);
         slider = loadingBar.GetComponent<Slider>();
+        gameStateManager.SubscribeOnStageLoaded(OnStageLoaded);
+        LoadGame();
+    }
+
+    private void OnEnable() {
+        loadingCanvas.SetActive(true);
         LoadGame();
     }
 
     public void LoadGame() {
         isLoaded = false;
-        gameStateManager.SubscribeOnStageLoaded(OnStageLoaded);
         StartCoroutine(LoadAsynchronously());
     }
 
     IEnumerator LoadAsynchronously() {
+        isLoaded = false;
+        isConcurrentDone = false;
         gameStateManager.PrepageStage(0);
         //Fake progress
         bottomText.text = "Loading map...";
-        yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
+        yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         currentProgress = Random.Range(0.3f, 0.5f);
         slider.value = currentProgress;
 
         bottomText.text = "Loading assets...";
-        yield return new WaitForSeconds(Random.Range(1.0f, 3.0f));
+        yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         currentProgress = Random.Range(currentProgress, 0.9f);
         slider.value = currentProgress;
 
@@ -48,8 +55,7 @@ public class GameLoader : MonoBehaviour {
         isConcurrentDone = true;
 
         if (isLoaded) {
-            loadingCanvas.SetActive(false);
-            this.gameObject.SetActive(false);
+            OnStageLoaded();
         }
     }
 
@@ -59,6 +65,13 @@ public class GameLoader : MonoBehaviour {
         if (isConcurrentDone) {
             loadingCanvas.SetActive(false);
             this.gameObject.SetActive(false);
+
+            GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
+            gameUIManager.OnStageLoaded();
         }
+    }
+
+    private void OnDisable() {
+        
     }
 }

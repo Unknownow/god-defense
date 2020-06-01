@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -64,7 +65,9 @@ public class GameStateManager : MonoBehaviour
         //TODO: add load map prefab
 
         // After loaded
-        _stageLoadedSubscribers?.Invoke();
+        foreach(OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList()) {
+           func();
+        }
     }
 
     /// <summary>
@@ -183,7 +186,10 @@ public class GameStateManager : MonoBehaviour
         _stageSpawnManager.StopStageSpawn();
         // _towerHitPoint.SubscribeOnTowerDestroy(OnTowerDestroyed);
         // _stageSpawnManager.SubscribeOnStageEnd(OnStageEnd);
+
         _lostStageSubscribersList?.Invoke();
+
+        // TODO: kill all enemies
     }
 
     private void OnStageEnd()

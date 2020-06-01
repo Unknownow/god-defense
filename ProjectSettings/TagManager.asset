@@ -17,6 +17,7 @@ TagManager:
   - Bomb Trap
   - Bullet
   - Manager
+  - UIManager
   layers:
   - Default
   - TransparentFX

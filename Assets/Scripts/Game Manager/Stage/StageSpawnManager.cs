@@ -108,10 +108,10 @@ public class StageSpawnManager : MonoBehaviour
     private IEnumerator OnWaveEndDelay()
     {
         _onWavePreparingSubscribers?.Invoke(_delayBetweenWave);
-        yield return new WaitForSeconds(_delayBetweenWave);
         if (++_currentWaveCount >= _currentStage.waves.Length)
             EndStage();
         else {
+            yield return new WaitForSeconds(_delayBetweenWave);
             _onWaveStartsSubscribers?.Invoke();
             _waveSpawnManager.StartWave(_currentStage.waves[_currentWaveCount]);
         }
