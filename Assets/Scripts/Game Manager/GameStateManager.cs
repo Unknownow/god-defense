@@ -19,6 +19,8 @@ public class GameStateManager : MonoBehaviour
     public delegate void OnStageLoaded();
     private event OnStageLoaded _stageLoadedSubscribers;
 
+    private GameObject _currentMap;
+    [SerializeField]
     private TowerHitPointManager _towerHitPoint;
     private StageSpawnManager _stageSpawnManager;
     private bool _isGameOver;
@@ -29,6 +31,7 @@ public class GameStateManager : MonoBehaviour
             return this._isGameOver;
         }
     }
+    private bool _firstTimeLoad;
 
     private void Start()
     {
@@ -50,23 +53,28 @@ public class GameStateManager : MonoBehaviour
     /// Phương thức được sử dụng để load các sự kiện trước khi bắt đầu game, tuy nhiên còn thiếu load prefab của map.
     /// </summary>
     /// <param name="stageIndex"></param>
-    public void PrepageStage(int stageIndex)
+    public void PrepareStage(int stageIndex)
     {
+        if (_currentMap != null)
+            Destroy(_currentMap);
         _isGameOver = false;
         _stageSpawnManager.LoadStageDetail(stageIndex);
-        _towerHitPoint = GameObject.FindWithTag("Tower").GetComponent<TowerHitPointManager>();
-        if (_towerHitPoint != null)
-        {
-            _towerHitPoint.SubscribeOnTowerDestroy(OnTowerDestroyed);
-            _towerHitPoint.SubscribeOnTowerHit(OnUpdateTowerHealth);
-        }
-        // _towerHitPoint.SubscribeOnTowerDestroy(OnTowerDestroyed);
-        // _stageSpawnManager.SubscribeOnStageEnd(OnStageEnd);
-        //TODO: add load map prefab
+
+        // TODO: add load map prefab
+        GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + stageIndex);
+        _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+
+        // _towerHitPoint = GameObject.FindGameObjectWithTag("Tower").GetComponent<TowerHitPointManager>();
+        _towerHitPoint = GameObject.FindObjectOfType<TowerHitPointManager>();
+
+        // Subscribe
+        _towerHitPoint.SubscribeOnTowerDestroy(OnTowerDestroyed);
+        _towerHitPoint.SubscribeOnTowerHit(OnUpdateTowerHealth);
 
         // After loaded
-        foreach(OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList()) {
-           func();
+        foreach (OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList())
+        {
+            func();
         }
     }
 
@@ -171,11 +179,13 @@ public class GameStateManager : MonoBehaviour
         _stageSpawnManager.SubscribeOnWaveStarts(subscriber);
     }
 
-    public void SubscribeOnStageLoaded(OnStageLoaded subscriber) {
+    public void SubscribeOnStageLoaded(OnStageLoaded subscriber)
+    {
         _stageLoadedSubscribers += subscriber;
     }
 
-    public void UnsubscribeOnStageLoaded(OnStageLoaded subscriber) {
+    public void UnsubscribeOnStageLoaded(OnStageLoaded subscriber)
+    {
         _stageLoadedSubscribers -= subscriber;
     }
 
@@ -188,8 +198,7 @@ public class GameStateManager : MonoBehaviour
         // _stageSpawnManager.SubscribeOnStageEnd(OnStageEnd);
 
         _lostStageSubscribersList?.Invoke();
-
-        // TODO: kill all enemies
+        EnemyFactory.DestroyAllEnemies();
     }
 
     private void OnStageEnd()

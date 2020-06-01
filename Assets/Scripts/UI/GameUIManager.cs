@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -80,15 +81,20 @@ public class GameUIManager : MonoBehaviour
     public void onYesClick()
     {
         Debug.Log("Returned to Menu");
-        Application.LoadLevel(0);
+        // Application.LoadLevel(0);
+        SceneManager.LoadScene(0);
     }
 
-    public void onReplayClick() {
+    public void onReplayClick()
+    {
         defeatedCanvas.SetActive(false);
         loader.SetActive(true);
+        // gsm.PrepareStage(0);
+        //TODO: làm replay.
     }
 
-    public void onNextStageClick() {
+    public void onNextStageClick()
+    {
         victoryCanvas.SetActive(false);
         // TODO: next stage
     }

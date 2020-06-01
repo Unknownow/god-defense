@@ -40,6 +40,13 @@ public class StageSpawnManager : MonoBehaviour
         GetStagePattern(stageIndex);
     }
 
+    public int GetCurrentStageIndex()
+    {
+        if (_currentStage != null)
+            return _currentStage.stageIndex;
+        return -1;
+    }
+
     public void StartStage()
     {
         _currentWaveCount = 0;
@@ -65,19 +72,23 @@ public class StageSpawnManager : MonoBehaviour
         _onStageEndsSubscribers -= subscriber;
     }
 
-    public void SubscribeOnWavePreparing(OnWavePreparing subscriber) {
+    public void SubscribeOnWavePreparing(OnWavePreparing subscriber)
+    {
         _onWavePreparingSubscribers += subscriber;
     }
 
-    public void UnsubscribeOnWavePreparing(OnWavePreparing subscriber) {
-       _onWavePreparingSubscribers -= subscriber;
+    public void UnsubscribeOnWavePreparing(OnWavePreparing subscriber)
+    {
+        _onWavePreparingSubscribers -= subscriber;
     }
 
-    public void SubscribeOnWaveStarts(OnWaveStarts subscriber) {
+    public void SubscribeOnWaveStarts(OnWaveStarts subscriber)
+    {
         _onWaveStartsSubscribers += subscriber;
     }
 
-    public void UnsubscribeOnWaveStarts(OnWaveStarts subscriber) {
+    public void UnsubscribeOnWaveStarts(OnWaveStarts subscriber)
+    {
         _onWaveStartsSubscribers -= subscriber;
     }
 
@@ -110,7 +121,8 @@ public class StageSpawnManager : MonoBehaviour
         _onWavePreparingSubscribers?.Invoke(_delayBetweenWave);
         if (++_currentWaveCount >= _currentStage.waves.Length)
             EndStage();
-        else {
+        else
+        {
             yield return new WaitForSeconds(_delayBetweenWave);
             _onWaveStartsSubscribers?.Invoke();
             _waveSpawnManager.StartWave(_currentStage.waves[_currentWaveCount]);

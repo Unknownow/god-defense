@@ -18,6 +18,10 @@ public class TowerHitPointManager : MonoBehaviour
         _towerProperties = gameObject.GetComponent<TowerProperties>();
     }
 
+    // public void Init(){
+
+    // }
+
     public float Hit(float damage)
     {
         Debug.Log("Got damage " + damage);

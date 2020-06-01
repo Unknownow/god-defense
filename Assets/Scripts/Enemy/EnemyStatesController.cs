@@ -34,7 +34,7 @@ public class EnemyStatesController : MonoBehaviour
 
     public void Initialize(Vector3 position, int laneIndex)
     {
-        _enemyProperties.Initialize(position, laneIndex);
+        _enemyProperties.Initialize(laneIndex);
         _visual.Init();
         StopAllCoroutines();
         // Reset physical components:
@@ -51,7 +51,11 @@ public class EnemyStatesController : MonoBehaviour
 
         // enable NavMeshAgent
         NavMeshAgent enemyAgent = gameObject.GetComponent<NavMeshAgent>();
+        if (enemyAgent.hasPath)
+            enemyAgent.ResetPath();
         enemyAgent.enabled = true;
+        enemyAgent.Warp(position);
+
         enemyAgent.speed = _enemyProperties.MovementSpeed;
         enemyAgent.angularSpeed = _enemyProperties.AngularSpeed;
         enemyAgent.acceleration = _enemyProperties.Acceleration;
@@ -74,6 +78,7 @@ public class EnemyStatesController : MonoBehaviour
 
         // disable NavMeshAgent
         gameObject.GetComponent<NavMeshAgent>().enabled = false;
+        // Destroy(gameObject.GetComponent<NavMeshAgent>());
 
         // using gravity and unfreeze rotation, position.
         Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
@@ -84,6 +89,30 @@ public class EnemyStatesController : MonoBehaviour
         gameObject.GetComponent<Collider>().isTrigger = false;
 
         StartCoroutine(DestroyEnemy(_enemyProperties.TimeBeforeDestroy));
+    }
+
+    public void Destroy()
+    {
+        _enemyProperties.Die();
+
+        // die animation
+        _enemyAnimator.SetBool("dieFlag", true);
+        _enemyAnimator.SetBool("runFlag", false);
+        _enemyAnimator.SetBool("attackFlag", false);
+
+        // disable NavMeshAgent
+        gameObject.GetComponent<NavMeshAgent>().enabled = false;
+
+        // using gravity and unfreeze rotation, position.
+        Rigidbody enemyBody = gameObject.GetComponent<Rigidbody>();
+        enemyBody.useGravity = true;
+        enemyBody.constraints = RigidbodyConstraints.None;
+
+        // uncheck isTrigger on collider.
+        gameObject.GetComponent<Collider>().isTrigger = false;
+        transform.position = Vector3.zero;
+        transform.rotation = Quaternion.identity;
+        EnemyFactory.DestroyEnemy(_enemyProperties.Type, this.gameObject);
     }
 
     public void Attack()

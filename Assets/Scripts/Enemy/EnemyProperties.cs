@@ -220,11 +220,10 @@ public class EnemyProperties : MonoBehaviour
     //     _isAlive = true;
     // }
 
-    public void Initialize(Vector3 position, int laneIndex)
+    public void Initialize(int laneIndex)
     {
         // Reset properties:
         LaneIndex = laneIndex;
-        transform.position = position;
         _currentHitPoints = _hitPoints;
 
         // Set is alive is true

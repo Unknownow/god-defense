@@ -6,7 +6,7 @@ public class TowerProperties : MonoBehaviour
 {
     [SerializeField]
     private float _hitPoints;
-    private float _currentHitPoints;
+    public float _currentHitPoints;
     public float CurrentHitPoints
     {
         get
@@ -54,6 +54,10 @@ public class TowerProperties : MonoBehaviour
             return this._isDestroyed;
         }
     }
+
+    // public void Init(){
+
+    // }
 
     private void Awake()
     {

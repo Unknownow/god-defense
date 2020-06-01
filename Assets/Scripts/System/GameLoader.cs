@@ -38,7 +38,7 @@ public class GameLoader : MonoBehaviour {
     IEnumerator LoadAsynchronously() {
         isLoaded = false;
         isConcurrentDone = false;
-        gameStateManager.PrepageStage(0);
+        gameStateManager.PrepareStage(0);
         //Fake progress
         bottomText.text = "Loading map...";
         yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
