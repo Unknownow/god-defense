@@ -13,7 +13,7 @@ public class UIManager : MonoBehaviour {
     // public GameObject windowAbout;
     public GameObject windowSettings;
     public GameObject windowNewGame;
-    public GameObject loader;
+    // public GameObject loader;
     public Sprite soundsOn;
     public Sprite soundsOff;
     public Sprite musicOn;
@@ -97,7 +97,8 @@ public class UIManager : MonoBehaviour {
     }
 
     public void GotoStartGame() {
-        loader.SetActive(true);
+        // loader.SetActive(true);
+        Application.LoadLevel("Map_Hoa");
     }
 
     public void ClickSounds() {

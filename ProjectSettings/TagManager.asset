@@ -16,6 +16,7 @@ TagManager:
   - Freezing Trap
   - Bomb Trap
   - Bullet
+  - Manager
   layers:
   - Default
   - TransparentFX

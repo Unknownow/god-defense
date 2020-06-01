@@ -14,6 +14,8 @@ public class GameUIManager : MonoBehaviour
     public GameObject optionsCanvas;
     public GameObject dialogCanvas;
 
+    public GameObject loader;
+
     // Managers
     private GameStateManager gsm;
 

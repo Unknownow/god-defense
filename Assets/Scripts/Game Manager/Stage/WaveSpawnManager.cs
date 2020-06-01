@@ -25,19 +25,19 @@ public class WaveSpawnManager : MonoBehaviour
     {
         _timer = gameObject.GetComponent<StageTimerManager>();
         _timer.SubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
-        GetSpawnersList();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _spawnersList[0].SpawnEnemy(EnemyType.Heavier);
-        }
+        // if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     _spawnersList[0].SpawnEnemy(EnemyType.Heavier);
+        // }
     }
 
     public void StartWave(Wave wave)
     {
+        GetSpawnersList();
         _currentWave.waveIndex = wave.waveIndex;
         _currentWave.totalEnemiesCount = wave.enemies.Length;
         _currentWave.spawnedEnemiesCount = 0;

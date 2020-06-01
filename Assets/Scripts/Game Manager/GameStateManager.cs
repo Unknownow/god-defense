@@ -13,10 +13,11 @@ public class GameStateManager : MonoBehaviour
     private event OnStartStage _startStageSubscribersList;
 
     public delegate void OnTowerUpdateHeal(float health);
-    private event OnTowerUpdateHeal _towerHealthSubscriversList;
+    private event OnTowerUpdateHeal _towerHealthSubscribersList;
 
+    public delegate void OnStageLoaded();
+    private event OnStageLoaded _stageLoadedSubscribers;
 
-    [SerializeField]
     private TowerHitPointManager _towerHitPoint;
     private StageSpawnManager _stageSpawnManager;
     private bool _isGameOver;
@@ -30,8 +31,6 @@ public class GameStateManager : MonoBehaviour
 
     private void Start()
     {
-        _towerHitPoint.SubscribeOnTowerDestroy(OnTowerDestroyed);
-        _towerHitPoint.SubscribeOnTowerHit(OnUpdateTowerHealth);
         _stageSpawnManager = gameObject.GetComponent<StageSpawnManager>();
         _stageSpawnManager.SubscribeOnStageEnd(OnStageEnd);
         DontDestroyOnLoad(gameObject);
@@ -54,9 +53,18 @@ public class GameStateManager : MonoBehaviour
     {
         _isGameOver = false;
         _stageSpawnManager.LoadStageDetail(stageIndex);
+        _towerHitPoint = GameObject.FindWithTag("Tower").GetComponent<TowerHitPointManager>();
+        if (_towerHitPoint != null)
+        {
+            _towerHitPoint.SubscribeOnTowerDestroy(OnTowerDestroyed);
+            _towerHitPoint.SubscribeOnTowerHit(OnUpdateTowerHealth);
+        }
         // _towerHitPoint.SubscribeOnTowerDestroy(OnTowerDestroyed);
         // _stageSpawnManager.SubscribeOnStageEnd(OnStageEnd);
         //TODO: add load map prefab
+
+        // After loaded
+        _stageLoadedSubscribers?.Invoke();
     }
 
     /// <summary>
@@ -120,36 +128,52 @@ public class GameStateManager : MonoBehaviour
         _lostStageSubscribersList -= subscriber;
     }
 
-    public void SubscribeOnStageStart(OnStartStage subscriber) {
+    public void SubscribeOnStageStart(OnStartStage subscriber)
+    {
         _startStageSubscribersList += subscriber;
     }
 
-    public void UnsubscribeOnStageStart(OnStartStage subscriber) {
+    public void UnsubscribeOnStageStart(OnStartStage subscriber)
+    {
         _startStageSubscribersList -= subscriber;
     }
 
-    public void SubscribeOnUpdateTowerHealth(OnTowerUpdateHeal subscriber) {
-        _towerHealthSubscriversList += subscriber;
+    public void SubscribeOnUpdateTowerHealth(OnTowerUpdateHeal subscriber)
+    {
+        _towerHealthSubscribersList += subscriber;
     }
 
-    public void UnsubscribeOnUpdateTowerHealth(OnTowerUpdateHeal subscriber) {
-        _towerHealthSubscriversList -= subscriber;
+    public void UnsubscribeOnUpdateTowerHealth(OnTowerUpdateHeal subscriber)
+    {
+        _towerHealthSubscribersList -= subscriber;
     }
 
-    public void SubscribeOnWavePreparing(StageSpawnManager.OnWavePreparing subscriber) {
+    public void SubscribeOnWavePreparing(StageSpawnManager.OnWavePreparing subscriber)
+    {
         _stageSpawnManager.SubscribeOnWavePreparing(subscriber);
     }
 
-    public void UnsubscribeOnWavePreparing(StageSpawnManager.OnWavePreparing subscriber) {
+    public void UnsubscribeOnWavePreparing(StageSpawnManager.OnWavePreparing subscriber)
+    {
         _stageSpawnManager.UnsubscribeOnWavePreparing(subscriber);
     }
 
-    public void SubscribeOnWaveStarts(StageSpawnManager.OnWaveStarts subscriber) {
+    public void SubscribeOnWaveStarts(StageSpawnManager.OnWaveStarts subscriber)
+    {
         _stageSpawnManager.SubscribeOnWaveStarts(subscriber);
     }
 
-    public void UnsubscribeOnWaveStarts(StageSpawnManager.OnWaveStarts subscriber) {
+    public void UnsubscribeOnWaveStarts(StageSpawnManager.OnWaveStarts subscriber)
+    {
         _stageSpawnManager.SubscribeOnWaveStarts(subscriber);
+    }
+
+    public void SubscribeOnStageLoaded(OnStageLoaded subscriber) {
+        _stageLoadedSubscribers += subscriber;
+    }
+
+    public void UnsubscribeOnStageLoaded(OnStageLoaded subscriber) {
+        _stageLoadedSubscribers -= subscriber;
     }
 
     private void OnTowerDestroyed()
@@ -169,7 +193,8 @@ public class GameStateManager : MonoBehaviour
         _winStageSubscribersList?.Invoke();
     }
 
-    private void OnUpdateTowerHealth(float health) {
-        _towerHealthSubscriversList?.Invoke(health);
+    private void OnUpdateTowerHealth(float health)
+    {
+        _towerHealthSubscribersList?.Invoke(health);
     }
 }
