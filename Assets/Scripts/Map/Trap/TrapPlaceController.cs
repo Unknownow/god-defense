@@ -112,7 +112,7 @@ public class TrapPlaceController : MonoBehaviour
             
             float gridSize = GameManager.Instance().gridSize;
             truePos.x = Mathf.Floor(hitInfo.point.x / gridSize) * gridSize;
-            truePos.y = GameObject.Find("Road").transform.position.y + 0.05f;
+            truePos.y = GameObject.Find("Road").transform.position.y;
             truePos.z = Mathf.Floor(hitInfo.point.z / gridSize) * gridSize;
 
             Vector3 centerPoint = truePos;
