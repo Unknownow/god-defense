@@ -33,6 +33,8 @@ public class GameStateManager : MonoBehaviour
     }
     private bool _firstTimeLoad;
 
+    private int _currentStage;
+
     private void Start()
     {
         _stageSpawnManager = gameObject.GetComponent<StageSpawnManager>();
@@ -72,6 +74,7 @@ public class GameStateManager : MonoBehaviour
         _towerHitPoint.SubscribeOnTowerHit(OnUpdateTowerHealth);
 
         // After loaded
+        _currentStage = stageIndex;
         foreach (OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList())
         {
             func();
@@ -101,6 +104,11 @@ public class GameStateManager : MonoBehaviour
     public void Resume()
     {
         Time.timeScale = 1;
+    }
+
+    public int GetCurrentStage()
+    {
+        return _currentStage;
     }
 
     /// <summary>

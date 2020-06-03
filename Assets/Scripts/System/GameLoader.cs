@@ -13,7 +13,7 @@ public class GameLoader : MonoBehaviour {
 
     private GameStateManager gameStateManager;
 
-    private bool isLoaded = false;
+    private bool isLoaded = true;
 
     private bool isConcurrentDone = false;
 
@@ -31,19 +31,30 @@ public class GameLoader : MonoBehaviour {
     }
 
     public void LoadGame() {
-        isLoaded = false;
-        StartCoroutine(LoadAsynchronously());
+        if (isLoaded) {
+            isLoaded = false;
+            currentProgress = 0f;
+            slider.value = currentProgress;
+            
+            StartCoroutine(LoadAsynchronously());
+            Debug.Log("Started Load");
+        }
     }
 
     IEnumerator LoadAsynchronously() {
         isLoaded = false;
         isConcurrentDone = false;
-        gameStateManager.PrepareStage(0);
+        Save save = SaveLoadSystem.Load();
+        if (save == null) {
+            save = new Save(0);
+        }
+        
         //Fake progress
         bottomText.text = "Loading map...";
         yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
         currentProgress = Random.Range(0.3f, 0.5f);
         slider.value = currentProgress;
+        Debug.Log("Still Loading");
 
         bottomText.text = "Loading assets...";
         yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
@@ -51,6 +62,8 @@ public class GameLoader : MonoBehaviour {
         slider.value = currentProgress;
 
         bottomText.text = "Loading...";
+
+        gameStateManager.PrepareStage(save.StageIndex);
 
         isConcurrentDone = true;
 

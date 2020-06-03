@@ -127,18 +127,20 @@ public class TrapPlaceController : MonoBehaviour
             int maxXInside = 0, maxYInside = 0;
             // Physics.OverlapSphereNonAlloc(centerPoint, hitRadius, _colliders, _attackableLayer);
             foreach (Collider collider in GameManager.Instance().getRoadColliders()) {
-                Bounds trapBounds = _trapCollider.bounds;
-                if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x, trapBounds.min.z))) {
-                    minXInside++;
-                }
-                if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x + trapBounds.size.x, trapBounds.min.z))) {
-                    minYInside++;
-                }
-                if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x, trapBounds.min.z + trapBounds.size.z))) {
-                    maxXInside++;
-                }
-                if (isPointInside(collider.bounds, new Vector2(trapBounds.max.x, trapBounds.max.z))) {
-                    maxYInside++;
+                if (collider != null) {
+                    Bounds trapBounds = _trapCollider.bounds;
+                    if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x, trapBounds.min.z))) {
+                        minXInside++;
+                    }
+                    if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x + trapBounds.size.x, trapBounds.min.z))) {
+                        minYInside++;
+                    }
+                    if (isPointInside(collider.bounds, new Vector2(trapBounds.min.x, trapBounds.min.z + trapBounds.size.z))) {
+                        maxXInside++;
+                    }
+                    if (isPointInside(collider.bounds, new Vector2(trapBounds.max.x, trapBounds.max.z))) {
+                        maxYInside++;
+                    }
                 }
             }
 

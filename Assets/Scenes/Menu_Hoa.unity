@@ -1490,22 +1490,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 404109031}
     m_Modifications:
-    - target: {fileID: 2441799998475990766, guid: c7634c2ceced5fa95bf2015d2973378c,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300012, guid: 66a71b0830029ae40b574b1939bb1123,
-        type: 3}
-    - target: {fileID: 2441799998475990766, guid: c7634c2ceced5fa95bf2015d2973378c,
-        type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2441799998475990766, guid: c7634c2ceced5fa95bf2015d2973378c,
-        type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3026712969738529317, guid: c7634c2ceced5fa95bf2015d2973378c,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2106,6 +2090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68931962154d24e878b3c110d8739783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerHitPoint: {fileID: 0}
 --- !u!4 &2025423141
 Transform:
   m_ObjectHideFlags: 0

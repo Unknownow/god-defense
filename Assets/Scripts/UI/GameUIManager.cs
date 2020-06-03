@@ -97,6 +97,7 @@ public class GameUIManager : MonoBehaviour
     {
         victoryCanvas.SetActive(false);
         // TODO: next stage
+        loader.SetActive(true);
     }
 
     public void onOptionBackClick()
@@ -132,6 +133,8 @@ public class GameUIManager : MonoBehaviour
         victoryCanvas.SetActive(true);
 
         // TODO: Save stage
+        Save save = new Save(gsm.GetCurrentStage() + 1);
+        SaveLoadSystem.Save(save);
     }
 
     private void OnDefeated()
@@ -170,6 +173,10 @@ public class GameUIManager : MonoBehaviour
     }
     private IEnumerator CountdownBeforeStart()
     {
+        notiText.gameObject.SetActive(false);
+        notiText.gameObject.SetActive(true);
+        timeText.SetText("00:00");
+        healthBar.fillAmount = 1.0f;
         // yield return StartCoroutine(HandleTimeDelay("3"));
         // yield return StartCoroutine(HandleTimeDelay("2"));
         // yield return StartCoroutine(HandleTimeDelay("1"));
