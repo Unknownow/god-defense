@@ -5,16 +5,7 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Menu_Hoa.unity
-    guid: 5b0097d1dedc8c449be144c484c7da32
-  - enabled: 1
-    path: Assets/Scenes/LoadingMenu_Hoa.unity
-    guid: 20e8fee6936294c4a804ecee0792e207
-  - enabled: 1
-    path: Assets/Scenes/Map_Hoa.unity
-    guid: 0ae9f0b9cfc5e482ab5c01f4f7ca5bcb
+    path: Assets/Scenes/Map_Vinh_1.unity
+    guid: a187d40fa0bed574fb630f5219156045
   m_configObjects: {}

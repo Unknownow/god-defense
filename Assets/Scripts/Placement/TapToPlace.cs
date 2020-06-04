@@ -48,14 +48,15 @@ public class TapToPlace : MonoBehaviour
         if (arReferencePointManager != null)
         {
             arReferencePointManager.referencePointPrefab = objectToPlace;
-            arReferencePointManager.referencePointPrefab.transform.localScale = objectToPlace.transform.localScale / 10;
+            arReferencePointManager.referencePointPrefab.transform.localScale = objectToPlace.transform.localScale / 25;
             ARReferencePoint referencePoint = arReferencePointManager.TryAddReferencePoint(placementPose);
             referencePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         // var goStage = Instantiate(objectToPlace,placementPose.position, placementPose.rotation);
         // goStage.transform.rotation = Quaternion.Euler(0, 0, 0);
 
-        gameController.GetComponent<GameManager>().Road = GameObject.Find("TrapFactory");
+        if (gameController != null)
+            gameController.GetComponent<GameManager>().Road = GameObject.Find("TrapFactory");
 
         if (arPlaneManager != null)
         {
