@@ -98,7 +98,8 @@ public class UIManager : MonoBehaviour {
 
     public void GotoStartGame() {
         // loader.SetActive(true);
-        Application.LoadLevel("Map_Hoa");
+        Application.LoadLevel("TestPlayableStage_Hieu");
+        //Debug.Log("DM An roi deo chay");
     }
 
     public void ClickSounds() {

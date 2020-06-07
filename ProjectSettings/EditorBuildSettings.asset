@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Map_Vinh_1.unity
-    guid: a187d40fa0bed574fb630f5219156045
-  - enabled: 1
-    path: Assets/Scenes/Map_Hoa.unity
-    guid: 0ae9f0b9cfc5e482ab5c01f4f7ca5bcb
-  - enabled: 1
     path: Assets/Scenes/Menu_Hoa.unity
     guid: 5b0097d1dedc8c449be144c484c7da32
+  - enabled: 1
+    path: Assets/Scenes/TestPlayableStage_Hieu.unity
+    guid: 565cabb1a7fa0e9499144c5b53513fbd
   m_configObjects: {}

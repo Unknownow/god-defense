@@ -85,6 +85,11 @@ public class TapToPlace : MonoBehaviour
 
         placementIndicator.SetActive(false);
         this.gameObject.SetActive(false);
+
+        //Bat in-game canvas + bat dau countdown
+        GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
+        gameUIManager.ingameCanvas.SetActive(true);
+        gameUIManager.OnStageLoaded();
     }
 
     private void UpdatePlacementIndicator()

@@ -535,7 +535,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e07b85c5e36bf3409894212ae9412f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToPlace: {fileID: 6333824763615478735, guid: 27d5ed096ee1de14686708512899605b,
+  objectToPlace: {fileID: 6333502830975817521, guid: 98b458ba66f5e449888b58dba7cd09ec,
     type: 3}
   placementIndicator: {fileID: 606583840}
   gameController: {fileID: 0}

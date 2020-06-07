@@ -79,8 +79,8 @@ public class GameLoader : MonoBehaviour {
             loadingCanvas.SetActive(false);
             this.gameObject.SetActive(false);
 
-            GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
-            gameUIManager.OnStageLoaded();
+            // GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
+            // gameUIManager.OnStageLoaded();
         }
     }
 
