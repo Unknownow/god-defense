@@ -34,6 +34,7 @@ public class GameStateManager : MonoBehaviour
     private bool _firstTimeLoad;
 
     private int _currentStage;
+    private bool _isMapLoaded;
 
     private void Start()
     {
@@ -64,11 +65,10 @@ public class GameStateManager : MonoBehaviour
         _currentStage = stageIndex;
 
         // // TODO: add load map prefab
-        if (_currentMap == null)
-        {
-            GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + stageIndex);
-            _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
-        }
+        GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + stageIndex);
+        if (_currentMap != null)
+            Destroy(_currentMap);
+        _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
 
         // _towerHitPoint = GameObject.FindGameObjectWithTag("Tower").GetComponent<TowerHitPointManager>();
         _towerHitPoint = GameObject.FindObjectOfType<TowerHitPointManager>();
@@ -88,16 +88,12 @@ public class GameStateManager : MonoBehaviour
     // HIẾU VÀ VĨNH GỌI CÁI NÀY
     public GameObject SetStagePosition(Vector3 position)
     {
-        Save save = SaveLoadSystem.Load();
-        if (save == null)
-        {
-            save = new Save(0);
-        }
         if (_currentMap == null)
         {
-            GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + save.StageIndex);
+            GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + _currentStage);
             _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
         }
+
         _currentMap.transform.position = position;
         _currentMap.SetActive(true);
         return _currentMap;
