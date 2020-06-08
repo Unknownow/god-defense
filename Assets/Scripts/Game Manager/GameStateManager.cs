@@ -52,7 +52,7 @@ public class GameStateManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Phương thức được sử dụng để load các sự kiện trước khi bắt đầu game, tuy nhiên còn thiếu load prefab của map.
+    /// Phương thức được sử dụng để load các sự kiện trước khi bắt đầu game
     /// </summary>
     /// <param name="stageIndex"></param>
     public void PrepareStage(int stageIndex)
@@ -61,10 +61,14 @@ public class GameStateManager : MonoBehaviour
             Destroy(_currentMap);
         _isGameOver = false;
         _stageSpawnManager.LoadStageDetail(stageIndex);
+        _currentStage = stageIndex;
 
-        // TODO: add load map prefab
-        GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + stageIndex);
-        _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+        // // TODO: add load map prefab
+        if (_currentMap == null)
+        {
+            GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + stageIndex);
+            _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+        }
 
         // _towerHitPoint = GameObject.FindGameObjectWithTag("Tower").GetComponent<TowerHitPointManager>();
         _towerHitPoint = GameObject.FindObjectOfType<TowerHitPointManager>();
@@ -74,11 +78,29 @@ public class GameStateManager : MonoBehaviour
         _towerHitPoint.SubscribeOnTowerHit(OnUpdateTowerHealth);
 
         // After loaded
-        _currentStage = stageIndex;
         foreach (OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList())
         {
             func();
         }
+        _currentMap.SetActive(false);
+    }
+
+    // HIẾU VÀ VĨNH GỌI CÁI NÀY
+    public GameObject SetStagePosition(Vector3 position)
+    {
+        Save save = SaveLoadSystem.Load();
+        if (save == null)
+        {
+            save = new Save(0);
+        }
+        if (_currentMap == null)
+        {
+            GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + save.StageIndex);
+            _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+        }
+        _currentMap.transform.position = position;
+        _currentMap.SetActive(true);
+        return _currentMap;
     }
 
     /// <summary>
