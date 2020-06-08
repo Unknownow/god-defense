@@ -91,7 +91,7 @@ public class GameStateManager : MonoBehaviour
         if (_currentMap == null)
         {
             GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + _currentStage);
-            _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
+            _currentMap = Instantiate(mapPrefab, position, Quaternion.identity);
         }
 
         _currentMap.transform.position = position;

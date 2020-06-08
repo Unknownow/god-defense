@@ -14,7 +14,9 @@ public class TapToPlace : MonoBehaviour
     [SerializeField]
     private GameObject placementIndicator;
     [SerializeField]
-    private GameObject gameController;
+    private GameObject _player;
+    [SerializeField]
+    private GameObject _crosshairCanvas;
 
     private ARSessionOrigin arOrigin;
     private ARPlaneManager arPlaneManager;
@@ -23,6 +25,7 @@ public class TapToPlace : MonoBehaviour
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
+    private bool isFinding = true;
 
     void Start()
     {
@@ -30,33 +33,40 @@ public class TapToPlace : MonoBehaviour
         arReferencePointManager = arOrigin.GetComponent<ARReferencePointManager>();
         arPointCloudManager = arOrigin.GetComponent<ARPointCloudManager>();
         arPlaneManager = arOrigin.GetComponent<ARPlaneManager>();
+
+        isFinding = true;
+
+        _player = GameObject.Find("Player");
+        _crosshairCanvas = GameObject.Find("CrosshairCanvas");
+        _player.SetActive(false);
+        _crosshairCanvas.SetActive(false);
     }
 
     void Update()
     {
-        UpdatePlacementPose();
-        UpdatePlacementIndicator();
-
-        if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        if (isFinding)
         {
-            PlaceObject();
-        }
+            UpdatePlacementPose();
+            UpdatePlacementIndicator();
+
+            if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                PlaceObject();
+            }
+        }  
     }
 
     private void PlaceObject()
     {
         if (arReferencePointManager != null)
         {
-            arReferencePointManager.referencePointPrefab = objectToPlace;
-            arReferencePointManager.referencePointPrefab.transform.localScale = objectToPlace.transform.localScale / 25;
+            //arReferencePointManager.referencePointPrefab = objectToPlace;
+            //arReferencePointManager.referencePointPrefab.transform.localScale = objectToPlace.transform.localScale / 25;
             ARReferencePoint referencePoint = arReferencePointManager.TryAddReferencePoint(placementPose);
-            referencePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
+            //referencePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
         // var goStage = Instantiate(objectToPlace,placementPose.position, placementPose.rotation);
         // goStage.transform.rotation = Quaternion.Euler(0, 0, 0);
-
-        if (gameController != null)
-            gameController.GetComponent<GameManager>().Road = GameObject.Find("TrapFactory");
 
         if (arPlaneManager != null)
         {
@@ -81,15 +91,27 @@ public class TapToPlace : MonoBehaviour
                 }
             }
         }
-        
 
-        placementIndicator.SetActive(false);
-        this.gameObject.SetActive(false);
+        //Lay toa do dat stage
+        GameStateManager gameStateManager = GameObject.FindObjectOfType<GameStateManager>();
+        gameStateManager.SetStagePosition(GetPlacementPosition());
+
+        //Bat nguoi choi
+        _player.SetActive(true);
+        _crosshairCanvas.SetActive(true);
 
         //Bat in-game canvas + bat dau countdown
         GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
         gameUIManager.ingameCanvas.SetActive(true);
         gameUIManager.OnStageLoaded();
+
+        placementIndicator.SetActive(false);
+        isFinding = false;
+    }
+
+    public Vector3 GetPlacementPosition()
+    {
+        return placementPose.position;
     }
 
     private void UpdatePlacementIndicator()
