@@ -2,6 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class GameLoader : MonoBehaviour {
     public GameObject loadingCanvas;
@@ -11,6 +12,7 @@ public class GameLoader : MonoBehaviour {
 
     private float currentProgress = 0f;
 
+    [SerializeField]
     private GameStateManager gameStateManager;
 
     private bool isLoaded = true;
@@ -19,10 +21,10 @@ public class GameLoader : MonoBehaviour {
 
     void Awake() {
         gameStateManager = GameObject.FindWithTag("Manager").GetComponent<GameStateManager>();
-        loadingCanvas.SetActive(true);
+        // loadingCanvas.SetActive(true);
         slider = loadingBar.GetComponent<Slider>();
-        gameStateManager.SubscribeOnStageLoaded(OnStageLoaded);
-        LoadGame();
+        // gameStateManager.SubscribeOnStageLoaded(OnStageLoaded);
+        // LoadGame();
     }
 
     private void OnEnable() {
@@ -36,12 +38,11 @@ public class GameLoader : MonoBehaviour {
             currentProgress = 0f;
             slider.value = currentProgress;
             
-            StartCoroutine(LoadAsynchronously());
-            Debug.Log("Started Load");
+            LoadAsynchronously();
         }
     }
 
-    IEnumerator LoadAsynchronously() {
+    async void LoadAsynchronously() {
         isLoaded = false;
         isConcurrentDone = false;
         Save save = SaveLoadSystem.Load();
@@ -51,25 +52,23 @@ public class GameLoader : MonoBehaviour {
         
         //Fake progress
         bottomText.text = "Loading map...";
-        yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
+        await Task.Delay(System.TimeSpan.FromSeconds(Random.Range(1.0f, 2.0f)));
         currentProgress = Random.Range(0.3f, 0.5f);
         slider.value = currentProgress;
         Debug.Log("Still Loading");
 
         bottomText.text = "Loading assets...";
-        yield return new WaitForSeconds(Random.Range(1.0f, 2.0f));
+        await Task.Delay(System.TimeSpan.FromSeconds(Random.Range(1.0f, 2.0f)));
         currentProgress = Random.Range(currentProgress, 0.9f);
         slider.value = currentProgress;
 
         bottomText.text = "Loading...";
-
+        await Task.Delay(System.TimeSpan.FromSeconds(Random.Range(1.0f, 2.0f)));
+        isConcurrentDone = true;
+        Debug.Log(gameStateManager);
         gameStateManager.PrepareStage(save.StageIndex);
 
-        isConcurrentDone = true;
-
-        if (isLoaded) {
-            OnStageLoaded();
-        }
+        OnStageLoaded();
     }
 
     private void OnStageLoaded() {

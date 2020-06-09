@@ -33,6 +33,12 @@ public class GameManager : MonoBehaviour
         Debug.Log("Length road colliders: " + roadColliders.Length);
     }
 
+    public void UpdateGround() {
+        roadColliders = GameObject.FindGameObjectsWithTag("Ground").Select(obj => obj.GetComponent<Collider>()).ToArray();
+
+        Debug.Log("Length road colliders: " + roadColliders.Length);
+    }
+
     public Collider[] getRoadColliders() {
         return this.roadColliders;
     }

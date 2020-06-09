@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -169,27 +170,24 @@ public class GameUIManager : MonoBehaviour
 
     public void OnStageLoaded()
     {
-        StartCoroutine(CountdownBeforeStart());
+        CountdownBeforeStart();
     }
-    private IEnumerator CountdownBeforeStart()
+    private async void CountdownBeforeStart()
     {
         notiText.gameObject.SetActive(false);
         notiText.gameObject.SetActive(true);
         timeText.SetText("00:00");
         healthBar.fillAmount = 1.0f;
-        // yield return StartCoroutine(HandleTimeDelay("3"));
-        // yield return StartCoroutine(HandleTimeDelay("2"));
-        // yield return StartCoroutine(HandleTimeDelay("1"));
         int i = 3;
         while (i > 0)
         {
             notiText.SetText(i.ToString());
             // notiText.CrossFadeAlpha(255, 0.5f, true);
             notiText.alpha = 1;
-            yield return new WaitForSeconds(0.5f);
+            await Task.Delay(System.TimeSpan.FromSeconds(0.5f));
             // notiText.CrossFadeAlpha(0, 0.5f, true);
             notiText.alpha = 0;
-            yield return new WaitForSeconds(0.5f);
+            await Task.Delay(System.TimeSpan.FromSeconds(0.5f));
             i--;
         }
         gsm.StartStage();

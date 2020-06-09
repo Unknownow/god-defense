@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+using System.Threading.Tasks;
 
 public class GameStateManager : MonoBehaviour
 {
@@ -37,9 +39,14 @@ public class GameStateManager : MonoBehaviour
 
     private void Start()
     {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag("Manager");
+        if ( objects.Length > 1 ) {
+            Destroy(this.gameObject);
+        }
+        DontDestroyOnLoad(this.gameObject);
+
         _stageSpawnManager = gameObject.GetComponent<StageSpawnManager>();
         _stageSpawnManager.SubscribeOnStageEnd(OnStageEnd);
-        DontDestroyOnLoad(gameObject);
     }
 
     private void Update()
@@ -75,9 +82,13 @@ public class GameStateManager : MonoBehaviour
 
         // After loaded
         _currentStage = stageIndex;
-        foreach (OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList())
-        {
-            func();
+        if (_stageLoadedSubscribers?.GetInvocationList() != null) {
+            foreach (OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList())
+            {
+                if (func != null) {
+                    func();
+                }
+            }
         }
     }
 
