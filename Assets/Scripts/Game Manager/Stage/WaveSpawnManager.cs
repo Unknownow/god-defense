@@ -109,8 +109,13 @@ public class WaveSpawnManager : MonoBehaviour
         Debug.Log("wave " + _currentWave.waveIndex + " ended");
         _timer.StopWaveTimer();
         _currentWave.isDone = true;
-        // _timer.UnsubscribeOnWaveTimerIncrease(OnWaveTimeIncrease);
-        _onWaveEndsSubscribers?.Invoke();
+        foreach (OnWaveEnds func in _onWaveEndsSubscribers?.GetInvocationList())
+        {
+            if (func != null)
+            {
+                func();
+            }
+        }
     }
 
     private void GetSpawnersList()

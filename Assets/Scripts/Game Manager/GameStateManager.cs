@@ -37,13 +37,13 @@ public class GameStateManager : MonoBehaviour
 
     private int _currentStage;
 
-    private void Start()
+    private void Awake()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Manager");
         if ( objects.Length > 1 ) {
             Destroy(this.gameObject);
         }
-        DontDestroyOnLoad(this.gameObject);
+        // DontDestroyOnLoad(this.gameObject);
 
         _stageSpawnManager = gameObject.GetComponent<StageSpawnManager>();
         _stageSpawnManager.SubscribeOnStageEnd(OnStageEnd);

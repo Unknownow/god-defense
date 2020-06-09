@@ -10,6 +10,7 @@ public class RoadManager : MonoBehaviour
 
     private void Awake()
     {
+        _road = this.transform.GetChild(0).gameObject;
         NavMeshSurface[] surfaces = _road.GetComponents<NavMeshSurface>();
         foreach (NavMeshSurface surface in surfaces)
         {

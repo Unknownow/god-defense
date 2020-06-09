@@ -6,6 +6,7 @@ using TMPro;
 using System;
 using UnityEngine.SceneManagement;
 using System.Threading.Tasks;
+using UnityEngine.EventSystems;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -127,6 +128,7 @@ public class GameUIManager : MonoBehaviour
         notiText.alpha = 1.0f;
 
         notiText.CrossFadeAlpha(0, 1, true);
+        GameObject.FindObjectOfType<EventSystem>().enabled = true;
     }
 
     private void OnWin()
@@ -174,6 +176,8 @@ public class GameUIManager : MonoBehaviour
     }
     private async void CountdownBeforeStart()
     {
+        GameObject.FindObjectOfType<EventSystem>().enabled = false;
+        GameManager.Instance().UpdateGround();
         notiText.gameObject.SetActive(false);
         notiText.gameObject.SetActive(true);
         timeText.SetText("00:00");
