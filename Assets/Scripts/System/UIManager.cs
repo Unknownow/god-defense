@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour {
     public GameObject header;
@@ -98,7 +99,8 @@ public class UIManager : MonoBehaviour {
 
     public void GotoStartGame() {
         // loader.SetActive(true);
-        Application.LoadLevel("Map_Hoa");
+        // Application.LoadLevel("Map_Hoa");
+        SceneManager.LoadScene(1);
     }
 
     public void ClickSounds() {

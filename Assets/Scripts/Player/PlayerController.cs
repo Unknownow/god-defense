@@ -21,10 +21,10 @@ public class PlayerController : MonoBehaviour
 
     private void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0)) 
-        {
-            SpawnBullet();
-        }
+        // if (Input.GetKeyDown(KeyCode.Mouse0)) 
+        // {
+        //     SpawnBullet();
+        // }
     }
 
     public void SpawnBullet()
