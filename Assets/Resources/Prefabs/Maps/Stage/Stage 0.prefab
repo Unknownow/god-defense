@@ -6258,12 +6258,12 @@ PrefabInstance:
     - target: {fileID: 4331085658484681907, guid: b5a17b73c306645279f423227226e552,
         type: 3}
       propertyPath: m_Size.x
-      value: 2.56
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4331085658484681910, guid: b5a17b73c306645279f423227226e552,
         type: 3}
       propertyPath: _hitPoints
-      value: 5
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 4331085658484681916, guid: b5a17b73c306645279f423227226e552,
         type: 3}

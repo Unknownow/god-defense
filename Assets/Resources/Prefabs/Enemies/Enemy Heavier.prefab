@@ -554,7 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 744b7b68b807e4b94ade5b53fee92518, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hitPoints: 500
+  _hitPoints: 15
   _enemyType: 1
   _movementSpeed: 6
   _angularSpeed: 180

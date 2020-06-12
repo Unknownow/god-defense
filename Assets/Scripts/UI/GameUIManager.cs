@@ -90,16 +90,16 @@ public class GameUIManager : MonoBehaviour
     public void onReplayClick()
     {
         defeatedCanvas.SetActive(false);
-        loader.SetActive(true);
-        // gsm.PrepareStage(0);
-        //TODO: làm replay.
+        // loader.SetActive(true);
+        SceneManager.LoadScene(1);
     }
 
     public void onNextStageClick()
     {
         victoryCanvas.SetActive(false);
         // TODO: next stage
-        loader.SetActive(true);
+        // loader.SetActive(true);
+        SceneManager.LoadScene(1);
     }
 
     public void onOptionBackClick()

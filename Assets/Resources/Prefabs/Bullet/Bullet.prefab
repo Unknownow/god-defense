@@ -4808,7 +4808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bulletDamage: 1
-  _bulletSpeed: 15
+  _bulletSpeed: 30
   _lifeTime: 10
 --- !u!54 &5859701128830923013
 Rigidbody:
@@ -4878,7 +4878,7 @@ Transform:
   m_GameObject: {fileID: 5859701129013630777}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 5859701128830923008}
   m_RootOrder: 0

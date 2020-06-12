@@ -136,7 +136,10 @@ public class StageTimerManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             _stageTimer += 1;
-            _stageTimerSubscriberList?.Invoke(_stageTimer);
+            foreach(OnStageTimerIncrease func in _stageTimerSubscriberList.GetInvocationList()){
+                func.Invoke(_stageTimer);
+            }
+            // _stageTimerSubscriberList?.Invoke(_stageTimer);
         }
     }
 }
