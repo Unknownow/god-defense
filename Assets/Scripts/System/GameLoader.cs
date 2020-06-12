@@ -73,13 +73,13 @@ public class GameLoader : MonoBehaviour {
 
     private void OnStageLoaded() {
         isLoaded = true;
-        
         if (isConcurrentDone) {
             loadingCanvas.SetActive(false);
             this.gameObject.SetActive(false);
 
-            GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
-            gameUIManager.OnStageLoaded();
+            // bắt đầu countdown sẽ được gọi riêng sau khi đặt map.
+            // GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
+            // gameUIManager.OnStageLoaded();
         }
     }
 

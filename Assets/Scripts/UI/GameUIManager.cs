@@ -170,6 +170,7 @@ public class GameUIManager : MonoBehaviour
 
     }
 
+    // NOTE VĨNH: gọi hàm này để bắt đầu countdown.
     public void OnStageLoaded()
     {
         CountdownBeforeStart();

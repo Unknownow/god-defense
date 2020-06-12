@@ -40,7 +40,8 @@ public class GameStateManager : MonoBehaviour
     private void Awake()
     {
         GameObject[] objects = GameObject.FindGameObjectsWithTag("Manager");
-        if ( objects.Length > 1 ) {
+        if (objects.Length > 1)
+        {
             Destroy(this.gameObject);
         }
         // DontDestroyOnLoad(this.gameObject);
@@ -82,14 +83,28 @@ public class GameStateManager : MonoBehaviour
 
         // After loaded
         _currentStage = stageIndex;
-        if (_stageLoadedSubscribers?.GetInvocationList() != null) {
+        if (_stageLoadedSubscribers?.GetInvocationList() != null)
+        {
             foreach (OnStageLoaded func in _stageLoadedSubscribers?.GetInvocationList())
             {
-                if (func != null) {
+                if (func != null)
+                {
                     func();
                 }
             }
         }
+        _currentMap.SetActive(false);
+    }
+
+    // NOTE VĨNH: Gọi hàm này để set vị trí.
+    public void setMapPosition(Vector3 pos)
+    {
+        if (this._currentMap)
+        {
+
+        }
+        this._currentMap.transform.position = pos;
+        this._currentMap.SetActive(true);
     }
 
     /// <summary>
