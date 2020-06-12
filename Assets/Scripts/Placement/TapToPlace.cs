@@ -25,7 +25,6 @@ public class TapToPlace : MonoBehaviour
 
     private Pose placementPose;
     private bool placementPoseIsValid = false;
-    private bool isFinding = true;
 
     void Start()
     {
@@ -33,8 +32,6 @@ public class TapToPlace : MonoBehaviour
         arReferencePointManager = arOrigin.GetComponent<ARReferencePointManager>();
         arPointCloudManager = arOrigin.GetComponent<ARPointCloudManager>();
         arPlaneManager = arOrigin.GetComponent<ARPlaneManager>();
-
-        isFinding = true;
 
         _player = GameObject.Find("Player");
         _crosshairCanvas = GameObject.Find("CrosshairCanvas");
@@ -44,16 +41,13 @@ public class TapToPlace : MonoBehaviour
 
     void Update()
     {
-        if (isFinding)
-        {
-            UpdatePlacementPose();
-            UpdatePlacementIndicator();
+        UpdatePlacementPose();
+        UpdatePlacementIndicator();
 
-            if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-            {
-                PlaceObject();
-            }
-        }  
+        if (placementPoseIsValid && Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            PlaceObject();
+        }
     }
 
     private void PlaceObject()
@@ -93,25 +87,20 @@ public class TapToPlace : MonoBehaviour
         }
 
         //Lay toa do dat stage
-        // GameStateManager gameStateManager = GameObject.FindObjectOfType<GameStateManager>();
-        // gameStateManager.SetStagePosition(GetPlacementPosition());
+        GameStateManager gameStateManager = GameObject.FindObjectOfType<GameStateManager>();
+        gameStateManager.setMapPosition(placementPose.position);
 
         //Bat nguoi choi
         _player.SetActive(true);
         _crosshairCanvas.SetActive(true);
 
         //Bat in-game canvas + bat dau countdown
-        // GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
-        // gameUIManager.ingameCanvas.SetActive(true);
-        // gameUIManager.OnStageLoaded();
+        GameUIManager gameUIManager = GameObject.FindObjectOfType<GameUIManager>();
+        gameUIManager.ingameCanvas.SetActive(true);
+        gameUIManager.OnStageLoaded();
 
         placementIndicator.SetActive(false);
-        isFinding = false;
-    }
-
-    public Vector3 GetPlacementPosition()
-    {
-        return placementPose.position;
+        this.gameObject.SetActive(false);
     }
 
     private void UpdatePlacementIndicator()
