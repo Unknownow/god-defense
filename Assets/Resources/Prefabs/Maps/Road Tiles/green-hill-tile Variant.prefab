@@ -9,7 +9,7 @@ BoxCollider:
   m_GameObject: {fileID: 4055883328195764180}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 10, y: 5, z: 10}
   m_Center: {x: 5, y: 2.5, z: 5}
@@ -22,7 +22,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 633b84d590d524992818c36a417bf906, type: 3}
       propertyPath: m_Name
-      value: green-hill-tile
+      value: green-hill-tile Variant
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 633b84d590d524992818c36a417bf906, type: 3}
       propertyPath: m_Icon
@@ -30,7 +30,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 633b84d590d524992818c36a417bf906, type: 3}
       propertyPath: m_TagString
-      value: Ground
+      value: Decoration
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: 633b84d590d524992818c36a417bf906, type: 3}
       propertyPath: m_Layer

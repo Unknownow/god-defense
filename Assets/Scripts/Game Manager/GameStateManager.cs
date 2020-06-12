@@ -99,9 +99,10 @@ public class GameStateManager : MonoBehaviour
     // NOTE VĨNH: Gọi hàm này để set vị trí.
     public void setMapPosition(Vector3 pos)
     {
-        if (this._currentMap)
+        if (this._currentMap == null)
         {
-
+            GameObject mapPrefab = Resources.Load<GameObject>("Prefabs/Maps/Stage/Stage " + _currentStage);
+            _currentMap = Instantiate(mapPrefab, Vector3.zero, Quaternion.identity);
         }
         this._currentMap.transform.position = pos;
         this._currentMap.SetActive(true);
