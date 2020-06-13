@@ -24,6 +24,9 @@ public class TrapFactory : MonoBehaviour
     private GameObject _freezeDummyTrapPrefab;
 
     [SerializeField]
+    private GameObject _bombDummyTrapPrefab;
+
+    [SerializeField]
     private GameObject _boobyDummyTrapPrefab;
 
     private Queue<GameObject> _boobyTrapPool;
@@ -80,7 +83,7 @@ public class TrapFactory : MonoBehaviour
             case TrapType.Booby:
                 return Instantiate(_instance._boobyDummyTrapPrefab, position, Quaternion.identity, _instance.transform);
             case TrapType.Bomb:
-                return null;
+                return Instantiate(_instance._bombDummyTrapPrefab, position, Quaternion.identity, _instance.transform);
             case TrapType.Freeze:
                 return Instantiate(_instance._freezeDummyTrapPrefab, position, Quaternion.identity, _instance.transform);
             default:
