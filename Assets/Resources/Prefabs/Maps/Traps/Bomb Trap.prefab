@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f4d870999d04d2aabf202ad8deccf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 10
+  _duration: 5
   _buffedDuration: 15
   _cooldown: 15
   _buffingCooldown: 0
