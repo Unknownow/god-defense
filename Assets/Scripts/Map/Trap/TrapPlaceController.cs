@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Linq;
 
 public class TrapPlaceController : MonoBehaviour
 {
@@ -150,9 +151,12 @@ public class TrapPlaceController : MonoBehaviour
                 Renderer renderer = currentPlaceableObject.GetComponent<Renderer>();
                 
                 if (renderer != null) {
-                    Material mat = renderer.material;
-                    mat.color = Color.green;
-                    renderer.material = mat;
+                    Material[] mat = renderer.materials.Select(x => {
+                        Material i = x;
+                        i.color = Color.green;
+                        return i;
+                    }).ToArray();
+                    renderer.materials = mat;
                 }
             } 
             else
@@ -161,9 +165,12 @@ public class TrapPlaceController : MonoBehaviour
                 Renderer renderer = currentPlaceableObject.GetComponent<Renderer>();
                 
                 if (renderer != null) {
-                    Material mat = renderer.material;
-                    mat.color = Color.red;
-                    renderer.material = mat;
+                    Material[] mat = renderer.materials.Select(x => {
+                        Material i = x;
+                        i.color = Color.red;
+                        return i;
+                    }).ToArray();
+                    renderer.materials = mat;
                 }
             }
             
