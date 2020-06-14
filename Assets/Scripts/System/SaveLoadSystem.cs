@@ -5,7 +5,7 @@ using System.IO;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-    private static readonly string SavePath = Application.dataPath + "/Save/";
+    private static readonly string SavePath = Application.persistentDataPath + "/Save/";
     private static readonly string SaveFileName = "save.json";
 
     public static void Save(Save save)
