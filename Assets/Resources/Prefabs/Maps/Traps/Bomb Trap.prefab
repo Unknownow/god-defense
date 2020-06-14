@@ -51,18 +51,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f4d870999d04d2aabf202ad8deccf2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _duration: 10
+  _duration: 5
   _buffedDuration: 15
   _cooldown: 15
+  _buffingCooldown: 0
   _trapType: 1
   _hitDamage: 10
   _buffedHitDamage: 15
+  _currentHitDamage: 0
   _timeBeforeDetonation: 3
   _explosionCenter: {fileID: 5663201977911487598}
-  _explosionRadius: 2
+  _explosionRadius: 3
   _buffedExplosionRadius: 5
   _forceMagnitude: 100
   _buffedForceMagnitude: 220
+  _buffedSizeMultiply: 0
 --- !u!114 &324771433
 MonoBehaviour:
   m_ObjectHideFlags: 0
