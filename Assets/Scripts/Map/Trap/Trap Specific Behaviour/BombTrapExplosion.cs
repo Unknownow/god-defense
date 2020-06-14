@@ -27,6 +27,7 @@ public class BombTrapExplosion : MonoBehaviour
 
     public void DetonateBomb()
     {
+        Debug.Log("XXX");
         StartCoroutine(WaitBeforeDetonation());
         _trapStates.Detonate();
     }
@@ -35,6 +36,7 @@ public class BombTrapExplosion : MonoBehaviour
     {
         yield return new WaitForSeconds(_trapProperties.TimeBeforeDetonation);
         Collider[] enemies = Physics.OverlapSphere(_trapProperties.ExplosionCenterPosition, _trapProperties.ExplosionRadius, _enemyLayermask);
+
         foreach (Collider enemy in enemies)
         {
             bool isDead = enemy.transform.GetComponent<EnemyTrapInteraction>().StepOnBombTrap(_trapProperties.HitDamage);

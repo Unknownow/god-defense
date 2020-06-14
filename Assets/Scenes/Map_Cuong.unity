@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657874, g: 0.49641275, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2855,7 +2855,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.05
   m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: d8cf3054dfad0452988f8d2e692ac9fd, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 9c2eef98eee6444e29cdb85b6d5eef38, type: 2}
 --- !u!4 &794062495
 Transform:
   m_ObjectHideFlags: 0
@@ -3155,11 +3155,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Booby Trap (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 2810074888752003453, guid: 0553e4993877b420196d7c1fb3bfa018,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0553e4993877b420196d7c1fb3bfa018, type: 3}
 --- !u!1 &855339563
@@ -3429,11 +3424,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Freezing Trap
       objectReference: {fileID: 0}
-    - target: {fileID: 9185415537551968201, guid: a15728cb4e34147bd817f32cb62861e0,
-        type: 3}
-      propertyPath: _slowPercentage
-      value: 90
-      objectReference: {fileID: 0}
     - target: {fileID: 9185415537552006167, guid: a15728cb4e34147bd817f32cb62861e0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3541,6 +3531,7 @@ MonoBehaviour:
   _freezeTrapPrefab: {fileID: 9185415537551966263, guid: a15728cb4e34147bd817f32cb62861e0,
     type: 3}
   _freezeDummyTrapPrefab: {fileID: 0}
+  _bombDummyTrapPrefab: {fileID: 0}
   _boobyDummyTrapPrefab: {fileID: 0}
 --- !u!1001 &1080347379
 PrefabInstance:
@@ -3608,11 +3599,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bomb Trap
-      objectReference: {fileID: 0}
-    - target: {fileID: 3761300757079766503, guid: 63ca7cac3d0b34d129c1deac76fd32c3,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63ca7cac3d0b34d129c1deac76fd32c3, type: 3}

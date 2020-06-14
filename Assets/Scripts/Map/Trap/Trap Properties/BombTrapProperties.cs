@@ -6,10 +6,10 @@ public class BombTrapProperties : TrapProperties
 {
     [Header("Bomb Trap")]
     [SerializeField]
-    public float _hitDamage;
+    private float _hitDamage;
     [SerializeField]
-    public float _buffedHitDamage;
-    public float _currentHitDamage;
+    private float _buffedHitDamage;
+    private float _currentHitDamage;
     public float HitDamage
     {
         get

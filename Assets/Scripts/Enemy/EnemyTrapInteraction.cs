@@ -12,6 +12,7 @@ public class EnemyTrapInteraction : MonoBehaviour
     private EnemyProperties _enemyProperties;
     private EnemyHitPointsManager _enemyHitPoints;
     private IEnemyMovement _enemyMovement;
+    private IEnemyAttack _enemyAttacking;
     private Dictionary<GameObject, float> _freezeTrapList;
     private float _currentSlowPercentage;
     private Dictionary<GameObject, BoobyTrapStat> _boobyTrapList;
@@ -23,6 +24,7 @@ public class EnemyTrapInteraction : MonoBehaviour
     {
         _enemyProperties = gameObject.GetComponent<EnemyProperties>();
         _enemyMovement = gameObject.GetComponent<IEnemyMovement>();
+        _enemyAttacking = gameObject.GetComponent<IEnemyAttack>();
         _enemyHitPoints = gameObject.GetComponent<EnemyHitPointsManager>();
         _freezeTrapList = new Dictionary<GameObject, float>();
         _boobyTrapList = new Dictionary<GameObject, BoobyTrapStat>();
@@ -81,6 +83,7 @@ public class EnemyTrapInteraction : MonoBehaviour
     /// <param name="damage">Amount of damages taken when enemy is hit by bomb trap</param>
     public bool StepOnBombTrap(float damage)
     {
+        Debug.Log(damage);
         _enemyHitPoints.Hit(damage);
         return !_enemyProperties.IsAlive;
     }
@@ -106,6 +109,7 @@ public class EnemyTrapInteraction : MonoBehaviour
         foreach (GameObject trap in _freezeTrapList.Keys)
             _currentSlowPercentage = (_freezeTrapList[trap] > _currentSlowPercentage) ? _freezeTrapList[trap] : _currentSlowPercentage;
         _enemyMovement.SlowDown(_currentSlowPercentage);
+        _enemyAttacking.SlowDown(_currentSlowPercentage);
         _visual.Freeze(_currentSlowPercentage);
     }
 

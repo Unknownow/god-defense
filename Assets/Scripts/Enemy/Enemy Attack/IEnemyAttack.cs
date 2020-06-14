@@ -6,4 +6,6 @@ public interface IEnemyAttack
 {
     void StartAttack();
     void StopAttack();
+    void SlowDown(float percentage);
+    void BackToNormalAttackRate();
 }

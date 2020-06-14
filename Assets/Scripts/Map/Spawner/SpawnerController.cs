@@ -14,6 +14,14 @@ public class SpawnerController : MonoBehaviour, IComparable<SpawnerController>
         _spawnerProperties = gameObject.GetComponent<SpawnerProperties>();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            SpawnEnemy(EnemyType.Runner);
+        }
+    }
+
     public GameObject SpawnEnemy(EnemyType type)
     {
         // if (_spawnerProperties.SpawnableTypes.IndexOf(type) == -1)

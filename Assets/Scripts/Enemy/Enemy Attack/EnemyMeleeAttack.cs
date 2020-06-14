@@ -54,6 +54,16 @@ public class EnemyMeleeAttack : MonoBehaviour, IEnemyAttack
         }
     }
 
+    public void SlowDown(float percentage)
+    {
+        _timeBetweenAttack = 1.0f / (_enemyProperties.AttackRate * percentage / 100);
+    }
+
+    public void BackToNormalAttackRate()
+    {
+        _timeBetweenAttack = 1.0f / _enemyProperties.AttackRate;
+    }
+
     IEnumerator AttackCoroutine()
     {
         while (true)

@@ -20,7 +20,7 @@ public class BombTrapVisualEffect : MonoBehaviour, ITrapVisualEffect
     {
         transform.localScale = new Vector3(1, 1, 1);
         transform.GetComponent<MeshRenderer>().material.color = _defaultColor;
-        _explosion.transform.localScale = new Vector3(.5f, .5f, .5f);
+        _explosion.transform.localScale = new Vector3(1f, 1f, 1f);
     }
 
     public void Explode()

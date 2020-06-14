@@ -86,13 +86,18 @@ public class EnemyFactory : MonoBehaviour
     private static GameObject SpawnRunner(Vector3 position, Vector3 direction, int laneIndex, Transform parent = null)
     {
         GameObject runner;
-        if (_instance._runnerPool.Count <= 0)
-        {
-            runner = Instantiate(_instance._runnerPrefab, position, Quaternion.identity, _instance.transform);
-            runner.SetActive(false);
-        }
-        else
-            runner = _instance._runnerPool.Dequeue();
+        // if (_instance._runnerPool.Count <= 0)
+        // {
+        //     runner = Instantiate(_instance._runnerPrefab, position, Quaternion.identity, _instance.transform);
+        //     runner.SetActive(false);
+        // }
+        // else
+        //     runner = _instance._runnerPool.Dequeue();
+
+        //TAM THOI VI CO BUG
+        runner = Instantiate(_instance._runnerPrefab, position, Quaternion.identity, _instance.transform);
+        runner.SetActive(false);
+
 
         runner.SetActive(true);
         runner.GetComponent<EnemyStatesController>().Initialize(position, laneIndex);
@@ -105,13 +110,18 @@ public class EnemyFactory : MonoBehaviour
     private static GameObject SpawnHeavier(Vector3 position, Vector3 direction, int laneIndex, Transform parent = null)
     {
         GameObject heavier;
-        if (_instance._heavierPool.Count <= 0)
-        {
-            heavier = Instantiate(_instance._heavierPrefab, position, Quaternion.identity, _instance.transform);
-            heavier.SetActive(false);
-        }
-        else
-            heavier = _instance._heavierPool.Dequeue();
+        // if (_instance._heavierPool.Count <= 0)
+        // {
+        //     heavier = Instantiate(_instance._heavierPrefab, position, Quaternion.identity, _instance.transform);
+        //     heavier.SetActive(false);
+        // }
+        // else
+        //     heavier = _instance._heavierPool.Dequeue();
+
+        // TAM THOI VI CO BUG
+        heavier = Instantiate(_instance._heavierPrefab, position, Quaternion.identity, _instance.transform);
+        heavier.SetActive(false);
+
 
         heavier.SetActive(true);
         heavier.GetComponent<EnemyStatesController>().Initialize(position, laneIndex);
@@ -124,13 +134,18 @@ public class EnemyFactory : MonoBehaviour
     private static GameObject SpawnTanker(Vector3 position, Vector3 direction, int laneIndex, Transform parent = null)
     {
         GameObject tanker;
-        if (_instance._tankerPool.Count <= 0)
-        {
-            tanker = Instantiate(_instance._tankerPrefab, position, Quaternion.identity, _instance.transform);
-            tanker.SetActive(false);
-        }
-        else
-            tanker = _instance._tankerPool.Dequeue();
+        // if (_instance._tankerPool.Count <= 0)
+        // {
+        //     tanker = Instantiate(_instance._tankerPrefab, position, Quaternion.identity, _instance.transform);
+        //     tanker.SetActive(false);
+        // }
+        // else
+        //     tanker = _instance._tankerPool.Dequeue();
+
+        //TAM THOI VI CO BUG
+        tanker = Instantiate(_instance._tankerPrefab, position, Quaternion.identity, _instance.transform);
+        tanker.SetActive(false);
+
 
         tanker.SetActive(true);
         tanker.GetComponent<EnemyStatesController>().Initialize(position, laneIndex);
