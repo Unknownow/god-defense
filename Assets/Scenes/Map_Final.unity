@@ -1109,6 +1109,16 @@ PrefabInstance:
       propertyPath: m_textInfo.pageCount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 557911022171567888, guid: 259834d3e306d4d44b742af122559555,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 975031464}
+    - target: {fileID: 557911022171567888, guid: 259834d3e306d4d44b742af122559555,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: pauseClick
+      objectReference: {fileID: 0}
     - target: {fileID: 7376688100363922999, guid: 259834d3e306d4d44b742af122559555,
         type: 3}
       propertyPath: m_AnchoredPosition.x
