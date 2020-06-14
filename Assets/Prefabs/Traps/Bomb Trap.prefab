@@ -184,15 +184,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 10000
   _buffedDuration: 10
-  _cooldown: 10
+  _cooldown: 20
   _buffingCooldown: 0
   _trapType: 1
   _hitDamage: 15
-  _buffedHitDamage: 30
+  _buffedHitDamage: 50
   _timeBeforeDetonation: 0
   _explosionCenter: {fileID: 5663201977911487598}
-  _explosionRadius: 1
-  _buffedExplosionRadius: 1.8
+  _explosionRadius: 2
+  _buffedExplosionRadius: 3
   _forceMagnitude: 100
   _buffedForceMagnitude: 300
   _buffedSizeMultiply: 2

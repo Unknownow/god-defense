@@ -55,9 +55,9 @@ MonoBehaviour:
   _cooldown: 4
   _buffingCooldown: 2
   _trapType: 0
-  _hitDamage: 4
+  _hitDamage: 3
   _buffedHitDamage: 7
-  _timeInterval: 0.2
+  _timeInterval: 1
 --- !u!114 &114292596743233470
 MonoBehaviour:
   m_ObjectHideFlags: 0

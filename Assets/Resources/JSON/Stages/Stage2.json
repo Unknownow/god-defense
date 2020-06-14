@@ -140,7 +140,7 @@
                     "laneIndex": 1
                 },
                 {
-                    "enemyType": 2,
+                    "enemyType": 1,
                     "spawnTime": 24,
                     "laneIndex": 0
                 },

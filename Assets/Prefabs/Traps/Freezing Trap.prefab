@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 20
   _buffedDuration: 12
-  _cooldown: 5
+  _cooldown: 10
   _buffingCooldown: 3
   _trapType: 2
   _slowPercentage: 60
