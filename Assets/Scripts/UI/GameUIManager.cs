@@ -10,7 +10,8 @@ using UnityEngine.EventSystems;
 
 public class GameUIManager : MonoBehaviour
 {
-
+    public Text test1;
+    public Text test2;
     // Canvas
     public GameObject ingameCanvas;
     public GameObject pasueMenuCanvas;
@@ -40,7 +41,10 @@ public class GameUIManager : MonoBehaviour
         stageTimerManager = GameObject.Find("GameManager").GetComponent<StageTimerManager>();
 
         notiText.alpha = 0;
+    }
 
+    private void Start()
+    {
         gsm.SubscribeOnUpdateTowerHealth(OnTowerHit);
         gsm.SubscribeOnStageStart(OnStartStage);
         gsm.SubscribeOnWinStage(OnWin);
@@ -108,9 +112,10 @@ public class GameUIManager : MonoBehaviour
         optionsCanvas.SetActive(false);
     }
 
-    private void OnTowerHit(float heal)
+    private void OnTowerHit(float currentHP)
     {
-        healthBar.fillAmount = heal;
+        healthBar.fillAmount = currentHP;
+        test1.text = currentHP.ToString();
     }
 
     private void OnTimeUpdate(int currentTime)
@@ -120,6 +125,8 @@ public class GameUIManager : MonoBehaviour
         string timeStr = string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
 
         timeText.SetText(timeStr);
+
+        test2.text = currentTime.ToString();
     }
 
     private void OnStartStage()

@@ -28,7 +28,13 @@ public class TowerHitPointManager : MonoBehaviour
         if (_towerProperties.IsDestroyed)
             return 0;
         _towerProperties.Hit = damage;
-        _subscribersHitList?.Invoke(_towerProperties.Health);
+
+        foreach (OnTowerHit func in _subscribersHitList.GetInvocationList())
+        {
+            func.Invoke(_towerProperties.Health);
+        }
+        
+        // _subscribersHitList?.Invoke(_towerProperties.Health);
         if (_towerProperties.IsDestroyed)
             _subscribersList?.Invoke();
         return _towerProperties.CurrentHitPoints;
